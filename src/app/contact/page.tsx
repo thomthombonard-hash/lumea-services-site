@@ -12,13 +12,22 @@ export default function ContactPage() {
     const form = e.currentTarget;
     const data = new FormData(form);
 
+    // ✅ Ajouter ici le reCAPTCHA
+    try {
+      // Vérifie la clé publique dans .env.local
+      const token = await grecaptcha.execute(
+        process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!,
+        { action: "submit" }
+      );
+      data.append("g-recaptcha-response", token);
+    } catch {
+      console.warn("reCAPTCHA non chargé ou clé absente");
+    }
+
     try {
       const response = await fetch("https://formspree.io/f/mgvpveqk", {
         method: "POST",
         body: data,
-        headers: {
-          Accept: "application/json",
-        },
       });
 
       if (response.ok) {
@@ -67,6 +76,15 @@ export default function ContactPage() {
           placeholder="Votre message"
           className="border border-gray-300 rounded-md p-2"
         ></textarea>
+
+        {/* 🧩 Mention RGPD */}
+        <p className="text-sm text-gray-500 mt-2">
+          En envoyant ce formulaire, j’accepte que mes informations soient utilisées uniquement
+          dans le cadre de ma demande, conformément à la{" "}
+          <a href="/politique-confidentialite" className="text-blue-700 underline">
+            politique de confidentialité
+          </a>.
+        </p>
 
         <button
           type="submit"
