@@ -1,110 +1,216 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
+
+const fadeUp = {
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.2 },
+  transition: { duration: 0.6, ease: "easeOut" },
+};
 
 export default function ContactPage() {
-  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus("sending");
-
-    const form = e.currentTarget;
-    const data = new FormData(form);
-
-    // ✅ Ajouter ici le reCAPTCHA
-    try {
-      // Vérifie la clé publique dans .env.local
-      const token = await grecaptcha.execute(
-        process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!,
-        { action: "submit" }
-      );
-      data.append("g-recaptcha-response", token);
-    } catch {
-      console.warn("reCAPTCHA non chargé ou clé absente");
-    }
-
-    try {
-      const response = await fetch("https://formspree.io/f/mgvpveqk", {
-        method: "POST",
-        body: data,
-      });
-
-      if (response.ok) {
-        setStatus("success");
-        form.reset();
-      } else {
-        throw new Error("Erreur d'envoi");
-      }
-    } catch {
-      setStatus("error");
-    }
-  }
+    // 👉 Ici, tu pourras connecter ton backend ou reCAPTCHA
+    alert("Merci pour votre message ! Nous reviendrons vers vous rapidement.");
+    setForm({ name: "", email: "", subject: "", message: "" });
+  };
 
   return (
-    <section className="max-w-xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold text-blue-700 mb-4 text-center">Contactez-nous</h1>
-      <p className="text-center mb-6 text-gray-600">
-        Vous souhaitez une information ou un devis ? Envoyez-nous un message, nous vous répondrons rapidement.
-      </p>
+    <main className="min-h-screen bg-white text-gray-900 scroll-smooth">
+      {/* HERO */}
+      <section className="relative isolate overflow-hidden pt-32 pb-20 bg-gradient-to-b from-[#FFFBEA] via-white to-white border-b scroll-mt-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center">
+          <motion.h1
+            {...fadeUp}
+            className="text-4xl sm:text-5xl font-bold text-[#1E293B]"
+          >
+            Contactez <span className="text-[#F59E0B]">Luméa Services</span>
+          </motion.h1>
+          <motion.p
+            {...fadeUp}
+            className="mt-6 max-w-2xl mx-auto text-lg text-gray-700 leading-relaxed"
+          >
+            Une question, un devis ou une candidature spontanée ?  
+            Remplissez le formulaire ci-dessous, nous vous répondrons sous 24 à 48h.
+          </motion.p>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <input
-          type="text"
-          name="nom"
-          required
-          placeholder="Votre nom"
-          className="border border-gray-300 rounded-md p-2"
-        />
-        <input
-          type="email"
-          name="email"
-          required
-          placeholder="Votre adresse e-mail"
-          className="border border-gray-300 rounded-md p-2"
-        />
-        <input
-          type="tel"
-          name="telephone"
-          placeholder="Votre téléphone"
-          className="border border-gray-300 rounded-md p-2"
-        />
-        <textarea
-          name="message"
-          required
-          rows={5}
-          placeholder="Votre message"
-          className="border border-gray-300 rounded-md p-2"
-        ></textarea>
+          <motion.div {...fadeUp} className="mt-10">
+            <Image
+              src="/images/contact-hero.jpg"
+              alt="Contact Luméa Services"
+              width={1000}
+              height={500}
+              className="mx-auto rounded-3xl shadow-lg border"
+            />
+          </motion.div>
+        </div>
+      </section>
 
-        {/* 🧩 Mention RGPD */}
-        <p className="text-sm text-gray-500 mt-2">
-          En envoyant ce formulaire, j’accepte que mes informations soient utilisées uniquement
-          dans le cadre de ma demande, conformément à la{" "}
-          <a href="/politique-confidentialite" className="text-blue-700 underline">
-            politique de confidentialité
-          </a>.
-        </p>
+      {/* SECTION FORMULAIRE */}
+      <section className="py-20 border-b bg-white scroll-mt-24">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8 grid gap-12 lg:grid-cols-2 items-start">
+          {/* FORMULAIRE */}
+          <motion.div {...fadeUp}>
+            <h2 className="text-3xl font-semibold text-[#1E293B] mb-8">
+              Envoyez-nous un message
+            </h2>
 
-        <button
-          type="submit"
-          disabled={status === "sending"}
-          className="bg-blue-700 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition"
-        >
-          {status === "sending" ? "Envoi en cours..." : "Envoyer"}
-        </button>
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-5 bg-white border rounded-2xl shadow-sm p-6"
+            >
+              <div>
+                <label className="block text-sm font-medium mb-1">
+                  Votre nom <span className="text-[#F59E0B]">*</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  className="w-full rounded-xl border px-3 py-2 outline-none focus:ring focus:ring-[#FBBF24]/40"
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  placeholder="Marie Dupont"
+                />
+              </div>
 
-        {status === "success" && (
-          <p className="text-green-600 text-center mt-2">
-            ✅ Message envoyé avec succès ! Nous vous contacterons bientôt.
+              <div>
+                <label className="block text-sm font-medium mb-1">
+                  Votre email <span className="text-[#F59E0B]">*</span>
+                </label>
+                <input
+                  type="email"
+                  required
+                  className="w-full rounded-xl border px-3 py-2 outline-none focus:ring focus:ring-[#FBBF24]/40"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  placeholder="vous@example.com"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">Sujet</label>
+                <input
+                  type="text"
+                  className="w-full rounded-xl border px-3 py-2 outline-none focus:ring focus:ring-[#FBBF24]/40"
+                  value={form.subject}
+                  onChange={(e) => setForm({ ...form, subject: e.target.value })}
+                  placeholder="Objet de votre message"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">
+                  Message <span className="text-[#F59E0B]">*</span>
+                </label>
+                <textarea
+                  required
+                  className="w-full rounded-xl border px-3 py-2 outline-none focus:ring focus:ring-[#FBBF24]/40"
+                  rows={5}
+                  value={form.message}
+                  onChange={(e) => setForm({ ...form, message: e.target.value })}
+                  placeholder="Votre message..."
+                ></textarea>
+              </div>
+
+              <div className="flex items-center gap-2 text-xs text-gray-600">
+                <input
+                  id="rgpd"
+                  type="checkbox"
+                  required
+                  className="h-4 w-4 rounded border"
+                />
+                <label htmlFor="rgpd">
+                  J’accepte le traitement de mes données (voir la{" "}
+                  <Link
+                    href="/politique-confidentialite"
+                    className="underline text-[#F59E0B]"
+                  >
+                    politique de confidentialité
+                  </Link>
+                  ).
+                </label>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full mt-4 rounded-2xl bg-[#FBBF24] px-5 py-3 text-white font-semibold shadow-md transition hover:scale-[1.02] hover:shadow-lg"
+              >
+                Envoyer le message
+              </button>
+            </form>
+          </motion.div>
+
+          {/* INFOS CONTACT */}
+          <motion.div {...fadeUp} className="space-y-8">
+            <div>
+              <h2 className="text-3xl font-semibold text-[#1E293B] mb-4">
+                Nos coordonnées
+              </h2>
+              <p className="text-gray-700 leading-relaxed">
+                Vous pouvez également nous joindre par téléphone ou venir nous
+                rencontrer dans l’une de nos agences.
+              </p>
+
+              <div className="mt-6 space-y-2 text-gray-800">
+                <p>
+                  <span className="font-semibold">📍 Adresse :</span>  
+                  <br />4 Rue Fontevrault, 72200 La Flèche
+                </p>
+                <p>
+                  <span className="font-semibold">📞 Téléphone :</span>{" "}
+                  <a href="tel:0634200470" className="text-[#F59E0B] font-medium">
+                    06 34 20 04 70
+                  </a>
+                </p>
+                <p>
+                  <span className="font-semibold">✉️ Email :</span>{" "}
+                  <a
+                    href="mailto:bonardthomas@yahoo.fr"
+                    className="text-[#F59E0B] font-medium"
+                  >
+                    bonardthomas@yahoo.fr
+                  </a>
+                </p>
+              </div>
+            </div>
+
+            {/* Carte illustrative */}
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border shadow-sm">
+              <Image
+                src="/images/carte.jpg"
+                alt="Carte La Flèche"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CTA FINALE */}
+      <section className="border-t bg-[#F9FAFB] py-16 text-center">
+        <motion.div {...fadeUp}>
+          <h2 className="text-3xl font-semibold text-[#1E293B]">
+            Vous préférez nous appeler directement ?
+          </h2>
+          <p className="mt-4 text-gray-700">
+            Notre équipe est disponible du lundi au vendredi, de 8h à 18h.
           </p>
-        )}
-        {status === "error" && (
-          <p className="text-red-600 text-center mt-2">
-            ❌ Une erreur est survenue. Merci de réessayer.
-          </p>
-        )}
-      </form>
-    </section>
+          <a
+            href="tel:0634200470"
+            className="inline-block mt-6 rounded-2xl bg-[#FBBF24] px-6 py-3 text-white font-semibold shadow-md transition hover:scale-[1.03] hover:shadow-lg"
+          >
+            📞 06 34 20 04 70
+          </a>
+        </motion.div>
+      </section>
+    </main>
   );
 }
