@@ -17,22 +17,19 @@ export default function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // 👉 Ici, tu pourras connecter ton backend ou reCAPTCHA
     alert("Merci pour votre message ! Nous reviendrons vers vous rapidement.");
     setForm({ name: "", email: "", subject: "", message: "" });
   };
 
   return (
     <main className="min-h-screen bg-white text-gray-900 scroll-smooth">
-      {/* HERO */}
+      {/* === HERO === */}
       <section className="relative isolate overflow-hidden pt-32 pb-20 bg-gradient-to-b from-[#FFFBEA] via-white to-white border-b scroll-mt-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center">
-          <motion.h1
-            {...fadeUp}
-            className="text-4xl sm:text-5xl font-bold text-[#1E293B]"
-          >
+          <motion.h1 {...fadeUp} className="text-4xl sm:text-5xl font-bold text-[#1E293B]">
             Contactez <span className="text-[#F59E0B]">Luméa Services</span>
           </motion.h1>
+
           <motion.p
             {...fadeUp}
             className="mt-6 max-w-2xl mx-auto text-lg text-gray-700 leading-relaxed"
@@ -53,7 +50,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* SECTION FORMULAIRE */}
+      {/* === FORMULAIRE & INFOS === */}
       <section className="py-20 border-b bg-white scroll-mt-24">
         <div className="mx-auto max-w-6xl px-6 lg:px-8 grid gap-12 lg:grid-cols-2 items-start">
           {/* FORMULAIRE */}
@@ -120,18 +117,10 @@ export default function ContactPage() {
               </div>
 
               <div className="flex items-center gap-2 text-xs text-gray-600">
-                <input
-                  id="rgpd"
-                  type="checkbox"
-                  required
-                  className="h-4 w-4 rounded border"
-                />
+                <input id="rgpd" type="checkbox" required className="h-4 w-4 rounded border" />
                 <label htmlFor="rgpd">
                   J’accepte le traitement de mes données (voir la{" "}
-                  <Link
-                    href="/politique-confidentialite"
-                    className="underline text-[#F59E0B]"
-                  >
+                  <Link href="/politique-confidentialite" className="underline text-[#F59E0B]">
                     politique de confidentialité
                   </Link>
                   ).
@@ -147,7 +136,7 @@ export default function ContactPage() {
             </form>
           </motion.div>
 
-          {/* INFOS CONTACT */}
+          {/* INFOS + MAPS */}
           <motion.div {...fadeUp} className="space-y-8">
             <div>
               <h2 className="text-3xl font-semibold text-[#1E293B] mb-4">
@@ -155,13 +144,13 @@ export default function ContactPage() {
               </h2>
               <p className="text-gray-700 leading-relaxed">
                 Vous pouvez également nous joindre par téléphone ou venir nous
-                rencontrer dans l’une de nos agences.
+                rencontrer directement à notre agence.
               </p>
 
-              <div className="mt-6 space-y-2 text-gray-800">
+              <div className="mt-6 space-y-3 text-gray-800">
                 <p>
-                  <span className="font-semibold">📍 Adresse :</span>  
-                  <br />4 Rue Fontevrault, 72200 La Flèche
+                  <span className="font-semibold">📍 Adresse :</span><br />
+                  4 Rue Fontevrault, 72200 La Flèche
                 </p>
                 <p>
                   <span className="font-semibold">📞 Téléphone :</span>{" "}
@@ -171,30 +160,31 @@ export default function ContactPage() {
                 </p>
                 <p>
                   <span className="font-semibold">✉️ Email :</span>{" "}
-                  <a
-                    href="mailto:bonardthomas@yahoo.fr"
-                    className="text-[#F59E0B] font-medium"
-                  >
+                  <a href="mailto:bonardthomas@yahoo.fr" className="text-[#F59E0B] font-medium">
                     bonardthomas@yahoo.fr
                   </a>
                 </p>
               </div>
             </div>
 
-            {/* Carte illustrative */}
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border shadow-sm">
-              <Image
-                src="/images/carte.jpg"
-                alt="Carte La Flèche"
-                fill
-                className="object-cover"
-              />
+            {/* === GOOGLE MAPS === */}
+            <div className="overflow-hidden rounded-2xl border-2 border-[#FBBF24]/40 shadow-lg shadow-[#FBBF24]/10">
+              <iframe
+                title="Localisation Luméa Services"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2726.974956970035!2d-0.0714801!3d47.6932365!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4808d79f0e53d6f7%3A0x7f14e3f5b0fbd7e3!2s4%20Rue%20Fontevrault%2C%2072200%20La%20Fl%C3%A8che!5e0!3m2!1sfr!2sfr!4v1730000000000!5m2!1sfr!2sfr"
+                width="100%"
+                height="320"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* CTA FINALE */}
+      {/* === CTA FINALE === */}
       <section className="border-t bg-[#F9FAFB] py-16 text-center">
         <motion.div {...fadeUp}>
           <h2 className="text-3xl font-semibold text-[#1E293B]">
