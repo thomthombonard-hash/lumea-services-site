@@ -3,12 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { easeOut } from "framer-motion";
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, amount: 0.2 },
-  transition: { duration: 0.6, ease: "easeOut" },
+  transition: { duration: 0.6, ease: easeOut },
 };
 
 export default function AboutPage() {
@@ -27,18 +28,6 @@ export default function AboutPage() {
               Découvrez notre histoire, nos valeurs et notre vision.
             </p>
           </motion.div>
-
-          <motion.div
-            {...fadeUp}
-            className="relative mx-auto mt-12 aspect-[16/9] max-w-5xl overflow-hidden rounded-3xl border bg-white shadow-lg"
-          >
-            <Image
-              src="/images/a-propos-hero.jpg"
-              alt="Équipe Luméa Services"
-              fill
-              className="object-cover"
-            />
-          </motion.div>
         </div>
       </section>
 
@@ -50,25 +39,25 @@ export default function AboutPage() {
               Notre histoire
             </h2>
             <p className="mt-4 text-gray-700 leading-relaxed">
-              Luméa Services est née de la volonté de{" "}
-              <strong>Thomas Bonard</strong> de replacer l’humain au centre du
-              secteur du nettoyage. Après huit années d’expérience dans le
-              service à la personne et le nettoyage professionnel, il décide de
-              créer une entreprise à taille humaine, ancrée sur le territoire de{" "}
-              <strong>La Flèche</strong> et <strong>La Suze-sur-Sarthe</strong>.
+              Après plusieurs années d’expérience dans les services à la personne, 
+              <strong>Thomas Bonard</strong> a souhaité créer <strong>Luméa Services</strong> : 
+              une entreprise à taille humaine où la proximité, la bienveillance et la qualité 
+              du travail priment avant tout. 
+              Implantée à <strong>La Flèche</strong> et <strong>La Suze-sur-Sarthe</strong>, 
+              la société met un point d’honneur à répondre avec rigueur aux besoins de chacun.
             </p>
+
             <p className="mt-3 text-gray-700 leading-relaxed">
-              L’objectif : offrir des prestations de qualité, tout en valorisant
-              le métier des intervenants, souvent sous-estimé. En s’appuyant sur
-              une équipe stable, formée et reconnue, Luméa Services tisse une
-              relation durable avec ses clients, fondée sur la confiance et la
-              satisfaction.
+              En valorisant le professionnalisme et l’engagement de ses intervenants,  
+              <strong> Luméa Services</strong> construit jour après jour une relation de confiance 
+              durable avec ses clients, fondée sur le respect et la satisfaction mutuelle.
             </p>
+
           </motion.div>
 
           <motion.div {...fadeUp} className="relative aspect-[4/3] overflow-hidden rounded-2xl border shadow-sm">
             <Image
-              src="/images/histoire.jpg"
+              src="\pexels-fauxels-3183150.jpg"
               alt="Locaux Luméa Services"
               fill
               className="object-cover"
@@ -160,7 +149,7 @@ export default function AboutPage() {
             className="relative order-1 lg:order-2 aspect-[4/3] overflow-hidden rounded-2xl border shadow-sm"
           >
             <Image
-              src="/images/vision.jpg"
+              src="\pexels-fauxels-3184418.jpg"
               alt="Vision de l'entreprise"
               fill
               className="object-cover"

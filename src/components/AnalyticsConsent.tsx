@@ -1,5 +1,11 @@
 "use client";
 
+declare global {
+  interface Window {
+    gtagInitialized?: boolean;
+  }
+}
+
 import { useEffect } from "react";
 
 export default function AnalyticsConsent() {

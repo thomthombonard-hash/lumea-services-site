@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, easeOut } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -9,7 +9,7 @@ const fadeUp = {
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, amount: 0.2 },
-  transition: { duration: 0.6, ease: "easeOut" },
+  transition: { duration: 0.6, ease: easeOut },
 };
 
 export default function RecrutementPage() {
@@ -49,15 +49,6 @@ export default function RecrutementPage() {
             la clé d’un service de qualité.
           </motion.p>
 
-          <motion.div {...fadeUp} className="mt-10">
-            <Image
-              src="/images/recrutement-hero.jpg"
-              alt="Équipe Luméa Services"
-              width={1000}
-              height={500}
-              className="mx-auto rounded-3xl shadow-lg border"
-            />
-          </motion.div>
         </div>
       </section>
 
@@ -100,7 +91,7 @@ export default function RecrutementPage() {
               },
               {
                 title: "Reconnaissance",
-                desc: "Nous valorisons l’investissement, la ponctualité et le professionnalisme.",
+                desc: "Nous valorisons l’investissement, la ponctualité et le professionnalisme, convaincus que la réussite collective passe par la reconnaissance de chacun.",
                 icon: "🏅",
               },
             ].map((v, i) => (
@@ -247,14 +238,14 @@ export default function RecrutementPage() {
             </p>
             <ul className="mt-4 grid gap-2 list-disc pl-6 text-gray-700">
               <li>Entreprise locale et à taille humaine</li>
-              <li>Accompagnement et formations régulières</li>
+              <li>Accompagnement personnalisé</li>
               <li>Ambiance bienveillante et respectueuse</li>
               <li>Équipements professionnels fournis</li>
             </ul>
 
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border shadow-sm">
               <Image
-                src="/images/recrutement-equipe.jpg"
+                src="\pexels-fauxels-3184418.jpg"
                 alt="Équipe Luméa"
                 fill
                 className="object-cover"

@@ -4,12 +4,13 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { easeOut } from "framer-motion";
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, amount: 0.2 },
-  transition: { duration: 0.6, ease: "easeOut" },
+  transition: { duration: 0.6, ease: easeOut },
 };
 
 export default function ContactPage() {
@@ -35,12 +36,12 @@ export default function ContactPage() {
             className="mt-6 max-w-2xl mx-auto text-lg text-gray-700 leading-relaxed"
           >
             Une question, un devis ou une candidature spontanée ?  
-            Remplissez le formulaire ci-dessous, nous vous répondrons sous 24 à 48h.
+            Remplissez le formulaire ci-dessous, nous vous répondrons sous 24 à 48h jours ouvrés.
           </motion.p>
 
           <motion.div {...fadeUp} className="mt-10">
             <Image
-              src="/images/contact-hero.jpg"
+              src="\pexels-mikhail-nilov-7681302.jpg"
               alt="Contact Luméa Services"
               width={1000}
               height={500}

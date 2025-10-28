@@ -1,13 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, easeOut } from "framer-motion";
 import Link from "next/link";
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, amount: 0.2 },
-  transition: { duration: 0.6, ease: "easeOut" },
+  transition: { duration: 0.6, ease: easeOut },
 };
 
 export default function MentionsLegales() {
@@ -103,29 +103,85 @@ export default function MentionsLegales() {
             </p>
           </motion.div>
 
-          {/* Propriété intellectuelle */}
-          <motion.div {...fadeUp}>
-            <h2 className="text-2xl font-semibold text-[#1E293B] mb-4 border-l-4 border-[#FBBF24] pl-3">
-              4. Propriété intellectuelle
-            </h2>
-            <p className="leading-relaxed">
-              L’ensemble du contenu du site (textes, graphismes, logos, images, vidéos, etc.)
-              est la propriété exclusive de <strong>Luméa Services</strong>, sauf mention contraire.
-              <br />
-              Les photographies présentes sur ce site ont été acquises sur la banque d’images{" "}
-              <Link
-                href="https://fr.123rf.com/"
-                target="_blank"
-                className="text-[#F59E0B] underline hover:text-[#92400E]"
-              >
-                123RF
-              </Link>
-              .
-              <br />
-              Toute reproduction, modification ou diffusion, totale ou partielle, sans
-              autorisation écrite préalable, est strictement interdite.
-            </p>
-          </motion.div>
+{/* Propriété intellectuelle */}
+<motion.div {...fadeUp}>
+  <h2 className="text-2xl font-semibold text-[#1E293B] mb-4 border-l-4 border-[#FBBF24] pl-3">
+    4. Propriété intellectuelle
+  </h2>
+  <p className="leading-relaxed">
+    L’ensemble du contenu du site (textes, graphismes, logos, images, vidéos, etc.)
+    est la propriété exclusive de <strong>Luméa Services</strong>, sauf mention contraire.
+    <br />
+    Les photographies présentes sur ce site ont été acquises sur les banques d’images{" "}
+    <Link
+      href="https://fr.123rf.com/"
+      target="_blank"
+      className="text-[#F59E0B] underline hover:text-[#92400E]"
+    >
+      123RF
+    </Link>{" "}
+    et{" "}
+    <Link
+      href="https://www.pexels.com/"
+      target="_blank"
+      className="text-[#F59E0B] underline hover:text-[#92400E]"
+    >
+      Pexels
+    </Link>
+    .
+    <br />
+    Les photos issues de Pexels sont utilisées sous licence libre et attribuées à leurs auteurs respectifs :
+  </p>
+
+  <ul className="list-disc pl-6 mt-3 space-y-1 text-gray-700">
+    <li>
+      <em>pexels-fauxels-3183150</em> — Photo par{" "}
+      <Link
+        href="https://www.pexels.com/@fauxels/"
+        target="_blank"
+        className="text-[#F59E0B] underline hover:text-[#92400E]"
+      >
+        Fauxels
+      </Link>
+    </li>
+    <li>
+      <em>pexels-fauxels-3184418</em> — Photo par{" "}
+      <Link
+        href="https://www.pexels.com/@fauxels/"
+        target="_blank"
+        className="text-[#F59E0B] underline hover:text-[#92400E]"
+      >
+        Fauxels
+      </Link>
+    </li>
+    <li>
+      <em>pexels-mikhail-nilov-7681302</em> — Photo par{" "}
+      <Link
+        href="https://www.pexels.com/@mikhail-nilov/"
+        target="_blank"
+        className="text-[#F59E0B] underline hover:text-[#92400E]"
+      >
+        Mikhail Nilov
+      </Link>
+    </li>
+    <li>
+      <em>pexels-tima-miroschnichenko-6196682</em> — Photo par{" "}
+      <Link
+        href="https://www.pexels.com/@tima-miroshnichenko/"
+        target="_blank"
+        className="text-[#F59E0B] underline hover:text-[#92400E]"
+      >
+        Tima Miroschnichenko
+      </Link>
+    </li>
+  </ul>
+
+  <p className="leading-relaxed mt-3">
+    Toute reproduction, modification ou diffusion, totale ou partielle, sans
+    autorisation écrite préalable, est strictement interdite.
+  </p>
+</motion.div>
+
 
           {/* Données personnelles */}
           <motion.div {...fadeUp}>
@@ -176,7 +232,8 @@ export default function MentionsLegales() {
             <p className="leading-relaxed">
               Les présentes mentions légales sont régies par le droit français.  
               En cas de litige et à défaut d’accord amiable, les tribunaux français
-              seront seuls compétents.
+              seront seuls compétents. Les crédits photographiques sont mentionnés 
+              conformément aux conditions d’utilisation de chaque banque d’images.
             </p>
           </motion.div>
 

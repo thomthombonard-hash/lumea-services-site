@@ -2,31 +2,31 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, easeOut } from "framer-motion";
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, amount: 0.2 },
-  transition: { duration: 0.6, ease: "easeOut" },
+  transition: { duration: 0.6, ease: easeOut },
 };
 
 export default function ServicesPage() {
   const servicesParticuliers = [
     {
-      title: "Ménage & repassage",
+      title: "Ménage à domicile",
       desc: "Un intérieur impeccable grâce à nos intervenants qualifiés. Nettoyage, entretien des surfaces, gestion du linge et repassage sur mesure.",
-      img: "/images/menage.jpg",
+      img: "/ménage.jpg",
     },
     {
       title: "Grand nettoyage",
       desc: "Remise en état après travaux ou déménagement. Nous redonnons éclat et fraîcheur à votre logement.",
-      img: "/images/grand-nettoyage.jpg",
+      img: "/gros.jpg",
     },
     {
       title: "Vitrerie",
       desc: "Nettoyage professionnel des vitres, baies vitrées et vérandas, pour particuliers et petits commerces.",
-      img: "/images/vitrerie.jpg",
+      img: "/vitrepart.jpg",
     },
   ];
 
@@ -34,17 +34,17 @@ export default function ServicesPage() {
     {
       title: "Nettoyage de bureaux",
       desc: "Entretien régulier ou ponctuel des locaux professionnels, avec des prestations adaptées à votre activité.",
-      img: "/images/bureaux.jpg",
+      img: "/pexels-tima-miroshnichenko-6196682.jpg",
     },
     {
-      title: "Entretien de commerces",
+      title: "Entretien parties communes",
       desc: "Propreté et hygiène irréprochables pour vos boutiques et espaces clients.",
-      img: "/images/commerces.jpg",
+      img: "/partiecom.jpg",
     },
     {
       title: "Vitrerie professionnelle",
       desc: "Intervention sur vitres en hauteur, vitrines et surfaces vitrées complexes.",
-      img: "/images/vitrerie-pro.jpg",
+      img: "/vitrepro.jpg",
     },
   ];
 
@@ -68,15 +68,6 @@ export default function ServicesPage() {
             et les alentours.  
             Qualité, confiance et proximité sont les maîtres mots de notre engagement.
           </motion.p>
-          <motion.div {...fadeUp} className="mt-10">
-            <Image
-              src="/images/services-hero.jpg"
-              alt="Nettoyage professionnel"
-              width={1000}
-              height={500}
-              className="mx-auto rounded-3xl shadow-lg border"
-            />
-          </motion.div>
         </div>
       </section>
 

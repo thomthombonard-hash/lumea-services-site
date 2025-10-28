@@ -3,21 +3,21 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
-import { motion, useAnimationControls, useMotionValue } from "framer-motion";
+import { motion, useAnimationControls, useMotionValue, easeOut } from "framer-motion";
 
 /** Animation d’apparition commune */
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, amount: 0.2 },
-  transition: { duration: 0.6, ease: "easeOut" },
+  transition: { duration: 0.6, ease: easeOut },
 };
 
 /** ✅ Composant séparé pour le carrousel */
 function CarouselSection() {
   const x = useMotionValue(0);
   const controls = useAnimationControls();
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   const servicesParticuliers = [
     { title: "Service 1", desc: "Bref résumé du service pour les particuliers.", img: "/ménage.jpg", href: "/services" },
@@ -26,9 +26,9 @@ function CarouselSection() {
   ];
 
   const servicesPros = [
-    { title: "Service 1", desc: "Bref résumé du service pour les professionnels.", img: "/window.svg", href: "/services" },
+    { title: "Service 1", desc: "Bref résumé du service pour les professionnels.", img: "/partiecom.jpg", href: "/services" },
     { title: "Service 2", desc: "Bref résumé du service pour les professionnels.", img: "/vitrepro.jpg", href: "/services" },
-    { title: "Service 3", desc: "Bref résumé du service pour les professionnels.", img: "/window.svg", href: "/services" },
+    { title: "Service 3", desc: "Bref résumé du service pour les professionnels.", img: "/pexels-tima-miroshnichenko-6196682.jpg", href: "/services" },
   ];
 
   const allServices = [...servicesParticuliers, ...servicesPros];
@@ -135,7 +135,7 @@ export default function HomePage() {
                   href="#services"
                   className="rounded-2xl bg-[#FBBF24] px-5 py-3 text-white shadow transition hover:scale-[1.02] hover:shadow-lg"
                 >
-                  Découvrir nos services
+                  Découvrir nos services 
                 </Link>
                 <Link
                   href="#contact"
@@ -437,12 +437,7 @@ export default function HomePage() {
           >
             Postuler maintenant
           </Link>
-          <Link
-            href="#services"
-            className="rounded-2xl border border-gray-300 px-6 py-3 font-medium text-gray-700 transition hover:bg-gray-100"
-          >
-            Voir nos métiers
-          </Link>
+          
         </div>
       </motion.div>
 
