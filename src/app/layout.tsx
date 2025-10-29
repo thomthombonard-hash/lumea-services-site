@@ -62,7 +62,7 @@ export default function RootLayout({
         <main className="flex-grow container mx-auto p-4 pt-24">{children}</main>
 
         {/* === FOOTER GLOBAL === */}
-        <footer className="bg-[#1E293B]/95 text-white text-center py-6 mt-8 text-sm sm:text-base relative">
+        <footer className="bg-[#1E293B]/95 text-white text-center py-6 mt-8 text-sm sm:text-base">
           <p className="font-semibold">
             © {new Date().getFullYear()} Luméa Services
           </p>
@@ -84,26 +84,15 @@ export default function RootLayout({
           <p className="text-xs mt-2 text-gray-200">
             Site réalisé par HBS Partners – Tous droits réservés
           </p>
-
-          {/* ✅ Sur mobile/tablette, affichage des boutons ici */}
-          <div className="mt-4 flex justify-center gap-4 lg:hidden">
-            <div className="bg-white/10 rounded-full px-4 py-2 text-xs font-medium hover:bg-white/20 transition">
-              <CookieConsent />
-            </div>
-            <div className="bg-white/10 rounded-full px-4 py-2 text-xs font-medium hover:bg-white/20 transition">
-              <AnalyticsConsent />
-            </div>
-          </div>
         </footer>
 
-        {/* ✅ Sur desktop uniquement, boutons flottants en bas à gauche */}
-        <div className="hidden lg:block fixed bottom-8 left-6 z-[60] space-y-3">
-          <div className="bg-white/90 backdrop-blur-md rounded-full shadow-md border border-gray-200 px-4 py-2 text-xs font-medium text-gray-700 hover:bg-gray-50 transition">
-            <CookieConsent />
-          </div>
-          <div className="bg-white/90 backdrop-blur-md rounded-full shadow-md border border-gray-200 px-4 py-2 text-xs font-medium text-gray-700 hover:bg-gray-50 transition">
-            <AnalyticsConsent />
-          </div>
+        {/* === COMPOSANTS RGPD === */}
+        <div className="hidden lg:block fixed bottom-6 left-6 z-[60] md:bottom-8 md:left-8">
+          <CookieConsent />
+        </div>
+
+        <div className="hidden lg:block fixed bottom-6 left-24 z-[60] md:bottom-8 md:left-32">
+          <AnalyticsConsent />
         </div>
       </body>
     </html>
