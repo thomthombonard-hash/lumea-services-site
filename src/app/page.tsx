@@ -188,9 +188,10 @@ export default function HomePage() {
               fill
               priority
               quality={70}
-              sizes="(max-width: 1024px) 100vw, 50vw"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover object-center scale-110 transition-transform duration-700"
-              />
+            />
+
             </motion.div>
           </div>
         </div>

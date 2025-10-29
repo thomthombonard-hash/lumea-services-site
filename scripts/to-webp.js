@@ -21,13 +21,22 @@ const images = [
 // Crée le dossier "public/optimized" s'il n'existe pas
 await fs.mkdir("public/optimized", { recursive: true });
 
-// Conversion des images une par une
 for (const img of images) {
   const out = img
     .replace("public/", "public/optimized/")
     .replace(".jpg", ".webp");
-  await sharp(img).webp({ quality: 70 }).toFile(out);
-  console.log("✅ Image convertie :", out);
+
+  // 🖼️ Si c’est "pouss.jpg", on redimensionne à 800px
+  if (img.includes("pouss.jpg")) {
+    await sharp(img)
+      .resize(800, 600, { withoutEnlargement: true })
+      .webp({ quality: 70 })
+      .toFile(out);
+    console.log("✅ Image redimensionnée et convertie :", out);
+  } else {
+    await sharp(img).webp({ quality: 70 }).toFile(out);
+    console.log("✅ Image convertie :", out);
+  }
 }
 
 console.log("✨ Conversion terminée !");
