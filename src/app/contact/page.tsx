@@ -17,20 +17,21 @@ export default function ContactPage() {
   const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // 🔹 Chargement différé du script reCAPTCHA
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!recaptchaLoaded && typeof window !== "undefined") {
-        const script = document.createElement("script");
-        script.src = "https://www.google.com/recaptcha/api.js";
-        script.async = true;
-        script.defer = true;
-        script.onload = () => setRecaptchaLoaded(true);
-        document.body.appendChild(script);
-      }
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, [recaptchaLoaded]);
+// 🔹 Chargement différé du script reCAPTCHA Enterprise
+useEffect(() => {
+  const timer = setTimeout(() => {
+    if (!recaptchaLoaded && typeof window !== "undefined") {
+      const script = document.createElement("script");
+      script.src = `https://www.google.com/recaptcha/enterprise.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
+      script.async = true;
+      script.defer = true;
+      script.onload = () => setRecaptchaLoaded(true);
+      document.body.appendChild(script);
+    }
+  }, 2000);
+  return () => clearTimeout(timer);
+}, [recaptchaLoaded]);
+
 
   // 🔹 Soumission du formulaire vers l’API Next.js
   const handleSubmit = async (e: React.FormEvent) => {
@@ -45,21 +46,21 @@ export default function ContactPage() {
       fd.append("subject", form.subject || "Contact");
       fd.append("message", form.message);
 
-      // Récupération du token reCAPTCHA v3 (sécurisée)
-      let token = "";
-      const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+// Récupération du token reCAPTCHA Enterprise
+let token = "";
+const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
-      if (siteKey && typeof window !== "undefined" && window.grecaptcha) {
-        try {
-          token = await window.grecaptcha.execute(siteKey, { action: "submit" });
-        } catch (err) {
-          console.warn("Erreur reCAPTCHA :", err);
-        }
-      } else {
-        console.warn("reCAPTCHA non disponible ou clé manquante.");
-      }
+if (siteKey && typeof window !== "undefined" && window.grecaptcha?.enterprise) {
+  try {
+    token = await window.grecaptcha.enterprise.execute(siteKey, { action: "submit" });
+  } catch (err) {
+    console.warn("Erreur reCAPTCHA :", err);
+  }
+} else {
+  console.warn("reCAPTCHA non disponible ou clé manquante.");
+}
 
-      fd.append("recaptcha", token);
+fd.append("recaptcha", token);
 
 
       const res = await fetch("/api/form", { method: "POST", body: fd });
