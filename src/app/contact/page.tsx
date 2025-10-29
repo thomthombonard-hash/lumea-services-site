@@ -45,15 +45,22 @@ export default function ContactPage() {
       fd.append("subject", form.subject || "Contact");
       fd.append("message", form.message);
 
-      // Récupération du token reCAPTCHA si activé
+      // Récupération du token reCAPTCHA v3 (sécurisée)
       let token = "";
-      if (window.grecaptcha) {
-        token = await window.grecaptcha.execute(
-          process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!,
-          { action: "submit" }
-        );
-        fd.append("recaptcha", token);
+      const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+
+      if (siteKey && typeof window !== "undefined" && window.grecaptcha) {
+        try {
+          token = await window.grecaptcha.execute(siteKey, { action: "submit" });
+        } catch (err) {
+          console.warn("Erreur reCAPTCHA :", err);
+        }
+      } else {
+        console.warn("reCAPTCHA non disponible ou clé manquante.");
       }
+
+      fd.append("recaptcha", token);
+
 
       const res = await fetch("/api/form", { method: "POST", body: fd });
       if (!res.ok) throw new Error("Erreur serveur");
