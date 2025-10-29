@@ -87,17 +87,12 @@ export default function RootLayout({
         </footer>
 
         {/* === COMPOSANTS RGPD === */}
-        {/* ✅ Boutons repositionnés et stylisés */}
-        <div className="fixed z-[60] bottom-20 left-4 md:bottom-8 md:left-6">
-          <div className="bg-white/90 backdrop-blur-md rounded-full shadow-md border border-gray-200 px-4 py-2 text-xs font-medium text-gray-700 hover:bg-gray-50 transition">
-            <CookieConsent />
-          </div>
+        <div className="fixed bottom-6 left-6 z-[60] md:bottom-8 md:left-8">
+          <CookieConsent />
         </div>
 
-        <div className="fixed z-[60] bottom-32 left-4 md:bottom-20 md:left-6">
-          <div className="bg-white/90 backdrop-blur-md rounded-full shadow-md border border-gray-200 px-4 py-2 text-xs font-medium text-gray-700 hover:bg-gray-50 transition">
-            <AnalyticsConsent />
-          </div>
+        <div className="fixed bottom-6 left-24 z-[60] md:bottom-8 md:left-32">
+          <AnalyticsConsent />
         </div>
       </body>
     </html>
