@@ -483,7 +483,7 @@ export default function HomePage() {
         className="relative h-80 md:h-[450px] overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl"
       >
       <Image
-        src="/optimized/pouss.webp"
+        src="/optimized/pexels-fauxels-3184418.webp"
         alt="Présentation visuelle"
         fill
         priority

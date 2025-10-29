@@ -18,15 +18,22 @@ const images = [
   "public/pexels-fauxels-3184418.jpg",
   "public/pexels-mikhail-nilov-7681302.jpg",
   "public/vitrepart2.jpg",
+  "public/Samantha.jpg",
+  "public/Thomas.jpg",
 ];
 
 // 📂 Crée le dossier "public/optimized" s’il n’existe pas
 await fs.mkdir("public/optimized", { recursive: true });
 
 // ⚙️ Règles spéciales : certaines images sont réduites davantage
-const resizeTargets = ["pouss.jpg", "embauche.jpg"];
+const resizeTargets = [
+  "pouss.jpg",
+  "embauche.jpg",
+  "Samantha.jpg",
+  "Thomas.jpg",
+];
 
-// Fonction utilitaire pour obtenir la taille en Ko
+// 🔍 Fonction utilitaire pour obtenir la taille en Ko
 async function getFileSize(filePath) {
   try {
     const stats = await fs.stat(filePath);
@@ -48,15 +55,17 @@ for (const img of images) {
 
   const isSmallResize = resizeTargets.some((target) => img.includes(target));
 
-  // 🔧 Applique redimensionnement ou compression selon le cas
+  // ⚙️ Paramètres d’optimisation
   const sharpInstance = sharp(img);
 
   if (isSmallResize) {
+    // Photos de profil et images lourdes : plus petite taille
     await sharpInstance
-      .resize(800, 600, { withoutEnlargement: true })
-      .webp({ quality: 70 })
+      .resize(600, 600, { fit: "cover", withoutEnlargement: true })
+      .webp({ quality: 60 })
       .toFile(out);
   } else {
+    // Autres images : optimisation standard
     await sharpInstance
       .resize({ width: 1200, withoutEnlargement: true })
       .webp({ quality: 65 })

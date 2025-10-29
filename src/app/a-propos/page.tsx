@@ -176,7 +176,12 @@ export default function AboutPage() {
           </motion.div>
 
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-            {["Marie", "Sonia", "Camille", "Thomas"].map((name, i) => (
+            {[
+              { name: "Bientôt disponible", img: "/optimized/equipe-1.webp", role: "Poste à pourvoir" },
+              { name: "Thomas", img: "/optimized/equipe-2.webp", role: "Responsable d’agence" },
+              { name: "Samantha", img: "/optimized/equipe-3.webp", role: "Chargée de clientèle" },
+              { name: "Recrutement en cours", img: "/optimized/equipe-4.webp", role: "Nouveau talent à venir" },
+            ].map((member, i) => (
               <motion.div
                 key={i}
                 {...fadeUp}
@@ -184,16 +189,20 @@ export default function AboutPage() {
               >
                 <div className="relative h-32 w-32 overflow-hidden rounded-full border mb-4">
                   <Image
-                    src={`/optimized/equipe-${i + 1}.webp`}
-                    alt={`Photo ${name}`}
+                    src={member.img}
+                    alt={`Photo ${member.name}`}
                     fill
                     quality={70}
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    className="object-cover"
+                    className={`object-cover ${
+                      member.name.includes("Bientôt") || member.name.includes("Recrutement")
+                        ? "opacity-60 grayscale"
+                        : ""
+                    }`}
                   />
                 </div>
-                <h3 className="text-lg font-semibold">{name}</h3>
-                <p className="text-sm text-gray-600">Intervenant(e)</p>
+                <h3 className="text-lg font-semibold text-[#1E293B]">{member.name}</h3>
+                <p className="text-sm text-gray-600">{member.role}</p>
               </motion.div>
             ))}
           </div>
