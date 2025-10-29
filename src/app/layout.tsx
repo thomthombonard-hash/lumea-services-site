@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: "Luméa Services - Aide à la personne à La Flèche",
     description:
       "Découvrez nos prestations de ménage, repassage, vitres et entretien pour particuliers et professionnels à La Flèche et alentours.",
-    url: "https://lumeaservices.fr",
+    url: "https://www.lumea-services.fr",
     siteName: "Luméa Services",
     locale: "fr_FR",
     type: "website",
@@ -30,9 +30,28 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <head>
-        *<link rel="preconnect" href="https://www.gstatic.com" crossOrigin="anonymous" />
-         <link rel="preconnect" href="https://www.google.com" crossOrigin="anonymous" />
+        {/* ✅ Vérification Google Search Console */}
+        <meta
+          name="google-site-verification"
+          content="UwqrZdY5KXTPUdpV_mv5SeLYn9kIdCHWaZIRrwuH1DU"
+        />
 
+        {/* ⚡ Optimisation de performance : préconnect */}
+        <link
+          rel="preconnect"
+          href="https://www.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preconnect"
+          href="https://www.google.com"
+          crossOrigin="anonymous"
+        />
+        <link rel="dns-prefetch" href="https://www.gstatic.com" />
+        <link rel="dns-prefetch" href="https://www.google.com" />
+
+        {/* ✅ Favicon */}
+        <link rel="icon" href="/favicon.ico" />
       </head>
 
       <body className="flex flex-col min-h-screen text-gray-800 bg-gray-50">
