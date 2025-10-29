@@ -22,19 +22,19 @@ function CarouselSection() {
 const servicesParticuliers = [
   {
     title: "Ménage à Domicile",
-    desc: "Bref résumé du service pour les particuliers.",
+    desc: "Retrouvez un intérieur propre et soigné grâce à nos prestations de ménage sur mesure : entretien régulier ou ponctuel, selon vos besoins et votre rythme de vie.",
     img: "/optimized/ménage.webp",
     href: "/services",
   },
   {
     title: "Grand Nettoyage",
-    desc: "Bref résumé du service pour les particuliers.",
+    desc: "Remise en état complète après travaux, déménagement ou longue absence. Nous redonnons éclat et fraîcheur à votre logement du sol au plafond.",
     img: "/optimized/vitrepart.webp",
     href: "/services",
   },
   {
     title: "Vitrerie",
-    desc: "Bref résumé du service pour les particuliers.",
+    desc: "Des vitres toujours impeccables, sans traces ni reflets : nos intervenants assurent un nettoyage soigné de vos fenêtres, baies vitrées et vérandas.",
     img: "/optimized/gros.webp",
     href: "/services",
   },
@@ -43,23 +43,24 @@ const servicesParticuliers = [
 const servicesPros = [
   {
     title: "Nettoyage de Bureaux",
-    desc: "Bref résumé du service pour les professionnels.",
+    desc: "Maintenez un cadre de travail sain et accueillant grâce à nos services de nettoyage régulier ou ponctuel adaptés à votre activité professionnelle.",
     img: "/optimized/partiecom.webp",
     href: "/services",
   },
   {
     title: "Entretien des Parties Communes",
-    desc: "Bref résumé du service pour les professionnels.",
+    desc: "Nous veillons à la propreté et à l’hygiène des espaces communs d’immeubles et de résidences, pour le confort et la sécurité de tous les occupants.",
     img: "/optimized/vitrepro.webp",
     href: "/services",
   },
   {
     title: "Vitrerie Professionnelle",
-    desc: "Bref résumé du service pour les professionnels.",
+    desc: "Nettoyage de vitrines, façades et vitres en hauteur. Nos équipes équipées assurent un rendu impeccable en toute sécurité, pour valoriser votre image.",
     img: "/optimized/pexels-tima-miroshnichenko-6196682.webp",
     href: "/services",
   },
 ];
+
 
 
   const allServices = [...servicesParticuliers, ...servicesPros];
