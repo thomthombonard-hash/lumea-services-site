@@ -46,21 +46,21 @@ useEffect(() => {
       fd.append("subject", form.subject || "Contact");
       fd.append("message", form.message);
 
-// Récupération du token reCAPTCHA Enterprise
-let token = "";
-const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+      // Récupération du token reCAPTCHA Enterprise
+      let token = "";
+      const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
-if (siteKey && typeof window !== "undefined" && window.grecaptcha?.enterprise) {
-  try {
-    token = await window.grecaptcha.enterprise.execute(siteKey, { action: "submit" });
-  } catch (err) {
-    console.warn("Erreur reCAPTCHA :", err);
-  }
-} else {
-  console.warn("reCAPTCHA non disponible ou clé manquante.");
-}
+      if (siteKey && typeof window !== "undefined" && window.grecaptcha?.enterprise) {
+        try {
+          token = await window.grecaptcha.enterprise.execute(siteKey, { action: "submit" });
+        } catch (err) {
+          console.warn("Erreur reCAPTCHA :", err);
+        }
+      } else {
+        console.warn("reCAPTCHA non disponible ou clé manquante.");
+      }
 
-fd.append("recaptcha", token);
+      fd.append("recaptcha", token);
 
 
       const res = await fetch("/api/form", { method: "POST", body: fd });
