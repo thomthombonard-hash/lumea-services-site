@@ -1,31 +1,34 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
-const SMTP_HOST = process.env.SMTP_HOST!;
-const SMTP_PORT = Number(process.env.SMTP_PORT || 587);
 const SMTP_USER = process.env.SMTP_USER!;
 const SMTP_PASS = process.env.SMTP_PASS!;
-const TO_EMAIL  = process.env.TO_EMAIL || "bonard@lumea-services.fr";
-const FROM_EMAIL = process.env.FROM_EMAIL || `Formulaire <no-reply@lumea-services.fr>`;
+const TO_EMAIL = process.env.TO_EMAIL || "bonard@lumea-services.fr";
+const FROM_EMAIL =
+  process.env.FROM_EMAIL || `Formulaire Luméa <no-reply@lumea-services.fr>`;
 
 export async function POST(req: Request) {
   try {
     const formData = await req.formData();
 
     const formType = (formData.get("formType") as string) || "contact";
-    const name     = (formData.get("name") as string) || "";
-    const email    = (formData.get("email") as string) || "";
-    const phone    = (formData.get("phone") as string) || "";
-    const subject  = (formData.get("subject") as string) || (formType === "recrutement" ? "Candidature" : "Nouveau message");
-    const message  = (formData.get("message") as string) || "";
+    const name = (formData.get("name") as string) || "";
+    const email = (formData.get("email") as string) || "";
+    const phone = (formData.get("phone") as string) || "";
+    const subject =
+      (formData.get("subject") as string) ||
+      (formType === "recrutement" ? "Candidature" : "Nouveau message");
+    const message = (formData.get("message") as string) || "";
 
     const file = formData.get("file") as File | null;
 
+    // ✅ Configuration spécifique Gmail
     const transporter = nodemailer.createTransport({
-      host: SMTP_HOST,
-      port: SMTP_PORT,
-      secure: SMTP_PORT === 465,
-      auth: { user: SMTP_USER, pass: SMTP_PASS },
+      service: "gmail",
+      auth: {
+        user: SMTP_USER,
+        pass: SMTP_PASS,
+      },
     });
 
     const html = `
@@ -48,17 +51,21 @@ export async function POST(req: Request) {
     }
 
     await transporter.sendMail({
-      to: TO_EMAIL,
       from: FROM_EMAIL,
+      to: TO_EMAIL,
       replyTo: email || FROM_EMAIL,
       subject: `[Luméa Services] ${subject}`,
       html,
       attachments,
     });
 
+    console.log("✅ Email envoyé avec succès à", TO_EMAIL);
     return NextResponse.json({ ok: true });
   } catch (err: any) {
-    console.error("MAIL ERROR:", err);
-    return NextResponse.json({ ok: false, error: err?.message || "unknown" }, { status: 500 });
+    console.error("❌ MAIL ERROR:", err);
+    return NextResponse.json(
+      { ok: false, error: err?.message || "unknown" },
+      { status: 500 }
+    );
   }
 }
