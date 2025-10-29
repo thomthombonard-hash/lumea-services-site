@@ -178,8 +178,8 @@ export default function AboutPage() {
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { name: "Bientôt disponible", img: "/optimized/equipe-1.webp", role: "Poste à pourvoir" },
-              { name: "Thomas", img: "/optimized/equipe-2.webp", role: "Responsable d’agence" },
-              { name: "Samantha", img: "/optimized/equipe-3.webp", role: "Chargée de clientèle" },
+              { name: "Thomas", img: "/optimized/Thomas.webp", role: "Gérant" },
+              { name: "Samantha", img: "/optimized/Samantha.webp", role: "Référence et animation" },
               { name: "Recrutement en cours", img: "/optimized/equipe-4.webp", role: "Nouveau talent à venir" },
             ].map((member, i) => (
               <motion.div
