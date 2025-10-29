@@ -10,6 +10,8 @@ const FROM_EMAIL =
   process.env.FROM_EMAIL || `Formulaire Luméa <no-reply@lumea-services.fr>`;
 
 export async function POST(req: Request) {
+  console.log("✅ Route /api/form appelée (POST)");
+
   try {
     const formData = await req.formData();
 
@@ -24,13 +26,9 @@ export async function POST(req: Request) {
 
     const file = formData.get("file") as File | null;
 
-    // ✅ Transporteur Gmail
     const transporter = nodemailer.createTransport({
       service: "gmail",
-      auth: {
-        user: SMTP_USER,
-        pass: SMTP_PASS,
-      },
+      auth: { user: SMTP_USER, pass: SMTP_PASS },
     });
 
     const html = `
@@ -61,7 +59,6 @@ export async function POST(req: Request) {
       attachments,
     });
 
-    console.log("✅ Email envoyé avec succès à", TO_EMAIL);
     return NextResponse.json({ ok: true });
   } catch (err: any) {
     console.error("❌ MAIL ERROR:", err);
