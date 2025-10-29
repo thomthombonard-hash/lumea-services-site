@@ -21,10 +21,37 @@ export default function RecrutementPage() {
     file: null as File | null,
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [loading, setLoading] = useState(false);
+
+  // 🔥 Envoi du formulaire vers l’API Next.js /api/form
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Merci pour votre candidature ! Nous vous contacterons rapidement.");
-    setForm({ name: "", email: "", phone: "", message: "", file: null });
+    setLoading(true);
+
+    try {
+      const fd = new FormData();
+      fd.append("formType", "recrutement");
+      fd.append("name", form.name);
+      fd.append("email", form.email);
+      fd.append("phone", form.phone);
+      fd.append("message", form.message);
+      if (form.file) fd.append("file", form.file, form.file.name);
+
+      const res = await fetch("/api/form", {
+        method: "POST",
+        body: fd,
+      });
+
+      if (!res.ok) throw new Error("Erreur serveur");
+
+      alert("✅ Merci pour votre candidature ! Nous vous contacterons rapidement.");
+      setForm({ name: "", email: "", phone: "", message: "", file: null });
+    } catch (err) {
+      console.error("Erreur lors de l’envoi :", err);
+      alert("❌ L’envoi a échoué. Veuillez réessayer plus tard.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -216,9 +243,14 @@ export default function RecrutementPage() {
 
               <button
                 type="submit"
-                className="w-full mt-4 rounded-2xl bg-[#FBBF24] px-5 py-3 text-white font-semibold shadow-md transition hover:scale-[1.02] hover:shadow-lg"
+                disabled={loading}
+                className={`w-full mt-4 rounded-2xl px-5 py-3 text-white font-semibold shadow-md transition ${
+                  loading
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-[#FBBF24] hover:scale-[1.02] hover:shadow-lg"
+                }`}
               >
-                Envoyer ma candidature
+                {loading ? "Envoi en cours..." : "Envoyer ma candidature"}
               </button>
             </form>
           </motion.div>

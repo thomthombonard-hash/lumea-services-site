@@ -15,8 +15,9 @@ const fadeUp = {
 export default function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  // 🧠 Lazy-load reCAPTCHA après le rendu initial
+  // 🔹 Chargement différé du script reCAPTCHA
   useEffect(() => {
     const timer = setTimeout(() => {
       if (!recaptchaLoaded && typeof window !== "undefined") {
@@ -31,10 +32,40 @@ export default function ContactPage() {
     return () => clearTimeout(timer);
   }, [recaptchaLoaded]);
 
+  // 🔹 Soumission du formulaire vers l’API Next.js
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert("✅ Merci pour votre message ! Nous reviendrons vers vous rapidement.");
-    setForm({ name: "", email: "", subject: "", message: "" });
+    setLoading(true);
+
+    try {
+      const fd = new FormData();
+      fd.append("formType", "contact");
+      fd.append("name", form.name);
+      fd.append("email", form.email);
+      fd.append("subject", form.subject || "Contact");
+      fd.append("message", form.message);
+
+      // Récupération du token reCAPTCHA si activé
+      let token = "";
+      if (window.grecaptcha) {
+        token = await window.grecaptcha.execute(
+          process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!,
+          { action: "submit" }
+        );
+        fd.append("recaptcha", token);
+      }
+
+      const res = await fetch("/api/form", { method: "POST", body: fd });
+      if (!res.ok) throw new Error("Erreur serveur");
+
+      alert("✅ Merci pour votre message ! Nous reviendrons vers vous rapidement.");
+      setForm({ name: "", email: "", subject: "", message: "" });
+    } catch (err) {
+      console.error("Erreur lors de l'envoi :", err);
+      alert("❌ Une erreur est survenue. Merci de réessayer plus tard.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -69,7 +100,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* === FORMULAIRE & INFOS === */}
+      {/* === FORMULAIRE === */}
       <section className="py-20 border-b bg-white scroll-mt-24">
         <div className="mx-auto max-w-6xl px-6 lg:px-8 grid gap-12 lg:grid-cols-2 items-start">
           {/* FORMULAIRE */}
@@ -78,10 +109,7 @@ export default function ContactPage() {
               Envoyez-nous un message
             </h2>
 
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-5 bg-white border rounded-2xl shadow-sm p-6"
-            >
+            <form onSubmit={handleSubmit} className="space-y-5 bg-white border rounded-2xl shadow-sm p-6">
               <div>
                 <label className="block text-sm font-medium mb-1">
                   Votre nom <span className="text-[#F59E0B]">*</span>
@@ -146,11 +174,22 @@ export default function ContactPage() {
                 </label>
               </div>
 
+              <div
+                className="g-recaptcha"
+                data-sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                data-size="invisible"
+              ></div>
+
               <button
                 type="submit"
-                className="w-full mt-4 rounded-2xl bg-[#FBBF24] px-5 py-3 text-white font-semibold shadow-md transition hover:scale-[1.02] hover:shadow-lg"
+                disabled={loading}
+                className={`w-full mt-4 rounded-2xl px-5 py-3 text-white font-semibold shadow-md transition ${
+                  loading
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-[#FBBF24] hover:scale-[1.02] hover:shadow-lg"
+                }`}
               >
-                Envoyer le message
+                {loading ? "Envoi en cours..." : "Envoyer le message"}
               </button>
             </form>
           </motion.div>
@@ -158,12 +197,9 @@ export default function ContactPage() {
           {/* INFOS + MAPS */}
           <motion.div {...fadeUp} className="space-y-8">
             <div>
-              <h2 className="text-3xl font-semibold text-[#1E293B] mb-4">
-                Nos coordonnées
-              </h2>
+              <h2 className="text-3xl font-semibold text-[#1E293B] mb-4">Nos coordonnées</h2>
               <p className="text-gray-700 leading-relaxed">
-                Vous pouvez également nous joindre par téléphone ou venir nous
-                rencontrer directement à notre agence.
+                Vous pouvez également nous joindre par téléphone ou venir nous rencontrer directement à notre agence.
               </p>
 
               <div className="mt-6 space-y-3 text-gray-800">
@@ -190,7 +226,7 @@ export default function ContactPage() {
             <div className="overflow-hidden rounded-2xl border-2 border-[#FBBF24]/40 shadow-lg shadow-[#FBBF24]/10">
               <iframe
                 title="Localisation Luméa Services"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2726.974956970035!2d-0.0714801!3d47.6932365!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4808d79f0e53d6f7%3A0x7f14e3f5b0fbd7e3!2s4%20Rue%20Fontevrault%2C%2072200%20La%20Fl%C3%A8che!5e0!3m2!1sfr!2sfr!4v1730000000000!5m2!1sfr!2sfr"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2726.974956970035!2d-0.0714801!3d47.6932365"
                 width="100%"
                 height="320"
                 style={{ border: 0 }}
@@ -223,3 +259,7 @@ export default function ContactPage() {
     </main>
   );
 }
+
+// ✅ Pour que reCAPTCHA fonctionne :
+// Dans Vercel > Settings > Environment Variables :
+// NEXT_PUBLIC_RECAPTCHA_SITE_KEY = (clé site Google reCAPTCHA)
