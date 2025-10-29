@@ -23,7 +23,6 @@ export default function RecrutementPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // 👉 Ici tu pourras brancher ton backend ou ton envoi email
     alert("Merci pour votre candidature ! Nous vous contacterons rapidement.");
     setForm({ name: "", email: "", phone: "", message: "", file: null });
   };
@@ -48,7 +47,6 @@ export default function RecrutementPage() {
             Chez Luméa Services, nous croyons que le bien-être des salariés est
             la clé d’un service de qualité.
           </motion.p>
-
         </div>
       </section>
 
@@ -245,9 +243,11 @@ export default function RecrutementPage() {
 
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border shadow-sm">
               <Image
-                src="\pexels-fauxels-3184418.jpg"
+                src="/optimized/pexels-fauxels-3184418.webp"
                 alt="Équipe Luméa"
                 fill
+                quality={70}
+                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 33vw"
                 className="object-cover"
               />
             </div>

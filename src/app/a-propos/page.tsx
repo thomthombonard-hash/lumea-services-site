@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { easeOut } from "framer-motion";
+import { motion, easeOut } from "framer-motion";
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
@@ -40,7 +39,8 @@ export default function AboutPage() {
             </h2>
             <p className="mt-4 text-gray-700 leading-relaxed">
               Après plusieurs années d’expérience dans les services à la personne, 
-              <strong>Thomas Bonard</strong> a souhaité créer <strong>Luméa Services</strong> : 
+              <strong> Thomas Bonard </strong> a souhaité créer 
+              <strong> Luméa Services </strong> : 
               une entreprise à taille humaine où la proximité, la bienveillance et la qualité 
               du travail priment avant tout. 
               Implantée à <strong>La Flèche</strong> et <strong>La Suze-sur-Sarthe</strong>, 
@@ -49,18 +49,20 @@ export default function AboutPage() {
 
             <p className="mt-3 text-gray-700 leading-relaxed">
               En valorisant le professionnalisme et l’engagement de ses intervenants,  
-              <strong> Luméa Services</strong> construit jour après jour une relation de confiance 
+              <strong> Luméa Services </strong> construit jour après jour une relation de confiance 
               durable avec ses clients, fondée sur le respect et la satisfaction mutuelle.
             </p>
-
           </motion.div>
 
           <motion.div {...fadeUp} className="relative aspect-[4/3] overflow-hidden rounded-2xl border shadow-sm">
             <Image
-              src="\pexels-fauxels-3183150.jpg"
+              src="/optimized/pexels-fauxels-3183150.webp"
               alt="Locaux Luméa Services"
               fill
+              quality={70}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover"
+              priority
             />
           </motion.div>
         </div>
@@ -149,9 +151,11 @@ export default function AboutPage() {
             className="relative order-1 lg:order-2 aspect-[4/3] overflow-hidden rounded-2xl border shadow-sm"
           >
             <Image
-              src="\pexels-fauxels-3184418.jpg"
+              src="/optimized/pexels-fauxels-3184418.webp"
               alt="Vision de l'entreprise"
               fill
+              quality={70}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover"
             />
           </motion.div>
@@ -180,9 +184,11 @@ export default function AboutPage() {
               >
                 <div className="relative h-32 w-32 overflow-hidden rounded-full border mb-4">
                   <Image
-                    src={`/images/equipe-${i + 1}.jpg`}
+                    src={`/optimized/equipe-${i + 1}.webp`}
                     alt={`Photo ${name}`}
                     fill
+                    quality={70}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     className="object-cover"
                   />
                 </div>

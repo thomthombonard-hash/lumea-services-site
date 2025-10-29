@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, easeOut } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { easeOut } from "framer-motion";
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
@@ -41,11 +40,14 @@ export default function ContactPage() {
 
           <motion.div {...fadeUp} className="mt-10">
             <Image
-              src="\pexels-mikhail-nilov-7681302.jpg"
+              src="/optimized/pexels-mikhail-nilov-7681302.webp"
               alt="Contact Luméa Services"
               width={1000}
               height={500}
-              className="mx-auto rounded-3xl shadow-lg border"
+              quality={70}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
+              className="mx-auto rounded-3xl shadow-lg border object-cover"
+              priority
             />
           </motion.div>
         </div>

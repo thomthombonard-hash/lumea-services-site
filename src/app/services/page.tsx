@@ -16,17 +16,17 @@ export default function ServicesPage() {
     {
       title: "Ménage à domicile",
       desc: "Un intérieur impeccable grâce à nos intervenants qualifiés. Nettoyage, entretien des surfaces, gestion du linge et repassage sur mesure.",
-      img: "/ménage.jpg",
+      img: "/optimized/ménage.webp",
     },
     {
       title: "Grand nettoyage",
       desc: "Remise en état après travaux ou déménagement. Nous redonnons éclat et fraîcheur à votre logement.",
-      img: "/gros.jpg",
+      img: "/optimized/gros.webp",
     },
     {
       title: "Vitrerie",
       desc: "Nettoyage professionnel des vitres, baies vitrées et vérandas, pour particuliers et petits commerces.",
-      img: "/vitrepart.jpg",
+      img: "/optimized/vitrepart.webp",
     },
   ];
 
@@ -34,17 +34,17 @@ export default function ServicesPage() {
     {
       title: "Nettoyage de bureaux",
       desc: "Entretien régulier ou ponctuel des locaux professionnels, avec des prestations adaptées à votre activité.",
-      img: "/pexels-tima-miroshnichenko-6196682.jpg",
+      img: "/optimized/pexels-tima-miroshnichenko-6196682.webp",
     },
     {
       title: "Entretien parties communes",
       desc: "Propreté et hygiène irréprochables pour vos boutiques et espaces clients.",
-      img: "/partiecom.jpg",
+      img: "/optimized/partiecom.webp",
     },
     {
       title: "Vitrerie professionnelle",
       desc: "Intervention sur vitres en hauteur, vitrines et surfaces vitrées complexes.",
-      img: "/vitrepro.jpg",
+      img: "/optimized/vitrepro.webp",
     },
   ];
 
@@ -93,6 +93,8 @@ export default function ServicesPage() {
                     src={s.img}
                     alt={s.title}
                     fill
+                    quality={70}
+                    sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
@@ -108,10 +110,7 @@ export default function ServicesPage() {
             ))}
           </div>
 
-          <motion.div
-            {...fadeUp}
-            className="text-center mt-12"
-          >
+          <motion.div {...fadeUp} className="text-center mt-12">
             <Link
               href="/contact"
               className="inline-block rounded-2xl bg-[#FBBF24] px-6 py-3 text-white font-semibold shadow-md transition hover:scale-[1.03] hover:shadow-lg"
@@ -144,6 +143,8 @@ export default function ServicesPage() {
                     src={s.img}
                     alt={s.title}
                     fill
+                    quality={70}
+                    sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
@@ -159,10 +160,7 @@ export default function ServicesPage() {
             ))}
           </div>
 
-          <motion.div
-            {...fadeUp}
-            className="text-center mt-12"
-          >
+          <motion.div {...fadeUp} className="text-center mt-12">
             <Link
               href="/contact"
               className="inline-block rounded-2xl bg-[#FBBF24] px-6 py-3 text-white font-semibold shadow-md transition hover:scale-[1.03] hover:shadow-lg"
@@ -190,7 +188,10 @@ export default function ServicesPage() {
             s’adapte à vos besoins. Contactez-nous pour une étude personnalisée
             et un devis gratuit.
           </motion.p>
-          <motion.div {...fadeUp} className="mt-8 flex justify-center gap-4 flex-wrap">
+          <motion.div
+            {...fadeUp}
+            className="mt-8 flex justify-center gap-4 flex-wrap"
+          >
             <Link
               href="/contact"
               className="rounded-2xl bg-[#FBBF24] px-6 py-3 text-white font-semibold shadow-md transition hover:scale-[1.03] hover:shadow-lg"
