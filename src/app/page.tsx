@@ -322,7 +322,7 @@ export default function HomePage() {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FBBF24]/10 text-[#FBBF24]">
               ✉️
             </div>
-            <p><span className="font-semibold">Email :</span> bonardthomas@yahoo.fr</p>
+            <p><span className="font-semibold">Email :</span> bonard@lumea-services.fr</p>
           </div>
         </div>
 

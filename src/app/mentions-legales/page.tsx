@@ -95,10 +95,10 @@ export default function MentionsLegales() {
             <p className="leading-relaxed">
               Vous pouvez contacter l’éditeur du site par courriel à l’adresse :{" "}
               <Link
-                href="mailto:bonardthomas@yahoo.fr"
+                href="mailto:bonard@lumea-services.fr"
                 className="text-[#F59E0B] font-medium hover:underline"
               >
-                bonardthomas@yahoo.fr
+                bonard@lumea-services.fr
               </Link>
             </p>
           </motion.div>
@@ -199,10 +199,10 @@ export default function MentionsLegales() {
               <br />
               Pour exercer ces droits, adressez un courriel à{" "}
               <Link
-                href="mailto:bonardthomas@yahoo.fr"
+                href="mailto:bonard@lumea-services.fr"
                 className="text-[#F59E0B] underline hover:text-[#92400E]"
               >
-                bonardthomas@yahoo.fr
+                bonard@lumea-services.fr
               </Link>
               .
               <br />

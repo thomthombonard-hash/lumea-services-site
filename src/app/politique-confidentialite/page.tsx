@@ -50,10 +50,10 @@ export default function PolitiqueConfidentialite() {
               <br />
               Email de contact :{" "}
               <Link
-                href="mailto:bonardthomas@yahoo.fr"
+                href="mailto:bonard@lumea-services.fr"
                 className="text-[#F59E0B] underline hover:text-[#92400E]"
               >
-                bonardthomas@yahoo.fr
+                bonard@lumea-services.fr
               </Link>
             </p>
           </motion.div>
@@ -136,10 +136,10 @@ export default function PolitiqueConfidentialite() {
             <p className="mt-3">
               Vous pouvez exercer ces droits en écrivant à{" "}
               <Link
-                href="mailto:bonardthomas@yahoo.fr"
+                href="mailto:bonard@lumea-services.fr"
                 className="text-[#F59E0B] underline hover:text-[#92400E]"
               >
-                bonardthomas@yahoo.fr
+                bonard@lumea-services.fr
               </Link>
               .  
               En cas de difficulté, vous pouvez introduire une réclamation auprès de la{" "}

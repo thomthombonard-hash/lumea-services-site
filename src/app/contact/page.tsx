@@ -179,8 +179,8 @@ export default function ContactPage() {
                 </p>
                 <p>
                   <span className="font-semibold">✉️ Email :</span>{" "}
-                  <a href="mailto:bonardthomas@yahoo.fr" className="text-[#F59E0B] font-medium">
-                    bonardthomas@yahoo.fr
+                  <a href="mailto:bonard@lumea-services.fr" className="text-[#F59E0B] font-medium">
+                    bonard@lumea-services.fr
                   </a>
                 </p>
               </div>
