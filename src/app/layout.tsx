@@ -30,12 +30,9 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <head>
-        {/* ✅ Script Google reCAPTCHA (v3) */}
-        <script
-          src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
-          async
-          defer
-        ></script>
+        *<link rel="preconnect" href="https://www.gstatic.com" crossOrigin="anonymous" />
+         <link rel="preconnect" href="https://www.google.com" crossOrigin="anonymous" />
+
       </head>
 
       <body className="flex flex-col min-h-screen text-gray-800 bg-gray-50">
