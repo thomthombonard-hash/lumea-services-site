@@ -5,6 +5,9 @@ declare global {
     grecaptcha: {
       execute(siteKey: string, options: { action: string }): Promise<string>;
       ready(cb: () => void): void;
+      enterprise?: {
+        execute(siteKey: string, options: { action: string }): Promise<string>;
+      };
     };
   }
 }
