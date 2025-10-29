@@ -14,9 +14,34 @@ const fadeUp = {
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // ⚙️ Charge le script reCAPTCHA uniquement si nécessaire
+    if (!recaptchaLoaded) {
+      await new Promise<void>((resolve) => {
+        const script = document.createElement("script");
+        script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
+        script.async = true;
+        script.onload = () => {
+          setRecaptchaLoaded(true);
+          resolve();
+        };
+        document.body.appendChild(script);
+      });
+    }
+
+    // ⚙️ Exécute le reCAPTCHA une fois le script chargé
+    if (window.grecaptcha) {
+      const token = await window.grecaptcha.execute(
+        process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!,
+        { action: "submit" }
+      );
+      console.log("✅ Token reCAPTCHA :", token);
+    }
+
     alert("Merci pour votre message ! Nous reviendrons vers vous rapidement.");
     setForm({ name: "", email: "", subject: "", message: "" });
   };
