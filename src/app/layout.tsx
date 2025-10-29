@@ -36,7 +36,7 @@ export default function RootLayout({
           content="UwqrZdY5KXTPUdpV_mv5SeLYn9kIdCHWaZIRrwuH1DU"
         />
 
-        {/* ⚡ Optimisation de performance : préconnect */}
+        {/* ⚡ Optimisations de performance */}
         <link
           rel="preconnect"
           href="https://www.gstatic.com"
@@ -54,14 +54,12 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </head>
 
-      <body className="flex flex-col min-h-screen text-gray-800 bg-gray-50">
-        {/* === HEADER GLOBAL (menu principal) === */}
+      <body className="flex flex-col min-h-screen text-gray-800 bg-gray-50 relative">
+        {/* === HEADER GLOBAL === */}
         <Header />
 
         {/* === CONTENU DES PAGES === */}
-        <main className="flex-grow container mx-auto p-4 pt-24">
-          {children}
-        </main>
+        <main className="flex-grow container mx-auto p-4 pt-24">{children}</main>
 
         {/* === FOOTER GLOBAL === */}
         <footer className="bg-[#1E293B]/95 text-white text-center py-6 mt-8 text-sm sm:text-base">
@@ -89,8 +87,13 @@ export default function RootLayout({
         </footer>
 
         {/* === COMPOSANTS RGPD === */}
-        <CookieConsent />
-        <AnalyticsConsent />
+        <div className="fixed bottom-6 left-6 z-[60] md:bottom-8 md:left-8">
+          <CookieConsent />
+        </div>
+
+        <div className="fixed bottom-6 left-24 z-[60] md:bottom-8 md:left-32">
+          <AnalyticsConsent />
+        </div>
       </body>
     </html>
   );

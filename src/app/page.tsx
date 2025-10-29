@@ -21,19 +21,19 @@ function CarouselSection() {
 
 const servicesParticuliers = [
   {
-    title: "Service 1",
+    title: "Ménage à Domicile",
     desc: "Bref résumé du service pour les particuliers.",
     img: "/optimized/ménage.webp",
     href: "/services",
   },
   {
-    title: "Service 2",
+    title: "Grand Nettoyage",
     desc: "Bref résumé du service pour les particuliers.",
     img: "/optimized/vitrepart.webp",
     href: "/services",
   },
   {
-    title: "Service 3",
+    title: "Vitrerie",
     desc: "Bref résumé du service pour les particuliers.",
     img: "/optimized/gros.webp",
     href: "/services",
@@ -42,19 +42,19 @@ const servicesParticuliers = [
 
 const servicesPros = [
   {
-    title: "Service 1",
+    title: "Nettoyage de Bureaux",
     desc: "Bref résumé du service pour les professionnels.",
     img: "/optimized/partiecom.webp",
     href: "/services",
   },
   {
-    title: "Service 2",
+    title: "Entretien des Parties Communes",
     desc: "Bref résumé du service pour les professionnels.",
     img: "/optimized/vitrepro.webp",
     href: "/services",
   },
   {
-    title: "Service 3",
+    title: "Vitrerie Professionnelle",
     desc: "Bref résumé du service pour les professionnels.",
     img: "/optimized/pexels-tima-miroshnichenko-6196682.webp",
     href: "/services",
@@ -540,6 +540,26 @@ export default function HomePage() {
       >
         Contact rapide
       </Link>
+      {/* === CTA MOBILE FLOTTANT === */}
+      <Link
+        href="/contact"
+        className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-full bg-[#FBBF24] px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:scale-[1.03] md:hidden"
+      >
+        Contact rapide
+      </Link>
+
+      {/* === CTA FLOTTANT DESKTOP (ANIMÉ) === */}
+        <motion.div
+          {...fadeUp}
+          className="hidden md:block fixed right-6 bottom-8 z-50"
+        >
+          <Link
+            href="/contact"
+            className="flex items-center justify-center gap-2 rounded-full bg-[#FBBF24] px-6 py-3 font-semibold text-white shadow-lg transition hover:scale-[1.05] hover:bg-[#F59E0B] hover:shadow-xl"
+          >
+            💬 Demander un devis
+          </Link>
+        </motion.div>
     </div>
   );
 }

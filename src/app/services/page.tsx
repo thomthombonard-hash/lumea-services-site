@@ -14,36 +14,36 @@ const fadeUp = {
 export default function ServicesPage() {
   const servicesParticuliers = [
     {
-      title: "Ménage à domicile",
-      desc: "Un intérieur impeccable grâce à nos intervenants qualifiés. Nettoyage, entretien des surfaces, gestion du linge et repassage sur mesure.",
+      title: "Ménage à Domicile",
+      desc: "Profitez d’un intérieur propre et sain grâce à nos intervenants expérimentés. Nous prenons en charge l’entretien complet de votre logement : dépoussiérage, nettoyage des sols, sanitaires, cuisine, lavage du linge, repassage et rangement. Nos prestations sont personnalisées selon vos besoins et votre rythme de vie.",
       img: "/optimized/ménage.webp",
     },
     {
-      title: "Grand nettoyage",
-      desc: "Remise en état après travaux ou déménagement. Nous redonnons éclat et fraîcheur à votre logement.",
+      title: "Grand Nettoyage",
+      desc: "Vous venez de déménager, d’effectuer des travaux ou souhaitez simplement une remise à neuf ? Nos équipes spécialisées interviennent pour un nettoyage en profondeur : murs, sols, vitres, encadrements, placards et électroménager. Votre logement retrouve éclat et fraîcheur, prêt à être habité immédiatement.",
       img: "/optimized/gros.webp",
     },
     {
-      title: "Vitrerie",
-      desc: "Nettoyage professionnel des vitres, baies vitrées et vérandas, pour particuliers et petits commerces.",
+      title: "Nettoyage de Vitres Particuliers",
+      desc: "Fini les traces et les vitres ternes ! Nous nettoyons soigneusement vos fenêtres, baies vitrées, vérandas et verrières, à l’intérieur comme à l’extérieur. Nos produits et techniques garantissent un rendu impeccable et durable, même sur les surfaces difficiles d’accès.",
       img: "/optimized/vitrepart.webp",
     },
   ];
 
   const servicesPros = [
     {
-      title: "Nettoyage de bureaux",
-      desc: "Entretien régulier ou ponctuel des locaux professionnels, avec des prestations adaptées à votre activité.",
+      title: "Nettoyage de Bureaux et Locaux Professionnels",
+      desc: "Nous assurons la propreté quotidienne ou hebdomadaire de vos bureaux, commerces ou cabinets. Aspiration, dépoussiérage, désinfection des points de contact, entretien des sols et sanitaires : nos prestations sont réalisées dans le respect des normes d’hygiène et de sécurité, pour un environnement de travail sain et agréable.",
       img: "/optimized/pexels-tima-miroshnichenko-6196682.webp",
     },
     {
-      title: "Entretien parties communes",
-      desc: "Propreté et hygiène irréprochables pour vos boutiques et espaces clients.",
+      title: "Entretien des Parties Communes",
+      desc: "Nous intervenons pour les copropriétés, SCI et syndics afin d’assurer la propreté des halls, escaliers, ascenseurs, parkings et espaces extérieurs. Nos passages réguliers garantissent des lieux propres et accueillants pour les résidents comme pour les visiteurs.",
       img: "/optimized/partiecom.webp",
     },
     {
-      title: "Vitrerie professionnelle",
-      desc: "Intervention sur vitres en hauteur, vitrines et surfaces vitrées complexes.",
+      title: "Vitrerie Professionnelle",
+      desc: "Nos agents interviennent sur les vitrines, façades, verrières et vitres en hauteur à l’aide de matériel professionnel adapté. Nous offrons des contrats d’entretien régulier ou des interventions ponctuelles, pour une image de marque toujours soignée et une transparence parfaite.",
       img: "/optimized/vitrepro.webp",
     },
   ];
