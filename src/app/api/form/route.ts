@@ -1,3 +1,5 @@
+export const runtime = "nodejs";
+
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
@@ -22,7 +24,7 @@ export async function POST(req: Request) {
 
     const file = formData.get("file") as File | null;
 
-    // ✅ Configuration spécifique Gmail
+    // ✅ Transporteur Gmail
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
