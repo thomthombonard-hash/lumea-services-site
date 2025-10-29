@@ -481,14 +481,15 @@ export default function HomePage() {
         {...fadeUp}
         className="relative h-80 md:h-[450px] overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl"
       >
-        <Image
-          src="/optimized/embauche.webp"
-          alt="Équipe Luméa Services"
-          fill
-          quality={70}
-          sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover object-center transition-transform duration-700 hover:scale-105"
-        />
+      <Image
+        src="/optimized/pouss.webp"
+        alt="Présentation visuelle"
+        fill
+        priority
+        quality={70}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        className="object-cover object-center scale-110 transition-transform duration-700"
+      />
 
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent rounded-3xl" />
         <div className="absolute bottom-5 left-6 text-white drop-shadow-lg">

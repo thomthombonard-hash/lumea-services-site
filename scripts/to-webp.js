@@ -2,6 +2,7 @@
 import fs from "node:fs/promises";
 import sharp from "sharp";
 
+// 🖼️ Liste des images à optimiser
 const images = [
   "public/pouss.jpg",
   "public/embauche.jpg",
@@ -18,25 +19,31 @@ const images = [
   "public/vitrepart2.jpg"
 ];
 
-// Crée le dossier "public/optimized" s'il n'existe pas
+// 📂 Crée le dossier "public/optimized" s’il n’existe pas
 await fs.mkdir("public/optimized", { recursive: true });
+
+// ⚙️ Règles de redimensionnement : images lourdes redimensionnées à 800px
+const resizeTargets = ["pouss.jpg", "embauche.jpg"];
 
 for (const img of images) {
   const out = img
     .replace("public/", "public/optimized/")
     .replace(".jpg", ".webp");
 
-  // 🖼️ Si c’est "pouss.jpg", on redimensionne à 800px
-  if (img.includes("pouss.jpg")) {
+  // 🔍 Si le fichier fait partie des images à redimensionner
+  if (resizeTargets.some((target) => img.includes(target))) {
     await sharp(img)
       .resize(800, 600, { withoutEnlargement: true })
       .webp({ quality: 70 })
       .toFile(out);
     console.log("✅ Image redimensionnée et convertie :", out);
   } else {
-    await sharp(img).webp({ quality: 70 }).toFile(out);
+    // 🔸 Autres images : juste compression
+    await sharp(img)
+      .webp({ quality: 70 })
+      .toFile(out);
     console.log("✅ Image convertie :", out);
   }
 }
 
-console.log("✨ Conversion terminée !");
+console.log("✨ Toutes les images ont été optimisées !");
