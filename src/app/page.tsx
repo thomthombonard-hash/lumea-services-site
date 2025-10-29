@@ -19,17 +19,48 @@ function CarouselSection() {
   const controls = useAnimationControls();
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const servicesParticuliers = [
-    { title: "Service 1", desc: "Bref résumé du service pour les particuliers.", img: "/ménage.jpg", href: "/services" },
-    { title: "Service 2", desc: "Bref résumé du service pour les particuliers.", img: "/vitrepart.jpg", href: "/services" },
-    { title: "Service 3", desc: "Bref résumé du service pour les particuliers.", img: "/gros.jpg", href: "/services" },
-  ];
+const servicesParticuliers = [
+  {
+    title: "Service 1",
+    desc: "Bref résumé du service pour les particuliers.",
+    img: "/optimized/ménage.webp",
+    href: "/services",
+  },
+  {
+    title: "Service 2",
+    desc: "Bref résumé du service pour les particuliers.",
+    img: "/optimized/vitrepart.webp",
+    href: "/services",
+  },
+  {
+    title: "Service 3",
+    desc: "Bref résumé du service pour les particuliers.",
+    img: "/optimized/gros.webp",
+    href: "/services",
+  },
+];
 
-  const servicesPros = [
-    { title: "Service 1", desc: "Bref résumé du service pour les professionnels.", img: "/partiecom.jpg", href: "/services" },
-    { title: "Service 2", desc: "Bref résumé du service pour les professionnels.", img: "/vitrepro.jpg", href: "/services" },
-    { title: "Service 3", desc: "Bref résumé du service pour les professionnels.", img: "/pexels-tima-miroshnichenko-6196682.jpg", href: "/services" },
-  ];
+const servicesPros = [
+  {
+    title: "Service 1",
+    desc: "Bref résumé du service pour les professionnels.",
+    img: "/optimized/partiecom.webp",
+    href: "/services",
+  },
+  {
+    title: "Service 2",
+    desc: "Bref résumé du service pour les professionnels.",
+    img: "/optimized/vitrepro.webp",
+    href: "/services",
+  },
+  {
+    title: "Service 3",
+    desc: "Bref résumé du service pour les professionnels.",
+    img: "/optimized/pexels-tima-miroshnichenko-6196682.webp",
+    href: "/services",
+  },
+];
+
 
   const allServices = [...servicesParticuliers, ...servicesPros];
   const duplicatedServices = [...allServices, ...allServices]; // duplication pour la boucle infinie
@@ -151,11 +182,14 @@ export default function HomePage() {
               {...fadeUp}
               className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl border bg-white shadow-lg"
             >
-              <Image
-                src="/pouss.jpg"
-                alt="Présentation visuelle"
-                fill
-                className="object-cover object-center scale-110 transition-transform duration-700"
+            <Image
+              src="/optimized/pouss.webp"
+              alt="Présentation visuelle"
+              fill
+              priority
+              quality={70}
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover object-center scale-110 transition-transform duration-700"
               />
             </motion.div>
           </div>
@@ -447,9 +481,11 @@ export default function HomePage() {
         className="relative h-80 md:h-[450px] overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl"
       >
         <Image
-          src="/embauche.jpg"
+          src="/optimized/embauche.webp"
           alt="Équipe Luméa Services"
           fill
+          quality={70}
+          sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover object-center transition-transform duration-700 hover:scale-105"
         />
 
