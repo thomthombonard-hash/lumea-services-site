@@ -6,13 +6,13 @@ import CookieConsent from "@/components/CookieConsent";
 import AnalyticsConsent from "@/components/AnalyticsConsent";
 
 export const metadata: Metadata = {
-  title: "Luméa Services - Aide à la personne à La Flèche",
+  title: "Luméa Services - Services à la personne à La Flèche",
   description:
-    "Services à domicile : ménage, repassage, entretien de vitres, jardinage et nettoyage de locaux à La Flèche et ses environs.",
+    "Services à domicile : ménage, entretien de vitres et nettoyage de locaux à La Flèche et ses environs.",
   keywords:
-    "aide à domicile, ménage, repassage, vitres, jardinage, nettoyage de locaux, La Flèche, Sarthe, services à la personne",
+    "ménage, repassage, vitres, nettoyage de locaux, La Flèche, Sarthe, services à la personne",
   openGraph: {
-    title: "Luméa Services - Aide à la personne à La Flèche",
+    title: "Luméa Services - Services à la personne à La Flèche",
     description:
       "Découvrez nos prestations de ménage, repassage, vitres et entretien pour particuliers et professionnels à La Flèche et alentours.",
     url: "https://www.lumea-services.fr",
