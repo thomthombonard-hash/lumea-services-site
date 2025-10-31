@@ -23,36 +23,43 @@ export default function RecrutementPage() {
 
   const [loading, setLoading] = useState(false);
 
-  // 🔥 Envoi du formulaire vers l’API Next.js /api/form
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
+    // 🔥 Envoi du formulaire vers l’API Next.js /api/form
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
 
-    try {
-      const fd = new FormData();
-      fd.append("formType", "recrutement");
-      fd.append("name", form.name);
-      fd.append("email", form.email);
-      fd.append("phone", form.phone);
-      fd.append("message", form.message);
-      if (form.file) fd.append("file", form.file, form.file.name);
+      if (!form.name || !form.email) {
+        alert("Merci de renseigner au minimum votre nom et votre email.");
+        return;
+      }
 
-      const res = await fetch("/api/form", {
-        method: "POST",
-        body: fd,
-      });
+      setLoading(true);
 
-      if (!res.ok) throw new Error("Erreur serveur");
+      try {
+        const fd = new FormData();
+        fd.append("formType", "recrutement");
+        fd.append("name", form.name);
+        fd.append("email", form.email);
+        fd.append("phone", form.phone);
+        fd.append("message", form.message);
+        if (form.file) fd.append("file", form.file, form.file.name);
 
-      alert("✅ Merci pour votre candidature ! Nous vous contacterons rapidement.");
-      setForm({ name: "", email: "", phone: "", message: "", file: null });
-    } catch (err) {
-      console.error("Erreur lors de l’envoi :", err);
-      alert("❌ L’envoi a échoué. Veuillez réessayer plus tard.");
-    } finally {
-      setLoading(false);
-    }
-  };
+        const res = await fetch("/api/form", {
+          method: "POST",
+          body: fd,
+        });
+
+        if (!res.ok) throw new Error("Erreur serveur");
+
+        alert("✅ Merci pour votre candidature ! Nous vous contacterons rapidement.");
+        setForm({ name: "", email: "", phone: "", message: "", file: null });
+      } catch (err) {
+        console.error("❌ Erreur lors de l'envoi :", err);
+        alert("Une erreur est survenue. Merci de réessayer plus tard.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
 
   return (
     <main className="min-h-screen scroll-smooth bg-white text-gray-900">
@@ -247,7 +254,7 @@ export default function RecrutementPage() {
                 className={`w-full mt-4 rounded-2xl px-5 py-3 text-white font-semibold shadow-md transition ${
                   loading
                     ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-[#FBBF24] hover:scale-[1.02] hover:shadow-lg"
+                    : "bg-[#FBBF24] hover:scale-[1.02] hover:shadow-lg hover:bg-[#F59E0B]"
                 }`}
               >
                 {loading ? "Envoi en cours..." : "Envoyer ma candidature"}
