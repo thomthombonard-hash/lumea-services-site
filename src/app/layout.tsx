@@ -51,7 +51,7 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://www.google.com" />
 
         {/* ✅ Favicon */}
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo.ico" />
       </head>
 
       <body className="flex flex-col min-h-screen text-gray-800 bg-gray-50 relative">
@@ -95,7 +95,7 @@ export default function RootLayout({
           <AnalyticsConsent />
         </div>
         {/* === CTA GLOBAL FLOTTANT (visible sur toutes les pages) === */}
-        
+
         {/* Version mobile : centrée */}
         <Link
           href="/contact"
