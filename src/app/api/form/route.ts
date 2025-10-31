@@ -27,9 +27,16 @@ export async function POST(req: Request) {
     const file = formData.get("file") as File | null;
 
     const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: { user: SMTP_USER, pass: SMTP_PASS },
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true, // SSL
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
     });
+
+
 
     const html = `
       <p><b>Type :</b> ${formType}</p>
