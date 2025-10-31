@@ -30,11 +30,10 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <head>
-       <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
-      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
-      <link rel="apple-touch-icon" href="/favicon-apple.png" />
-       <meta name="theme-color" content="#FBBF24" />
+      <link rel="icon" href="/favicon.ico" />
+      <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+      <link rel="apple-touch-icon" href="/favicon.ico" />
+      <meta name="theme-color" content="#FBBF24" />
         {/* ✅ Vérification Google Search Console */}
         <meta
           name="google-site-verification"
