@@ -316,7 +316,7 @@ export default function HomePage() {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FBBF24]/10 text-[#FBBF24]">
               ☎️
             </div>
-            <p><span className="font-semibold">Téléphone :</span> 06 34 20 04 70</p>
+            <p><span className="font-semibold">Téléphone :</span> 06 73 25 88 16</p>
           </div>
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FBBF24]/10 text-[#FBBF24]">

@@ -217,8 +217,8 @@ useEffect(() => {
                 </p>
                 <p>
                   <span className="font-semibold">📞 Téléphone :</span>{" "}
-                  <a href="tel:0634200470" className="text-[#F59E0B] font-medium">
-                    06 34 20 04 70
+                  <a href="tel:0673258816" className="text-[#F59E0B] font-medium">
+                    06 73 25 88 16
                   </a>
                 </p>
                 <p>
@@ -257,10 +257,10 @@ useEffect(() => {
             Notre équipe est disponible du lundi au vendredi, de 8h à 18h.
           </p>
           <a
-            href="tel:0634200470"
+            href="tel:0673258816"
             className="inline-block mt-6 rounded-2xl bg-[#FBBF24] px-6 py-3 text-white font-semibold shadow-md transition hover:scale-[1.03] hover:shadow-lg"
           >
-            📞 06 34 20 04 70
+            📞 06 73 25 88 16
           </a>
         </motion.div>
       </section>
