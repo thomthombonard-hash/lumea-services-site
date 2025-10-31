@@ -537,7 +537,7 @@ export default function HomePage() {
 
       <div className="flex flex-wrap justify-center gap-4 pt-4">
         <Link
-          href="/contact"
+          href="#contact"
           className="rounded-2xl bg-[#FBBF24] px-8 py-3 text-white font-semibold shadow-md transition hover:scale-[1.03] hover:shadow-lg hover:bg-[#F59E0B]"
         >
           Demander un devis

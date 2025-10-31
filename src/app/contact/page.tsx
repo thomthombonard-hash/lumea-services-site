@@ -230,19 +230,18 @@ useEffect(() => {
               </div>
             </div>
 
-            {/* === GOOGLE MAPS === */}
-            <div className="overflow-hidden rounded-2xl border-2 border-[#FBBF24]/40 shadow-lg shadow-[#FBBF24]/10">
-              <iframe
-                title="Localisation Luméa Services"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2726.974956970035!2d-0.0714801!3d47.6932365"
-                width="100%"
-                height="320"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
-            </div>
+          {/* === GOOGLE MAPS === */}
+          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border-2 border-[#FBBF24]/40 shadow-lg shadow-[#FBBF24]/10">
+            <iframe
+              className="absolute inset-0 w-full h-full"
+              title="Localisation Luméa Services"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6370.4835584843795!2d-0.07706592329613694!3d47.69891958159746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48081eb127aae5b3%3A0xb5a219033f568142!2s4%20Rue%20de%20Fontevrault%2C%2072200%20La%20Fl%C3%A8che!5e1!3m2!1sfr!2sfr!4v1761907510712!5m2!1sfr!2sfr"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+
           </motion.div>
         </div>
       </section>
