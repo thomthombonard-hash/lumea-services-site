@@ -520,67 +520,41 @@ export default function HomePage() {
   </div>
 </section>
 
-{/* === SECTION 6 — FOOT CTA (MODERNE & IMPACTANT) === */}
-<section className="relative border-t bg-gradient-to-r from-[#FFFBEA] via-[#FFFDF7] to-[#F9FAFB]">
-  {/* Halo décoratif */}
-  <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(251,191,36,0.15),transparent_70%)]" />
+  {/* === SECTION 6 — FOOT CTA (MODERNE & IMPACTANT) === */}
+  <section className="relative border-t bg-gradient-to-r from-[#FFFBEA] via-[#FFFDF7] to-[#F9FAFB]">
+    {/* Halo décoratif */}
+    <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(251,191,36,0.15),transparent_70%)]" />
 
-  <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 text-center">
-    <motion.div {...fadeUp} className="mx-auto max-w-3xl space-y-6">
-      <h2 className="text-3xl sm:text-4xl font-bold text-[#1E293B]">
-        Prêt à <span className="text-[#F59E0B]">démarrer l’aventure</span> avec Luméa Services ?
-      </h2>
-      <p className="text-lg text-gray-700">
-        Que vous soyez un particulier ou un professionnel, notre équipe est à votre écoute
-        pour vous accompagner avec réactivité et exigence.
-      </p>
+    <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 text-center">
+      <motion.div {...fadeUp} className="mx-auto max-w-3xl space-y-6">
+        <h2 className="text-3xl sm:text-4xl font-bold text-[#1E293B]">
+          Prêt à <span className="text-[#F59E0B]">démarrer l’aventure</span> avec Luméa Services ?
+        </h2>
+        <p className="text-lg text-gray-700">
+          Que vous soyez un particulier ou un professionnel, notre équipe est à votre écoute
+          pour vous accompagner avec réactivité et exigence.
+        </p>
 
-      <div className="flex flex-wrap justify-center gap-4 pt-4">
-        <Link
-          href="#contact"
-          className="rounded-2xl bg-[#FBBF24] px-8 py-3 text-white font-semibold shadow-md transition hover:scale-[1.03] hover:shadow-lg hover:bg-[#F59E0B]"
-        >
-          Demander un devis
-        </Link>
-        <Link
-          href="/services"
-          className="rounded-2xl border border-gray-300 px-8 py-3 font-medium text-gray-700 transition hover:bg-gray-100"
-        >
-          Voir nos services
-        </Link>
-      </div>
-    </motion.div>
-  </div>
-</section>
-
-
-      {/* === CTA MOBILE FLOTTANT === */}
-      <Link
-        href="/contact"
-        className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-full bg-[#FBBF24] px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:scale-[1.03] md:hidden"
-      >
-        Contact rapide
-      </Link>
-      {/* === CTA MOBILE FLOTTANT === */}
-      <Link
-        href="/contact"
-        className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-full bg-[#FBBF24] px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:scale-[1.03] md:hidden"
-      >
-        Contact rapide
-      </Link>
-
-      {/* === CTA FLOTTANT DESKTOP (ANIMÉ) === */}
-        <motion.div
-          {...fadeUp}
-          className="hidden md:block fixed right-6 bottom-8 z-50"
-        >
+        <div className="flex flex-wrap justify-center gap-4 pt-4">
           <Link
-            href="/contact"
-            className="flex items-center justify-center gap-2 rounded-full bg-[#FBBF24] px-6 py-3 font-semibold text-white shadow-lg transition hover:scale-[1.05] hover:bg-[#F59E0B] hover:shadow-xl"
+            href="#contact"
+            className="rounded-2xl bg-[#FBBF24] px-8 py-3 text-white font-semibold shadow-md transition hover:scale-[1.03] hover:shadow-lg hover:bg-[#F59E0B]"
           >
-            💬 Demander un devis
+            Demander un devis
           </Link>
-        </motion.div>
+          <Link
+            href="/services"
+            className="rounded-2xl border border-gray-300 px-8 py-3 font-medium text-gray-700 transition hover:bg-gray-100"
+          >
+            Voir nos services
+          </Link>
+        </div>
+      </motion.div>
+    </div>
+  </section>
+
+
+
     </div>
   );
 }

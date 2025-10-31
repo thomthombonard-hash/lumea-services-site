@@ -94,6 +94,24 @@ export default function RootLayout({
         <div className="hidden lg:block fixed bottom-6 left-24 z-[60] md:bottom-8 md:left-32">
           <AnalyticsConsent />
         </div>
+        {/* === CTA GLOBAL FLOTTANT (visible sur toutes les pages) === */}
+        
+        {/* Version mobile : centrée */}
+        <Link
+          href="/contact"
+          className="fixed bottom-4 left-1/2 z-[70] -translate-x-1/2 rounded-full bg-[#FBBF24] px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:scale-[1.03] md:hidden"
+        >
+          💬 Demander un devis
+        </Link>
+
+        {/* Version desktop : en bas à droite */}
+        <Link
+          href="/contact"
+          className="hidden md:flex items-center justify-center gap-2 fixed bottom-8 right-6 z-[70] rounded-full bg-[#FBBF24] px-6 py-3 font-semibold text-white shadow-lg transition hover:scale-[1.05] hover:bg-[#F59E0B] hover:shadow-xl"
+        >
+          💬 Demander un devis
+        </Link>
+
       </body>
     </html>
   );
