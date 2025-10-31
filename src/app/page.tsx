@@ -353,17 +353,37 @@ export default function HomePage() {
         </p>
 
         <form
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
+
             if (!miniForm.name || !miniForm.email || !miniForm.message) {
               alert("Merci de renseigner tous les champs.");
               return;
             }
-            const q = new URLSearchParams(miniForm as any).toString();
-            window.location.href = `/contact?${q}`;
+
+            try {
+              const fd = new FormData();
+              fd.append("formType", "contact");
+              fd.append("name", miniForm.name);
+              fd.append("email", miniForm.email);
+              fd.append("message", miniForm.message);
+
+              const res = await fetch("/api/form", {
+                method: "POST",
+                body: fd,
+              });
+
+              if (!res.ok) throw new Error("Erreur serveur");
+              alert("✅ Message envoyé avec succès !");
+              setMiniForm({ name: "", email: "", message: "" });
+            } catch (err) {
+              console.error("Erreur d’envoi :", err);
+              alert("❌ Une erreur est survenue, veuillez réessayer plus tard.");
+            }
           }}
           className="space-y-5"
-        >
+>
+
           <div>
             <label className="block text-sm font-medium">Votre nom</label>
             <input
