@@ -30,10 +30,11 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <head>
-      <link rel="icon" href="/favicon.ico" />
-      <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-      <link rel="apple-touch-icon" href="/favicon.ico" />
-      <meta name="theme-color" content="#FBBF24" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="/favicon.ico" />
+        <meta name="theme-color" content="#FBBF24" />
+
         {/* ✅ Vérification Google Search Console */}
         <meta
           name="google-site-verification"
@@ -98,24 +99,47 @@ export default function RootLayout({
         <div className="hidden lg:block fixed bottom-6 left-24 z-[60] md:bottom-8 md:left-32">
           <AnalyticsConsent />
         </div>
+
         {/* === CTA GLOBAL FLOTTANT (visible sur toutes les pages) === */}
 
-        {/* Version mobile : centrée */}
-        <Link
-          href="/contact"
-          className="fixed bottom-4 left-1/2 z-[70] -translate-x-1/2 rounded-full bg-[#FBBF24] px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:scale-[1.03] md:hidden"
-        >
-          💬 Demander un devis
-        </Link>
+        {/* Version mobile & tablette : côte à côte en bas */}
+<div className="fixed bottom-4 left-1/2 z-[70] -translate-x-1/2 flex gap-3 md:hidden px-4">
+  <a
+    href="tel:0673258816"
+    className="flex items-center gap-2 rounded-full bg-[#1E293B] px-5 py-3 text-xs font-semibold text-white shadow-lg shadow-black/20 transition-all hover:scale-[1.05]"
+  >
+    <span className="text-sm">📞</span>
+    <span>Appeler</span>
+  </a>
 
-        {/* Version desktop : en bas à droite */}
-        <Link
-          href="/contact"
-          className="hidden md:flex items-center justify-center gap-2 fixed bottom-8 right-6 z-[70] rounded-full bg-[#FBBF24] px-6 py-3 font-semibold text-white shadow-lg transition hover:scale-[1.05] hover:bg-[#F59E0B] hover:shadow-xl"
-        >
-          💬 Demander un devis
-        </Link>
+  <Link
+    href="/contact"
+    className="flex items-center gap-2 rounded-full bg-[#FBBF24] px-5 py-3 text-xs font-semibold text-white shadow-lg shadow-[#F59E0B]/30 transition-all hover:scale-[1.05]"
+  >
+    <span className="text-sm">💬</span>
+    <span>Devis</span>
+  </Link>
+</div>
 
+
+        {/* Version desktop : bloc d’action empilé en bas à droite */}
+        <div className="hidden md:flex flex-col items-end gap-3 fixed bottom-8 right-6 z-[70]">
+          {/* 📞 Bouton d'appel */}
+          <a
+            href="tel:0673258816"
+            className="flex items-center justify-center gap-2 rounded-full bg-[#1E293B] px-6 py-3 font-semibold text-white shadow-lg transition hover:scale-[1.05] hover:bg-[#374151] hover:shadow-xl"
+          >
+            📞 Appelez-nous !
+          </a>
+
+          {/* 💬 Bouton devis */}
+          <Link
+            href="/contact"
+            className="flex items-center justify-center gap-2 rounded-full bg-[#FBBF24] px-6 py-3 font-semibold text-white shadow-lg transition hover:scale-[1.05] hover:bg-[#F59E0B] hover:shadow-xl"
+          >
+            💬 Demander un devis
+          </Link>
+        </div>
       </body>
     </html>
   );

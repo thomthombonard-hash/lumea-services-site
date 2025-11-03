@@ -50,70 +50,128 @@ export default function ServicesPage() {
 
   return (
     <main className="min-h-screen scroll-smooth bg-white text-gray-900">
-      {/* HERO */}
-      <section className="relative isolate overflow-hidden pt-32 pb-20 bg-gradient-to-b from-[#FFFBEA] via-white to-white border-b scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center">
-          <motion.h1
-            {...fadeUp}
-            className="text-4xl sm:text-5xl font-bold text-[#1E293B]"
-          >
-            Nos <span className="text-[#F59E0B]">services</span>
-          </motion.h1>
-          <motion.p
-            {...fadeUp}
-            className="mt-6 max-w-2xl mx-auto text-lg text-gray-700 leading-relaxed"
-          >
-            Luméa Services propose des prestations de ménage et de nettoyage
-            pour les particuliers et les professionnels, à La Flèche, La Suze
-            et les alentours.  
-            Qualité, confiance et proximité sont les maîtres mots de notre engagement.
-          </motion.p>
-        </div>
-      </section>
+      {/* HERO (sobriété premium) */}
+      <section className="relative isolate overflow-hidden pt-32 pb-24 bg-gradient-to-b from-[#FFFBEA] via-white to-[#FFFDF7] border-b scroll-mt-24">
+  <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center relative z-10">
+    <motion.h1
+      {...fadeUp}
+      className="text-5xl sm:text-6xl font-extrabold text-[#1E293B] leading-tight"
+    >
+      Nos <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F59E0B] to-[#FDE68A]">services</span>
+    </motion.h1>
 
-      {/* SERVICES PARTICULIERS */}
-      <section className="relative py-20 border-b bg-white scroll-mt-24">
+    <motion.p
+      {...fadeUp}
+      className="mt-6 max-w-3xl mx-auto text-lg sm:text-xl text-gray-700 leading-relaxed"
+    >
+      Sols impeccables, vitres étincelantes, locaux assainis ou remise en état après travaux :
+      <strong> Luméa Services</strong> accompagne <strong>particuliers</strong> et <strong>entreprises</strong> avec des
+      prestations sur mesure, réalisées par des équipes expertes et engagées.
+    </motion.p>
+
+    <motion.p
+      {...fadeUp}
+      className="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-gray-600"
+    >
+      Confiez-nous l’entretien de votre maison, bureau, commerce ou copropriété : nous garantissons
+      un résultat irréprochable, pensé pour durer.
+    </motion.p>
+
+    <motion.div
+      {...fadeUp}
+      className="mt-10 flex justify-center gap-4 flex-wrap"
+    >
+      <span className="px-4 py-1.5 text-sm font-medium rounded-full bg-[#FBBF24]/30 text-[#92400E]">
+        🌟 Formules personnalisées
+      </span>
+      <span className="px-4 py-1.5 text-sm font-medium rounded-full bg-[#FBBF24]/30 text-[#92400E]">
+        🧹 Intervenants qualifiés
+      </span>
+      <span className="px-4 py-1.5 text-sm font-medium rounded-full bg-[#FBBF24]/30 text-[#92400E]">
+        📍 Service local
+      </span>
+    </motion.div>
+
+    <motion.div
+      {...fadeUp}
+      className="mt-10 flex justify-center"
+    >
+    </motion.div>
+  </div>
+
+  {/* Dégradé subtil en fond */}
+  <div className="absolute inset-x-0 bottom-0 -z-10 h-80 bg-gradient-to-b from-transparent to-[#FFFBEA]/70 blur-2xl" />
+</section>
+
+
+      {/* PARTICULIERS */}
+      <section className="relative py-28 bg-white border-b scroll-mt-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <motion.h2
             {...fadeUp}
-            className="text-3xl font-semibold text-[#1E293B] text-center mb-12"
+            className="text-4xl font-bold text-[#1E293B] text-center mb-16"
           >
-            Pour les particuliers
+            Pour les <span className="text-[#F59E0B]">particuliers</span>
           </motion.h2>
 
-          <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-14 sm:grid-cols-2 lg:grid-cols-3">
             {servicesParticuliers.map((s, i) => (
               <motion.div
                 key={i}
                 {...fadeUp}
-                className="group rounded-2xl border bg-white overflow-hidden shadow-sm hover:shadow-md transition"
+                className="group relative rounded-3xl border border-[#FBBF24]/20 bg-white overflow-hidden shadow-md transition-all hover:-translate-y-2 hover:shadow-2xl"
               >
+                {/* Image avec overlay discret */}
                 <div className="relative aspect-[4/3] w-full overflow-hidden">
                   <Image
                     src={s.img}
                     alt={s.title}
                     fill
-                    quality={70}
+                    quality={80}
                     sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-70 mix-blend-multiply" />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-lg font-semibold text-[#1E293B]">
+
+                {/* Contenu */}
+                <div className="p-7">
+                  <h3 className="text-xl font-semibold text-[#1E293B]">
                     {s.title}
                   </h3>
-                  <p className="mt-2 text-gray-700 text-sm leading-relaxed">
+                  <p className="mt-3 text-gray-700 text-sm leading-relaxed">
                     {s.desc}
                   </p>
+
+                  {/* CTA inline (incite au clic) */}
+                  <div className="mt-5">
+                    <Link
+                      href="/contact"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-[#F59E0B] hover:underline"
+                    >
+                      Obtenir un devis
+                      <svg
+                        className="w-4 h-4 transition-transform group-hover:translate-x-0.5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  </div>
                 </div>
+
+                {/* Bordure lumière au survol */}
+                <div className="pointer-events-none absolute inset-0 rounded-3xl ring-0 ring-[#FBBF24]/0 group-hover:ring-4 group-hover:ring-[#FBBF24]/30 transition" />
               </motion.div>
             ))}
           </div>
 
-          <motion.div {...fadeUp} className="text-center mt-12">
+          <motion.div {...fadeUp} className="text-center mt-20">
             <Link
               href="/contact"
-              className="inline-block rounded-2xl bg-[#FBBF24] px-6 py-3 text-white font-semibold shadow-md transition hover:scale-[1.03] hover:shadow-lg"
+              className="inline-flex items-center rounded-3xl bg-gradient-to-r from-[#F59E0B] to-[#FBBF24] px-9 py-4 text-white font-semibold shadow-lg shadow-[#F59E0B]/30 transition-all hover:scale-[1.06] hover:shadow-[#F59E0B]/40"
             >
               Demander un devis particulier
             </Link>
@@ -121,49 +179,70 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* SERVICES PROFESSIONNELS */}
-      <section className="relative py-20 bg-[#F9FAFB] border-b scroll-mt-24">
+      {/* PROFESSIONNELS */}
+      <section className="relative py-28 bg-gradient-to-b from[#F9FAFB] via-[#FFFDF7] to-white border-b scroll-mt-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <motion.h2
             {...fadeUp}
-            className="text-3xl font-semibold text-[#1E293B] text-center mb-12"
+            className="text-4xl font-bold text-[#1E293B] text-center mb-16"
           >
-            Pour les professionnels
+            Pour les <span className="text-[#F59E0B]">professionnels</span>
           </motion.h2>
 
-          <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-14 sm:grid-cols-2 lg:grid-cols-3">
             {servicesPros.map((s, i) => (
               <motion.div
                 key={i}
                 {...fadeUp}
-                className="group rounded-2xl border bg-white overflow-hidden shadow-sm hover:shadow-md transition"
+                className="group relative rounded-3xl border border-[#FDE68A]/30 bg-white overflow-hidden shadow-md transition-all hover:-translate-y-2 hover:shadow-2xl"
               >
                 <div className="relative aspect-[4/3] w-full overflow-hidden">
                   <Image
                     src={s.img}
                     alt={s.title}
                     fill
-                    quality={70}
+                    quality={80}
                     sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-70 mix-blend-multiply" />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-lg font-semibold text-[#1E293B]">
+
+                <div className="p-7">
+                  <h3 className="text-xl font-semibold text-[#1E293B]">
                     {s.title}
                   </h3>
-                  <p className="mt-2 text-gray-700 text-sm leading-relaxed">
+                  <p className="mt-3 text-gray-700 text-sm leading-relaxed">
                     {s.desc}
                   </p>
+
+                  <div className="mt-5">
+                    <Link
+                      href="/contact"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-[#F59E0B] hover:underline"
+                    >
+                      Demander un devis
+                      <svg
+                        className="w-4 h-4 transition-transform group-hover:translate-x-0.5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  </div>
                 </div>
+
+                <div className="pointer-events-none absolute inset-0 rounded-3xl ring-0 ring-[#FBBF24]/0 group-hover:ring-4 group-hover:ring-[#FBBF24]/30 transition" />
               </motion.div>
             ))}
           </div>
 
-          <motion.div {...fadeUp} className="text-center mt-12">
+          <motion.div {...fadeUp} className="text-center mt-20">
             <Link
               href="/contact"
-              className="inline-block rounded-2xl bg-[#FBBF24] px-6 py-3 text-white font-semibold shadow-md transition hover:scale-[1.03] hover:shadow-lg"
+              className="inline-flex items-center rounded-3xl bg-gradient-to-r from-[#F59E0B] to-[#FBBF24] px-9 py-4 text-white font-semibold shadow-lg shadow-[#F59E0B]/30 transition-all hover:scale-[1.06] hover:shadow-[#F59E0B]/40"
             >
               Demander un devis professionnel
             </Link>
@@ -171,22 +250,20 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* CTA FINALE */}
-      <section className="border-t bg-gradient-to-b from-white to-[#FFFBEA]">
-        <div className="mx-auto max-w-7xl px-6 py-16 text-center">
+      {/* CTA FINAL */}
+      <section className="border-t bg-gradient-to-b from-white to-[#FFFBEA] py-20">
+        <div className="mx-auto max-w-4xl px-6 text-center space-y-8">
           <motion.h2
             {...fadeUp}
-            className="text-3xl font-semibold text-[#1E293B]"
+            className="text-4xl font-bold text-[#1E293B]"
           >
-            Besoin d’un service sur mesure ?
+            Un besoin précis ? On s’en occupe.
           </motion.h2>
           <motion.p
             {...fadeUp}
-            className="mt-4 text-gray-700 max-w-2xl mx-auto"
+            className="mt-4 text-gray-700 leading-relaxed max-w-3xl mx-auto"
           >
-            Que vous soyez un particulier ou une entreprise, Luméa Services
-            s’adapte à vos besoins. Contactez-nous pour une étude personnalisée
-            et un devis gratuit.
+            Dites-nous ce que vous souhaitez : nous revenons rapidement avec une proposition claire et personnalisée.
           </motion.p>
           <motion.div
             {...fadeUp}
@@ -194,15 +271,15 @@ export default function ServicesPage() {
           >
             <Link
               href="/contact"
-              className="rounded-2xl bg-[#FBBF24] px-6 py-3 text-white font-semibold shadow-md transition hover:scale-[1.03] hover:shadow-lg"
+              className="rounded-3xl bg-[#FBBF24] px-8 py-3 text-[#1E293B] font-medium shadow-md transition hover:scale-[1.05] hover:shadow-xl"
             >
               Nous contacter
             </Link>
             <Link
               href="/a-propos"
-              className="rounded-2xl border px-6 py-3 text-[#1E293B] font-semibold transition hover:bg-gray-50"
+              className="rounded-3xl border px-8 py-3 text-[#1E293B] font-medium transition hover:bg-gray-50"
             >
-              En savoir plus sur nous
+              En savoir plus
             </Link>
           </motion.div>
         </div>

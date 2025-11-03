@@ -13,69 +13,70 @@ const fadeUp = {
   transition: { duration: 0.6, ease: easeOut },
 };
 
-/** ✅ Composant séparé pour le carrousel */
 function CarouselSection() {
   const x = useMotionValue(0);
   const controls = useAnimationControls();
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const currentX = useRef(0);
 
-const servicesParticuliers = [
-  {
-    title: "Ménage à Domicile",
-    desc: "Retrouvez un intérieur propre et soigné grâce à nos prestations de ménage sur mesure : entretien régulier ou ponctuel, selon vos besoins et votre rythme de vie.",
-    img: "/optimized/ménage.webp",
-    href: "/services",
-  },
-  {
-    title: "Grand Nettoyage",
-    desc: "Remise en état complète après travaux, déménagement ou longue absence. Nous redonnons éclat et fraîcheur à votre logement du sol au plafond.",
-    img: "/optimized/vitrepart.webp",
-    href: "/services",
-  },
-  {
-    title: "Vitrerie",
-    desc: "Des vitres toujours impeccables, sans traces ni reflets : nos intervenants assurent un nettoyage soigné de vos fenêtres, baies vitrées et vérandas.",
-    img: "/optimized/gros.webp",
-    href: "/services",
-  },
-];
+  const servicesParticuliers = [
+    {
+      title: "Ménage à Domicile",
+      desc: "Retrouvez un intérieur propre et soigné grâce à nos prestations de ménage sur mesure : entretien régulier ou ponctuel, selon vos besoins et votre rythme de vie.",
+      img: "/optimized/ménage.webp",
+      href: "/services",
+    },
+    {
+      title: "Grand Nettoyage",
+      desc: "Remise en état complète après travaux, déménagement ou longue absence. Nous redonnons éclat et fraîcheur à votre logement du sol au plafond.",
+      img: "/optimized/vitrepart.webp",
+      href: "/services",
+    },
+    {
+      title: "Vitrerie",
+      desc: "Des vitres toujours impeccables, sans traces ni reflets : nos intervenants assurent un nettoyage soigné de vos fenêtres, baies vitrées et vérandas.",
+      img: "/optimized/gros.webp",
+      href: "/services",
+    },
+  ];
 
-const servicesPros = [
-  {
-    title: "Nettoyage de Bureaux",
-    desc: "Maintenez un cadre de travail sain et accueillant grâce à nos services de nettoyage régulier ou ponctuel adaptés à votre activité professionnelle.",
-    img: "/optimized/partiecom.webp",
-    href: "/services",
-  },
-  {
-    title: "Entretien des Parties Communes",
-    desc: "Nous veillons à la propreté et à l’hygiène des espaces communs d’immeubles et de résidences, pour le confort et la sécurité de tous les occupants.",
-    img: "/optimized/vitrepro.webp",
-    href: "/services",
-  },
-  {
-    title: "Vitrerie Professionnelle",
-    desc: "Nettoyage de vitrines, façades et vitres en hauteur. Nos équipes équipées assurent un rendu impeccable en toute sécurité, pour valoriser votre image.",
-    img: "/optimized/pexels-tima-miroshnichenko-6196682.webp",
-    href: "/services",
-  },
-];
-
-
+  const servicesPros = [
+    {
+      title: "Nettoyage de Bureaux",
+      desc: "Maintenez un cadre de travail sain et accueillant grâce à nos services de nettoyage régulier ou ponctuel adaptés à votre activité professionnelle.",
+      img: "/optimized/partiecom.webp",
+      href: "/services",
+    },
+    {
+      title: "Entretien des Parties Communes",
+      desc: "Nous veillons à la propreté et à l’hygiène des espaces communs d’immeubles et de résidences, pour le confort et la sécurité de tous les occupants.",
+      img: "/optimized/vitrepro.webp",
+      href: "/services",
+    },
+    {
+      title: "Vitrerie Professionnelle",
+      desc: "Nettoyage de vitrines, façades et vitres en hauteur. Nos équipes équipées assurent un rendu impeccable en toute sécurité, pour valoriser votre image.",
+      img: "/optimized/pexels-tima-miroshnichenko-6196682.webp",
+      href: "/services",
+    },
+  ];
 
   const allServices = [...servicesParticuliers, ...servicesPros];
-  const duplicatedServices = [...allServices, ...allServices]; // duplication pour la boucle infinie
+  const duplicatedServices = [...allServices, ...allServices];
 
   useEffect(() => {
     if (!containerRef.current) return;
 
     const totalWidth = containerRef.current.scrollWidth / 2;
 
-    const loop = () => {
+    const loop = (startX = 0) => {
+      const distance = totalWidth + startX;
+      const duration = (distance / totalWidth) * 30;
+
       controls.start({
-        x: [-totalWidth, 0],
+        x: [startX, -totalWidth],
         transition: {
-          duration: 30,
+          duration,
           ease: "linear",
           repeat: Infinity,
           repeatType: "loop",
@@ -84,7 +85,26 @@ const servicesPros = [
     };
 
     loop();
-  }, [controls]);
+
+    const container = containerRef.current;
+
+    const stopScroll = () => {
+      controls.stop();
+      currentX.current = x.get();
+    };
+
+    const startScroll = () => {
+      loop(currentX.current);
+    };
+
+    container.addEventListener("mouseenter", stopScroll);
+    container.addEventListener("mouseleave", startScroll);
+
+    return () => {
+      container.removeEventListener("mouseenter", stopScroll);
+      container.removeEventListener("mouseleave", startScroll);
+    };
+  }, [controls, x]);
 
   return (
     <div className="relative overflow-hidden">
@@ -95,9 +115,10 @@ const servicesPros = [
         style={{ x }}
       >
         {duplicatedServices.map((s, i) => (
-          <div
+          <Link
             key={`srv-${i}`}
-            className="relative min-w-[300px] sm:min-w-[400px] lg:min-w-[450px] overflow-hidden rounded-3xl shadow-lg group"
+            href={s.href}
+            className="relative min-w-[300px] sm:min-w-[400px] lg:min-w-[450px] overflow-hidden rounded-3xl shadow-lg group block"
           >
             <div className="relative h-64 w-full">
               <Image
@@ -113,24 +134,19 @@ const servicesPros = [
             </div>
             <div className="bg-white p-5">
               <p className="text-gray-700 text-sm leading-relaxed">{s.desc}</p>
-              <Link
-                href={s.href}
-                className="mt-3 inline-flex items-center text-sm font-medium text-[#F59E0B] hover:underline"
-              >
+              <span className="mt-3 inline-flex items-center text-sm font-medium text-[#F59E0B] group-hover:underline">
                 Voir le détail →
-              </Link>
+              </span>
             </div>
-          </div>
+          </Link>
         ))}
       </motion.div>
 
-      {/* Effets de fondu latéraux */}
       <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[#FFFDF7] to-transparent" />
       <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[#FFFDF7] to-transparent" />
     </div>
   );
 }
-
 
 /** === Composant principal === */
 export default function HomePage() {
@@ -246,38 +262,60 @@ export default function HomePage() {
         </div>
       </section>
 
-{/* === SECTION 3 — CARROUSEL INFINI DES SERVICES === */}
+{/* === SECTION 3 — CARROUSEL INFINI DES SERVICES (VERSION AMÉLIORÉE) === */}
 <section
   id="services"
-  className="relative isolate overflow-hidden scroll-mt-24 border-t border-gray-200 bg-[#FFFDF7]"
+  className="relative isolate overflow-hidden scroll-mt-24 border-t bg-gradient-to-br from-[#FFF7E6] via-[#FFFDF7] to-[#F9FAFB]"
 >
-  {/* Fond subtil */}
-  <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_20%,rgba(251,191,36,0.15),transparent_70%)]" />
+  {/* Fond décoratif doux */}
+  <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_20%,rgba(251,191,36,0.25),transparent_70%)]" />
   <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-white/90 via-[#FFFBEA]/80 to-[#F9FAFB]" />
 
-  <div className="relative z-10 mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+  <div className="relative z-10 mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
     {/* Titre */}
-    <motion.div {...fadeUp} className="text-center mb-14">
-      <h2 className="text-4xl font-bold text-[#1E293B]">Nos services</h2>
-      <p className="mt-3 text-lg text-gray-600 max-w-2xl mx-auto">
-        Découvrez nos prestations pour particuliers & professionnels
+    <motion.div {...fadeUp} className="text-center mb-14 space-y-4">
+      <h2 className="text-4xl font-bold text-[#1E293B]">
+        À votre service —{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F59E0B] to-[#FDE68A]">
+          Particuliers & Pros
+        </span>
+      </h2>
+      <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+        Découvrez toutes nos prestations sur mesure pour votre maison ou vos locaux professionnels.
       </p>
     </motion.div>
 
-    {/* === Carrousel fluide avec pause/reprise === */}
+    {/* Badges catégories */}
+    <motion.div
+      {...fadeUp}
+      className="flex justify-center gap-4 mb-12 flex-wrap"
+    >
+      <span className="px-4 py-1.5 text-sm font-medium rounded-full bg-[#FBBF24]/20 text-[#92400E]">
+        ✅ Interventions sur mesure
+      </span>
+      <span className="px-4 py-1.5 text-sm font-medium rounded-full bg-[#FBBF24]/20 text-[#92400E]">
+        🧾 Services éligibles au crédit d’impôt
+      </span>
+      <span className="px-4 py-1.5 text-sm font-medium rounded-full bg-[#FBBF24]/20 text-[#92400E]">
+        🌿 Engagement local & qualité humaine
+      </span>
+    </motion.div>
+
+    {/* Carrousel fluide avec pause/reprise au survol */}
     <CarouselSection />
 
-    {/* CTA services */}
-    <div className="mt-16 text-center">
+    {/* CTA cliquable */}
+    <div className="mt-20 text-center">
       <Link
         href="/services"
-        className="inline-block rounded-2xl bg-[#FBBF24] px-8 py-3 text-white font-semibold shadow-md transition hover:scale-105 hover:shadow-lg"
+        className="inline-block rounded-3xl bg-gradient-to-r from-[#F59E0B] to-[#FBBF24] px-10 py-4 text-white font-semibold shadow-lg shadow-[#F59E0B]/30 transition-all hover:scale-[1.06] hover:shadow-xl hover:from-[#FBBF24] hover:to-[#F59E0B]"
       >
-        Voir tous nos services
+        ✨ Explorer tous nos services
       </Link>
     </div>
   </div>
 </section>
+
 
 {/* === SECTION 4 — SOCIÉTÉ & CONTACT (RELOOKÉE) === */}
 <section
