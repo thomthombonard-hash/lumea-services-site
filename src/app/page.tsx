@@ -387,39 +387,40 @@ export default function HomePage() {
         <p className="text-gray-600 mb-6">
           Ce formulaire rapide nous permet de mieux comprendre votre besoin.  
           Pour une demande complète, rendez-vous sur la page{" "}
-          <Link href="/contact" className="underline hover:text-[#FBBF24]">Contact</Link>.
+          <Link href="/contact#prenom" className="underline hover:text-[#FBBF24]">Contact</Link>.
         </p>
 
-        <form
-          onSubmit={async (e) => {
-            e.preventDefault();
+          <form
+            onSubmit={async (e) => {
+              e.preventDefault();
 
-            if (!miniForm.name || !miniForm.email || !miniForm.message) {
-              alert("Merci de renseigner tous les champs.");
-              return;
-            }
+              if (!miniForm.name || !miniForm.email || !miniForm.message) {
+                alert("Merci de renseigner tous les champs.");
+                return;
+              }
 
-            try {
-              const fd = new FormData();
-              fd.append("formType", "contact");
-              fd.append("name", miniForm.name);
-              fd.append("email", miniForm.email);
-              fd.append("message", miniForm.message);
+              try {
+                const fd = new FormData();
+                fd.append("formType", "contact"); // ou “mini-contact” si tu veux le distinguer
+                fd.append("name", miniForm.name);
+                fd.append("email", miniForm.email);
+                fd.append("subject", "Demande rapide (page d'accueil)");
+                fd.append("message", miniForm.message);
 
-              const res = await fetch("/api/form", {
-                method: "POST",
-                body: fd,
-              });
+                const res = await fetch("/api/form", {
+                  method: "POST",
+                  body: fd,
+                });
 
-              if (!res.ok) throw new Error("Erreur serveur");
-              alert("✅ Message envoyé avec succès !");
-              setMiniForm({ name: "", email: "", message: "" });
-            } catch (err) {
-              console.error("Erreur d’envoi :", err);
-              alert("❌ Une erreur est survenue, veuillez réessayer plus tard.");
-            }
-          }}
-          className="space-y-5"
+                if (!res.ok) throw new Error("Erreur serveur");
+                alert("✅ Merci pour votre message ! Nous vous répondrons rapidement.");
+                setMiniForm({ name: "", email: "", message: "" });
+              } catch (err) {
+                console.error("Erreur lors de l’envoi :", err);
+                alert("❌ Une erreur est survenue. Merci de réessayer plus tard.");
+              }
+            }}
+            className="space-y-5"
 >
 
           <div>

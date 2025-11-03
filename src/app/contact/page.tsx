@@ -118,7 +118,7 @@ useEffect(() => {
             </h2>
 
             <form onSubmit={handleSubmit} className="space-y-5 bg-white border rounded-2xl shadow-sm p-6">
-              <div>
+              <div id="prenom" className="scroll-mt-[7rem]">
                 <label className="block text-sm font-medium mb-1">
                   Votre nom <span className="text-[#F59E0B]">*</span>
                 </label>

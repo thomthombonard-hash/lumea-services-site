@@ -4,6 +4,7 @@ import Link from "next/link";
 import Header from "./Header";
 import CookieConsent from "@/components/CookieConsent";
 import AnalyticsConsent from "@/components/AnalyticsConsent";
+import PromoBanner from "@/components/PromoBanner"; // ✅ Nouveau composant
 
 export const metadata: Metadata = {
   title: "Luméa Services - Services à la personne à La Flèche",
@@ -35,13 +36,11 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/favicon.ico" />
         <meta name="theme-color" content="#FBBF24" />
 
-        {/* ✅ Vérification Google Search Console */}
         <meta
           name="google-site-verification"
           content="UwqrZdY5KXTPUdpV_mv5SeLYn9kIdCHWaZIRrwuH1DU"
         />
 
-        {/* ⚡ Optimisations de performance */}
         <link
           rel="preconnect"
           href="https://www.gstatic.com"
@@ -55,11 +54,13 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://www.gstatic.com" />
         <link rel="dns-prefetch" href="https://www.google.com" />
 
-        {/* ✅ Favicon */}
         <link rel="icon" href="/logo.ico" />
       </head>
 
       <body className="flex flex-col min-h-screen text-gray-800 bg-gray-50 relative">
+        {/* === BANNIÈRE PROMO SPÉCIALE === */}
+        <PromoBanner />
+
         {/* === HEADER GLOBAL === */}
         <Header />
 
@@ -103,28 +104,26 @@ export default function RootLayout({
         {/* === CTA GLOBAL FLOTTANT (visible sur toutes les pages) === */}
 
         {/* Version mobile & tablette : côte à côte en bas */}
-<div className="fixed bottom-4 left-1/2 z-[70] -translate-x-1/2 flex gap-3 md:hidden px-4">
-  <a
-    href="tel:0673258816"
-    className="flex items-center gap-2 rounded-full bg-[#1E293B] px-5 py-3 text-xs font-semibold text-white shadow-lg shadow-black/20 transition-all hover:scale-[1.05]"
-  >
-    <span className="text-sm">📞</span>
-    <span>Appeler</span>
-  </a>
+        <div className="fixed bottom-4 left-1/2 z-[70] -translate-x-1/2 flex gap-3 md:hidden px-4">
+          <a
+            href="tel:0673258816"
+            className="flex items-center gap-2 rounded-full bg-[#1E293B] px-5 py-3 text-xs font-semibold text-white shadow-lg shadow-black/20 transition-all hover:scale-[1.05]"
+          >
+            <span className="text-sm">📞</span>
+            <span>Appeler</span>
+          </a>
 
-  <Link
-    href="/contact"
-    className="flex items-center gap-2 rounded-full bg-[#FBBF24] px-5 py-3 text-xs font-semibold text-white shadow-lg shadow-[#F59E0B]/30 transition-all hover:scale-[1.05]"
-  >
-    <span className="text-sm">💬</span>
-    <span>Devis</span>
-  </Link>
-</div>
-
+          <Link
+            href="/contact#prenom"
+            className="flex items-center gap-2 rounded-full bg-[#FBBF24] px-5 py-3 text-xs font-semibold text-white shadow-lg shadow-[#F59E0B]/30 transition-all hover:scale-[1.05]"
+          >
+            <span className="text-sm">💬</span>
+            <span>Devis</span>
+          </Link>
+        </div>
 
         {/* Version desktop : bloc d’action empilé en bas à droite */}
         <div className="hidden md:flex flex-col items-end gap-3 fixed bottom-8 right-6 z-[70]">
-          {/* 📞 Bouton d'appel */}
           <a
             href="tel:0673258816"
             className="flex items-center justify-center gap-2 rounded-full bg-[#1E293B] px-6 py-3 font-semibold text-white shadow-lg transition hover:scale-[1.05] hover:bg-[#374151] hover:shadow-xl"
@@ -132,9 +131,8 @@ export default function RootLayout({
             📞 Appelez-nous !
           </a>
 
-          {/* 💬 Bouton devis */}
           <Link
-            href="/contact"
+            href="/contact#prenom"
             className="flex items-center justify-center gap-2 rounded-full bg-[#FBBF24] px-6 py-3 font-semibold text-white shadow-lg transition hover:scale-[1.05] hover:bg-[#F59E0B] hover:shadow-xl"
           >
             💬 Demander un devis

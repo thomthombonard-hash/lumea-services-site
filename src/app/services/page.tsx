@@ -146,7 +146,7 @@ export default function ServicesPage() {
                   {/* CTA inline (incite au clic) */}
                   <div className="mt-5">
                     <Link
-                      href="/contact"
+                      href="/contact#prenom"
                       className="inline-flex items-center gap-2 text-sm font-medium text-[#F59E0B] hover:underline"
                     >
                       Obtenir un devis
@@ -170,7 +170,7 @@ export default function ServicesPage() {
 
           <motion.div {...fadeUp} className="text-center mt-20">
             <Link
-              href="/contact"
+              href="/contact#prenom"
               className="inline-flex items-center rounded-3xl bg-gradient-to-r from-[#F59E0B] to-[#FBBF24] px-9 py-4 text-white font-semibold shadow-lg shadow-[#F59E0B]/30 transition-all hover:scale-[1.06] hover:shadow-[#F59E0B]/40"
             >
               Demander un devis particulier
@@ -218,7 +218,7 @@ export default function ServicesPage() {
 
                   <div className="mt-5">
                     <Link
-                      href="/contact"
+                      href="/contact#prenom"
                       className="inline-flex items-center gap-2 text-sm font-medium text-[#F59E0B] hover:underline"
                     >
                       Demander un devis
@@ -241,7 +241,7 @@ export default function ServicesPage() {
 
           <motion.div {...fadeUp} className="text-center mt-20">
             <Link
-              href="/contact"
+              href="/contact#prenom"
               className="inline-flex items-center rounded-3xl bg-gradient-to-r from-[#F59E0B] to-[#FBBF24] px-9 py-4 text-white font-semibold shadow-lg shadow-[#F59E0B]/30 transition-all hover:scale-[1.06] hover:shadow-[#F59E0B]/40"
             >
               Demander un devis professionnel
@@ -249,6 +249,84 @@ export default function ServicesPage() {
           </motion.div>
         </div>
       </section>
+
+    {/* === SECTION "OFFRE DU MOMENT" === */}
+<section
+  id="offre-moment"
+  className="relative py-28 bg-[#FFFBEA] border-b scroll-mt-[6.5rem]"
+>
+  <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <motion.h2
+      {...fadeUp}
+      className="text-4xl font-bold text-[#1E293B] text-center mb-12"
+    >
+      Offre du <span className="text-[#F59E0B]">moment</span> 🎁
+    </motion.h2>
+
+    <div className="grid md:grid-cols-2 gap-10 md:gap-14">
+      {/* Offre 1 - Nouveaux clients */}
+      <motion.div
+        {...fadeUp}
+        className="rounded-3xl bg-white p-8 shadow-lg border border-[#FDE68A]/40"
+      >
+        <h3 className="text-2xl font-bold text-[#1E293B] mb-4">
+          -10 % pendant 1 mois
+        </h3>
+        <p className="text-gray-700 leading-relaxed">
+          Pour tous les nouveaux clients, bénéficiez de <strong>-10 %</strong> sur le tarif horaire pendant <strong>1 mois</strong>, 
+          dès la souscription à une formule de <strong>2 h / semaine minimum</strong>.
+        </p>
+        <div className="mt-6">
+          <Link
+            href="/contact#prenom"
+            className="inline-block px-5 py-2 bg-[#F59E0B] text-white font-semibold rounded-full text-sm shadow-md transition hover:bg-[#D97706] hover:shadow-lg"
+          >
+            Profiter → 
+          </Link>
+        </div>
+      </motion.div>
+
+      {/* Offre 2 - Parrainage */}
+      <motion.div
+        {...fadeUp}
+        className="rounded-3xl bg-white p-8 shadow-lg border border-[#FDE68A]/40"
+      >
+        <h3 className="text-2xl font-bold text-[#1E293B] mb-4">
+          -10 % pendant 2 mois
+        </h3>
+        <p className="text-gray-700 leading-relaxed">
+          Offrez <strong>-10 % pendant 2 mois</strong> à un proche, et bénéficiez-en aussi en retour 📦.  
+          <br />
+          Offre valable pour le <strong>parrain</strong> et le <strong>filleul</strong>, sous réserve de <strong>4 h / mois chacun</strong>.
+        </p>
+        <div className="mt-6">
+          <Link
+            href="/contact#prenom"
+            className="inline-block px-5 py-2 bg-[#F59E0B] text-white font-semibold rounded-full text-sm shadow-md transition hover:bg-[#D97706] hover:shadow-lg"
+          >
+            Parrainer →
+          </Link>
+        </div>
+      </motion.div>
+    </div>
+
+    {/* Mentions légales ou discrètes */}
+    <motion.p
+      {...fadeUp}
+      className="mt-10 text-xs text-gray-600 max-w-3xl mx-auto text-center leading-relaxed"
+    >
+      *Offres cumulables une seule fois par foyer, disponibles jusqu’au 31/01/2026.  
+      Application dans la durée : <strong>soit -10 % pendant 3 mois maximum</strong> (1 mois nouveau client + 2 mois parrainage).  
+      Hors packs promotionnels ou remises en cours.  
+      Exemples de prix détaillés fournis sur devis ou à la demande.  
+      Offre valable sur l’ensemble de notre zone d’intervention.
+    </motion.p>
+  </div>
+</section>
+
+
+
+
 
       {/* CTA FINAL */}
       <section className="border-t bg-gradient-to-b from-white to-[#FFFBEA] py-20">
@@ -270,7 +348,7 @@ export default function ServicesPage() {
             className="mt-8 flex justify-center gap-4 flex-wrap"
           >
             <Link
-              href="/contact"
+              href="/contact#prenom"
               className="rounded-3xl bg-[#FBBF24] px-8 py-3 text-[#1E293B] font-medium shadow-md transition hover:scale-[1.05] hover:shadow-xl"
             >
               Nous contacter

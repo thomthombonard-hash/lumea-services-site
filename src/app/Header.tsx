@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import PromoBanner from "@/components/PromoBanner"; // ✅ Bannière incluse ici
 
 export default function Header() {
   const pathname = usePathname();
@@ -18,8 +19,9 @@ export default function Header() {
   ];
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-[#1E293B]/95 backdrop-blur-sm border-b border-[#FBBF24]/20 shadow-md">
-      <div className="flex w-full items-center justify-between px-6 lg:px-12 py-4">
+    <header className="fixed inset-x-0 top-0 z-50 bg-[#1E293B]/95 backdrop-blur-sm shadow-lg">
+      {/* Barre du haut : logo + navigation */}
+      <div className="flex w-full items-center justify-between px-6 lg:px-12 py-4 border-b border-[#FBBF24]/20">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 text-white">
           <span className="text-2xl font-bold tracking-wide">
@@ -75,6 +77,9 @@ export default function Header() {
         </button>
       </div>
 
+      {/* Bannière promo ✅ */}
+      <PromoBanner />
+
       {/* Menu mobile animé */}
       <AnimatePresence>
         {menuOpen && (
@@ -101,8 +106,8 @@ export default function Header() {
                 </Link>
               ))}
 
-              {/* Ligne + bouton devis */}
               <div className="w-3/4 border-t border-[#FBBF24]/30 my-2" />
+
               <Link
                 href="/contact"
                 onClick={() => setMenuOpen(false)}
