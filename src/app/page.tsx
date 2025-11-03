@@ -29,13 +29,13 @@ function CarouselSection() {
     {
       title: "Grand Nettoyage",
       desc: "Remise en état complète après travaux, déménagement ou longue absence. Nous redonnons éclat et fraîcheur à votre logement du sol au plafond.",
-      img: "/optimized/vitrepart.webp",
+      img: "/optimized/gros.webp",
       href: "/services",
     },
     {
       title: "Vitrerie",
       desc: "Des vitres toujours impeccables, sans traces ni reflets : nos intervenants assurent un nettoyage soigné de vos fenêtres, baies vitrées et vérandas.",
-      img: "/optimized/gros.webp",
+      img: "/optimized/vitrepart.webp",
       href: "/services",
     },
   ];
@@ -44,19 +44,19 @@ function CarouselSection() {
     {
       title: "Nettoyage de Bureaux",
       desc: "Maintenez un cadre de travail sain et accueillant grâce à nos services de nettoyage régulier ou ponctuel adaptés à votre activité professionnelle.",
-      img: "/optimized/partiecom.webp",
+      img: "/optimized/pexels-tima-miroshnichenko-6196682.webp",
       href: "/services",
     },
     {
       title: "Entretien des Parties Communes",
       desc: "Nous veillons à la propreté et à l’hygiène des espaces communs d’immeubles et de résidences, pour le confort et la sécurité de tous les occupants.",
-      img: "/optimized/vitrepro.webp",
+      img: "/optimized/partiecom.webp",
       href: "/services",
     },
     {
       title: "Vitrerie Professionnelle",
       desc: "Nettoyage de vitrines, façades et vitres en hauteur. Nos équipes équipées assurent un rendu impeccable en toute sécurité, pour valoriser votre image.",
-      img: "/optimized/pexels-tima-miroshnichenko-6196682.webp",
+      img: "/optimized/vitrepro.webp",
       href: "/services",
     },
   ];
