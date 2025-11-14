@@ -38,7 +38,7 @@ export default function MentionsLegales() {
       {/* === CONTENU === */}
       <section className="py-20">
         <div className="mx-auto max-w-5xl px-6 space-y-16">
-          {/* Éditeur du site */}
+          {/* 1. Éditeur du site */}
           <motion.div {...fadeUp}>
             <h2 className="text-2xl font-semibold text-[#1E293B] mb-4 border-l-4 border-[#FBBF24] pl-3">
               1. Éditeur du site
@@ -62,7 +62,7 @@ export default function MentionsLegales() {
             </p>
           </motion.div>
 
-          {/* Hébergeur */}
+          {/* 2. Hébergeur */}
           <motion.div {...fadeUp}>
             <h2 className="text-2xl font-semibold text-[#1E293B] mb-4 border-l-4 border-[#FBBF24] pl-3">
               2. Hébergeur du site
@@ -87,7 +87,7 @@ export default function MentionsLegales() {
             </p>
           </motion.div>
 
-          {/* Contact */}
+          {/* 3. Contact */}
           <motion.div {...fadeUp}>
             <h2 className="text-2xl font-semibold text-[#1E293B] mb-4 border-l-4 border-[#FBBF24] pl-3">
               3. Contact
@@ -103,90 +103,124 @@ export default function MentionsLegales() {
             </p>
           </motion.div>
 
-{/* Propriété intellectuelle */}
-<motion.div {...fadeUp}>
-  <h2 className="text-2xl font-semibold text-[#1E293B] mb-4 border-l-4 border-[#FBBF24] pl-3">
-    4. Propriété intellectuelle
-  </h2>
-  <p className="leading-relaxed">
-    L’ensemble du contenu du site (textes, graphismes, logos, images, vidéos, etc.)
-    est la propriété exclusive de <strong>Luméa Services</strong>, sauf mention contraire.
-    <br />
-    Les photographies présentes sur ce site ont été acquises sur les banques d’images{" "}
-    <Link
-      href="https://fr.123rf.com/"
-      target="_blank"
-      className="text-[#F59E0B] underline hover:text-[#92400E]"
-    >
-      123RF
-    </Link>{" "}
-    et{" "}
-    <Link
-      href="https://www.pexels.com/"
-      target="_blank"
-      className="text-[#F59E0B] underline hover:text-[#92400E]"
-    >
-      Pexels
-    </Link>
-    .
-    <br />
-    Les photos issues de Pexels sont utilisées sous licence libre et attribuées à leurs auteurs respectifs :
-  </p>
-
-  <ul className="list-disc pl-6 mt-3 space-y-1 text-gray-700">
-    <li>
-      <em>pexels-fauxels-3183150</em> — Photo par{" "}
-      <Link
-        href="https://www.pexels.com/@fauxels/"
-        target="_blank"
-        className="text-[#F59E0B] underline hover:text-[#92400E]"
-      >
-        Fauxels
-      </Link>
-    </li>
-    <li>
-      <em>pexels-fauxels-3184418</em> — Photo par{" "}
-      <Link
-        href="https://www.pexels.com/@fauxels/"
-        target="_blank"
-        className="text-[#F59E0B] underline hover:text-[#92400E]"
-      >
-        Fauxels
-      </Link>
-    </li>
-    <li>
-      <em>pexels-mikhail-nilov-7681302</em> — Photo par{" "}
-      <Link
-        href="https://www.pexels.com/@mikhail-nilov/"
-        target="_blank"
-        className="text-[#F59E0B] underline hover:text-[#92400E]"
-      >
-        Mikhail Nilov
-      </Link>
-    </li>
-    <li>
-      <em>pexels-tima-miroschnichenko-6196682</em> — Photo par{" "}
-      <Link
-        href="https://www.pexels.com/@tima-miroshnichenko/"
-        target="_blank"
-        className="text-[#F59E0B] underline hover:text-[#92400E]"
-      >
-        Tima Miroschnichenko
-      </Link>
-    </li>
-  </ul>
-
-  <p className="leading-relaxed mt-3">
-    Toute reproduction, modification ou diffusion, totale ou partielle, sans
-    autorisation écrite préalable, est strictement interdite.
-  </p>
-</motion.div>
-
-
-          {/* Données personnelles */}
+          {/* 4. Déclaration de services à la personne (SAP) */}
           <motion.div {...fadeUp}>
             <h2 className="text-2xl font-semibold text-[#1E293B] mb-4 border-l-4 border-[#FBBF24] pl-3">
-              5. Données personnelles
+              4. Déclaration de services à la personne (SAP)
+            </h2>
+            <p className="leading-relaxed">
+              Luméa Services est déclarée en tant qu’organisme de services à la personne
+              sous le numéro de déclaration :{" "}
+              <strong>SAP n° 992 784 090</strong>, en mode prestataire.
+              <br />
+              Les activités exercées dans ce cadre concernent exclusivement les activités
+              relevant de la déclaration (mode prestataire), à savoir :
+            </p>
+
+            <ul className="list-disc pl-6 mt-4 space-y-1 text-gray-700">
+              <li>Entretien de la maison et travaux ménagers</li>
+              <li>Accompagnement des enfants de plus de 3 ans dans leurs déplacements</li>
+              <li>Petits travaux de jardinage y compris le débroussaillage</li>
+              <li>Travaux de petit bricolage</li>
+              <li>Collecte et livraison à domicile de linge repassé</li>
+              <li>Livraison de courses à domicile</li>
+              <li>Maintenance, entretien et vigilance temporaires à domicile</li>
+              <li>Assistance informatique à domicile</li>
+              <li>Assistance administrative à domicile</li>
+              <li>Conduite de véhicule des personnes en cas d’invalidité temporaire</li>
+              <li>Accompagnement des personnes présentant une invalidité temporaire</li>
+            </ul>
+
+            <p className="leading-relaxed mt-3">
+              Ces activités ouvrent droit, sous réserve des conditions légales en vigueur,
+              aux avantages fiscaux prévus pour les services à la personne.
+            </p>
+          </motion.div>
+
+          {/* 5. Propriété intellectuelle */}
+          <motion.div {...fadeUp}>
+            <h2 className="text-2xl font-semibold text-[#1E293B] mb-4 border-l-4 border-[#FBBF24] pl-3">
+              5. Propriété intellectuelle
+            </h2>
+            <p className="leading-relaxed">
+              L’ensemble du contenu du site (textes, graphismes, logos, images, vidéos, etc.)
+              est la propriété exclusive de <strong>Luméa Services</strong>, sauf mention contraire.
+              <br />
+              Les photographies présentes sur ce site ont été acquises sur les banques d’images{" "}
+              <Link
+                href="https://fr.123rf.com/"
+                target="_blank"
+                className="text-[#F59E0B] underline hover:text-[#92400E]"
+              >
+                123RF
+              </Link>{" "}
+              et{" "}
+              <Link
+                href="https://www.pexels.com/"
+                target="_blank"
+                className="text-[#F59E0B] underline hover:text-[#92400E]"
+              >
+                Pexels
+              </Link>
+              .
+              <br />
+              Les photos issues de Pexels sont utilisées sous licence libre et attribuées
+              à leurs auteurs respectifs :
+            </p>
+
+            <ul className="list-disc pl-6 mt-3 space-y-1 text-gray-700">
+              <li>
+                <em>pexels-fauxels-3183150</em> — Photo par{" "}
+                <Link
+                  href="https://www.pexels.com/@fauxels/"
+                  target="_blank"
+                  className="text-[#F59E0B] underline hover:text-[#92400E]"
+                >
+                  Fauxels
+                </Link>
+              </li>
+              <li>
+                <em>pexels-fauxels-3184418</em> — Photo par{" "}
+                <Link
+                  href="https://www.pexels.com/@fauxels/"
+                  target="_blank"
+                  className="text-[#F59E0B] underline hover:text-[#92400E]"
+                >
+                  Fauxels
+                </Link>
+              </li>
+              <li>
+                <em>pexels-mikhail-nilov-7681302</em> — Photo par{" "}
+                <Link
+                  href="https://www.pexels.com/@mikhail-nilov/"
+                  target="_blank"
+                  className="text-[#F59E0B] underline hover:text-[#92400E]"
+                >
+                  Mikhail Nilov
+                </Link>
+              </li>
+              <li>
+                <em>pexels-tima-miroschnichenko-6196682</em> — Photo par{" "}
+                <Link
+                  href="https://www.pexels.com/@tima-miroshnichenko/"
+                  target="_blank"
+                  className="text-[#F59E0B] underline hover:text-[#92400E]"
+                >
+                  Tima Miroschnichenko
+                </Link>
+              </li>
+            </ul>
+
+            <p className="leading-relaxed mt-3">
+              Toute reproduction, modification ou diffusion, totale ou partielle, sans
+              autorisation écrite préalable, est strictement interdite.
+            </p>
+          </motion.div>
+
+          {/* 6. Données personnelles */}
+          <motion.div {...fadeUp}>
+            <h2 className="text-2xl font-semibold text-[#1E293B] mb-4 border-l-4 border-[#FBBF24] pl-3">
+              6. Données personnelles
             </h2>
             <p className="leading-relaxed">
               Les informations recueillies via les formulaires du site (contact et
@@ -211,10 +245,10 @@ export default function MentionsLegales() {
             </p>
           </motion.div>
 
-          {/* Responsabilité */}
+          {/* 7. Responsabilité */}
           <motion.div {...fadeUp}>
             <h2 className="text-2xl font-semibold text-[#1E293B] mb-4 border-l-4 border-[#FBBF24] pl-3">
-              6. Responsabilité
+              7. Responsabilité
             </h2>
             <p className="leading-relaxed">
               Luméa Services s’efforce de maintenir le site accessible et à jour,
@@ -224,10 +258,10 @@ export default function MentionsLegales() {
             </p>
           </motion.div>
 
-          {/* Droit applicable */}
+          {/* 8. Droit applicable */}
           <motion.div {...fadeUp}>
             <h2 className="text-2xl font-semibold text-[#1E293B] mb-4 border-l-4 border-[#FBBF24] pl-3">
-              7. Droit applicable
+              8. Droit applicable
             </h2>
             <p className="leading-relaxed">
               Les présentes mentions légales sont régies par le droit français.  
@@ -238,11 +272,15 @@ export default function MentionsLegales() {
           </motion.div>
 
           {/* Footer */}
-          <motion.div {...fadeUp} className="text-center pt-8 border-t border-gray-200">
+          <motion.div
+            {...fadeUp}
+            className="text-center pt-8 border-t border-gray-200"
+          >
             <p className="text-sm text-gray-600">
               © {new Date().getFullYear()} <strong>Luméa Services</strong> — Tous droits réservés  
               <br />
-              Création du site : <span className="text-[#F59E0B] font-medium">HBS Partners</span>
+              Création du site :{" "}
+              <span className="text-[#F59E0B] font-medium">HBS Partners</span>
             </p>
           </motion.div>
         </div>

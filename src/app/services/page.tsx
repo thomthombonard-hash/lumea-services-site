@@ -51,13 +51,16 @@ export default function ServicesPage() {
   return (
     <main className="min-h-screen scroll-smooth bg-white text-gray-900">
       {/* HERO (sobriété premium) */}
-      <section className="relative isolate overflow-hidden pt-32 pb-24 bg-gradient-to-b from-[#FFFBEA] via-white to-[#FFFDF7] border-b scroll-mt-24">
+<section className="relative isolate overflow-hidden pt-32 pb-24 bg-gradient-to-b from-[#FFFBEA] via-white to-[#FFFDF7] border-b scroll-mt-24">
   <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center relative z-10">
     <motion.h1
       {...fadeUp}
       className="text-5xl sm:text-6xl font-extrabold text-[#1E293B] leading-tight"
     >
-      Nos <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F59E0B] to-[#FDE68A]">services</span>
+      Nos{" "}
+      <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F59E0B] to-[#FDE68A]">
+        services
+      </span>
     </motion.h1>
 
     <motion.p
@@ -65,8 +68,9 @@ export default function ServicesPage() {
       className="mt-6 max-w-3xl mx-auto text-lg sm:text-xl text-gray-700 leading-relaxed"
     >
       Sols impeccables, vitres étincelantes, locaux assainis ou remise en état après travaux :
-      <strong> Luméa Services</strong> accompagne <strong>particuliers</strong> et <strong>entreprises</strong> avec des
-      prestations sur mesure, réalisées par des équipes expertes et engagées.
+      <strong> Luméa Services</strong> accompagne <strong>particuliers</strong> et{" "}
+      <strong>entreprises</strong> avec des prestations sur mesure, réalisées par des équipes
+      expertes et engagées.
     </motion.p>
 
     <motion.p
@@ -92,10 +96,40 @@ export default function ServicesPage() {
       </span>
     </motion.div>
 
+    {/* Bloc crédit d'impôt 50 % + image */}
     <motion.div
       {...fadeUp}
       className="mt-10 flex justify-center"
     >
+      <div className="max-w-3xl w-full flex flex-col md:flex-row items-center gap-6 bg-white/80 border border-[#FBBF24]/40 rounded-2xl px-6 py-5 shadow-sm">
+        <div className="flex-1 text-left">
+          <p className="text-sm font-semibold uppercase tracking-wide text-[#92400E]">
+            Avantage fiscal pour les particuliers
+          </p>
+          <p className="mt-2 text-sm sm:text-base text-gray-700 leading-relaxed">
+            Pour les prestations de services à la personne réalisées au domicile des particuliers,
+            vous pouvez bénéficier, selon votre situation, d’un{" "}
+            <strong>crédit d&apos;impôt égal à 50&nbsp;% des dépenses engagées</strong>, dans les
+            limites et conditions prévues par la réglementation en vigueur.
+          </p>
+          <p className="mt-2 text-xs sm:text-sm text-gray-600 leading-relaxed">
+            Ce dispositif est encadré par l&apos;
+            <strong>article 199 sexdecies du Code général des impôts (CGI)</strong>. Luméa
+            Services remet chaque année à ses clients particuliers une attestation fiscale
+            récapitulative des sommes versées, permettant de justifier des montants déclarés.
+          </p>
+        </div>
+
+        <div className="shrink-0">
+          <Image
+            src="/optimized/50pourcent.webp"
+            alt="Crédit d'impôt de 50 % pour les services à la personne"
+            width={140}
+            height={140}
+            className="object-contain"
+          />
+        </div>
+      </div>
     </motion.div>
   </div>
 
@@ -105,79 +139,96 @@ export default function ServicesPage() {
 
 
       {/* PARTICULIERS */}
-      <section className="relative py-28 bg-white border-b scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <motion.h2
-            {...fadeUp}
-            className="text-4xl font-bold text-[#1E293B] text-center mb-16"
-          >
-            Pour les <span className="text-[#F59E0B]">particuliers</span>
-          </motion.h2>
+<section className="relative py-28 bg-white border-b scroll-mt-24">
+  <div className="mx-auto max-w-7xl px-6 lg:px-8">
 
-          <div className="grid gap-14 sm:grid-cols-2 lg:grid-cols-3">
-            {servicesParticuliers.map((s, i) => (
-              <motion.div
-                key={i}
-                {...fadeUp}
-                className="group relative rounded-3xl border border-[#FBBF24]/20 bg-white overflow-hidden shadow-md transition-all hover:-translate-y-2 hover:shadow-2xl"
-              >
-                {/* Image avec overlay discret */}
-                <div className="relative aspect-[4/3] w-full overflow-hidden">
-                  <Image
-                    src={s.img}
-                    alt={s.title}
-                    fill
-                    quality={80}
-                    sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-70 mix-blend-multiply" />
-                </div>
+    {/* Titre avec image 50% */}
+    <motion.div
+      {...fadeUp}
+      className="flex flex-col items-center justify-center mb-16 gap-4"
+    >
+      <h2 className="text-4xl font-bold text-[#1E293B] flex items-center gap-4">
+        Pour les <span className="text-[#F59E0B]">particuliers</span>
 
-                {/* Contenu */}
-                <div className="p-7">
-                  <h3 className="text-xl font-semibold text-[#1E293B]">
-                    {s.title}
-                  </h3>
-                  <p className="mt-3 text-gray-700 text-sm leading-relaxed">
-                    {s.desc}
-                  </p>
+        {/* Image 50% collée au titre */}
+        <Image
+          src="/optimized/50pourcent.webp"
+          alt="Crédit d'impôt 50% - Services à la personne"
+          width={70}
+          height={70}
+          className="object-contain inline-block"
+        />
+      </h2>
+    </motion.div>
 
-                  {/* CTA inline (incite au clic) */}
-                  <div className="mt-5">
-                    <Link
-                      href="/contact#prenom"
-                      className="inline-flex items-center gap-2 text-sm font-medium text-[#F59E0B] hover:underline"
-                    >
-                      Obtenir un devis
-                      <svg
-                        className="w-4 h-4 transition-transform group-hover:translate-x-0.5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </Link>
-                  </div>
-                </div>
-
-                {/* Bordure lumière au survol */}
-                <div className="pointer-events-none absolute inset-0 rounded-3xl ring-0 ring-[#FBBF24]/0 group-hover:ring-4 group-hover:ring-[#FBBF24]/30 transition" />
-              </motion.div>
-            ))}
+    {/* Grille de services */}
+    <div className="grid gap-14 sm:grid-cols-2 lg:grid-cols-3">
+      {servicesParticuliers.map((s, i) => (
+        <motion.div
+          key={i}
+          {...fadeUp}
+          className="group relative rounded-3xl border border-[#FBBF24]/20 bg-white overflow-hidden shadow-md transition-all hover:-translate-y-2 hover:shadow-2xl"
+        >
+          {/* Image principale */}
+          <div className="relative aspect-[4/3] w-full overflow-hidden">
+            <Image
+              src={s.img}
+              alt={s.title}
+              fill
+              quality={80}
+              sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-cover transition-transform duration-700 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-70 mix-blend-multiply" />
           </div>
 
-          <motion.div {...fadeUp} className="text-center mt-20">
-            <Link
-              href="/contact#prenom"
-              className="inline-flex items-center rounded-3xl bg-gradient-to-r from-[#F59E0B] to-[#FBBF24] px-9 py-4 text-white font-semibold shadow-lg shadow-[#F59E0B]/30 transition-all hover:scale-[1.06] hover:shadow-[#F59E0B]/40"
-            >
-              Demander un devis particulier
-            </Link>
-          </motion.div>
-        </div>
-      </section>
+          {/* Contenu */}
+          <div className="p-7">
+            <h3 className="text-xl font-semibold text-[#1E293B]">{s.title}</h3>
+            <p className="mt-3 text-gray-700 text-sm leading-relaxed">{s.desc}</p>
+
+            {/* CTA */}
+            <div className="mt-5">
+              <Link
+                href="/contact#prenom"
+                className="inline-flex items-center gap-2 text-sm font-medium text-[#F59E0B] hover:underline"
+              >
+                Obtenir un devis
+                <svg
+                  className="w-4 h-4 transition-transform group-hover:translate-x-0.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </Link>
+            </div>
+          </div>
+
+          {/* Bordure lumineuse */}
+          <div className="pointer-events-none absolute inset-0 rounded-3xl ring-0 ring-[#FBBF24]/0 group-hover:ring-4 group-hover:ring-[#FBBF24]/30 transition" />
+        </motion.div>
+      ))}
+    </div>
+
+    {/* CTA principal */}
+    <motion.div {...fadeUp} className="text-center mt-20">
+      <Link
+        href="/contact#prenom"
+        className="inline-flex items-center rounded-3xl bg-gradient-to-r from-[#F59E0B] to-[#FBBF24] px-9 py-4 text-white font-semibold shadow-lg shadow-[#F59E0B]/30 transition-all hover:scale-[1.06] hover:shadow-[#F59E0B]/40"
+      >
+        Demander un devis particulier
+      </Link>
+    </motion.div>
+
+  </div>
+</section>
 
       {/* PROFESSIONNELS */}
       <section className="relative py-28 bg-gradient-to-b from[#F9FAFB] via-[#FFFDF7] to-white border-b scroll-mt-24">
