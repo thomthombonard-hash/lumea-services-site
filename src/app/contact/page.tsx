@@ -1,6 +1,9 @@
+// Updated ContactPage with dataLayer push for contact_submit_success
+
 "use client";
 
 import { useState, useEffect } from "react";
+import type React from "react";
 import { motion, easeOut } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
@@ -13,28 +16,32 @@ const fadeUp = {
 };
 
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
   const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
 
-// 🔹 Chargement différé du script reCAPTCHA Enterprise
-useEffect(() => {
-  const timer = setTimeout(() => {
-    if (!recaptchaLoaded && typeof window !== "undefined") {
-      const script = document.createElement("script");
-      script.src = `https://www.google.com/recaptcha/enterprise.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
-      script.async = true;
-      script.defer = true;
-      script.onload = () => setRecaptchaLoaded(true);
-      document.body.appendChild(script);
-    }
-  }, 2000);
-  return () => clearTimeout(timer);
-}, [recaptchaLoaded]);
-
+  // 🔹 Chargement différé du script reCAPTCHA Enterprise
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!recaptchaLoaded && typeof window !== "undefined") {
+        const script = document.createElement("script");
+        script.src = `https://www.google.com/recaptcha/enterprise.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
+        script.async = true;
+        script.defer = true;
+        script.onload = () => setRecaptchaLoaded(true);
+        document.body.appendChild(script);
+      }
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [recaptchaLoaded]);
 
   // 🔹 Soumission du formulaire vers l’API Next.js
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
 
@@ -62,9 +69,16 @@ useEffect(() => {
 
       fd.append("recaptcha", token);
 
-
       const res = await fetch("/api/form", { method: "POST", body: fd });
       if (!res.ok) throw new Error("Erreur serveur");
+
+      // 🔹🔹 ÉVÉNEMENT POUR GOOGLE TAG MANAGER 🔹🔹
+      if (typeof window !== "undefined") {
+        // @ts-ignore au besoin
+        window.dataLayer = window.dataLayer || [];
+        // @ts-ignore au besoin
+        window.dataLayer.push({ event: "contact_submit_success" });
+      }
 
       alert("✅ Merci pour votre message ! Nous reviendrons vers vous rapidement.");
       setForm({ name: "", email: "", subject: "", message: "" });
@@ -76,12 +90,16 @@ useEffect(() => {
     }
   };
 
+  // 👉 ICI le seul return du composant
   return (
     <main className="min-h-screen bg-white text-gray-900 scroll-smooth">
       {/* === HERO === */}
       <section className="relative isolate overflow-hidden pt-32 pb-20 bg-gradient-to-b from-[#FFFBEA] via-white to-white border-b scroll-mt-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center">
-          <motion.h1 {...fadeUp} className="text-4xl sm:text-5xl font-bold text-[#1E293B]">
+          <motion.h1
+            {...fadeUp}
+            className="text-4xl sm:text-5xl font-bold text-[#1E293B]"
+          >
             Contactez <span className="text-[#F59E0B]">Luméa Services</span>
           </motion.h1>
 
@@ -89,7 +107,7 @@ useEffect(() => {
             {...fadeUp}
             className="mt-6 max-w-2xl mx-auto text-lg text-gray-700 leading-relaxed"
           >
-            Une question, un devis ou une candidature spontanée ?  
+            Une question, un devis ou une candidature spontanée ?{" "}
             Remplissez le formulaire ci-dessous, nous vous répondrons sous 24 à 48h jours ouvrés.
           </motion.p>
 
@@ -117,7 +135,10 @@ useEffect(() => {
               Envoyez-nous un message
             </h2>
 
-            <form onSubmit={handleSubmit} className="space-y-5 bg-white border rounded-2xl shadow-sm p-6">
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-5 bg-white border rounded-2xl shadow-sm p-6"
+            >
               <div id="prenom" className="scroll-mt-[7rem]">
                 <label className="block text-sm font-medium mb-1">
                   Votre nom <span className="text-[#F59E0B]">*</span>
@@ -175,7 +196,10 @@ useEffect(() => {
                 <input id="rgpd" type="checkbox" required className="h-4 w-4 rounded border" />
                 <label htmlFor="rgpd">
                   J’accepte le traitement de mes données (voir la{" "}
-                  <Link href="/politique-confidentialite" className="underline text-[#F59E0B]">
+                  <Link
+                    href="/politique-confidentialite"
+                    className="underline text-[#F59E0B]"
+                  >
                     politique de confidentialité
                   </Link>
                   ).
@@ -205,14 +229,18 @@ useEffect(() => {
           {/* INFOS + MAPS */}
           <motion.div {...fadeUp} className="space-y-8">
             <div>
-              <h2 className="text-3xl font-semibold text-[#1E293B] mb-4">Nos coordonnées</h2>
+              <h2 className="text-3xl font-semibold text-[#1E293B] mb-4">
+                Nos coordonnées
+              </h2>
               <p className="text-gray-700 leading-relaxed">
-                Vous pouvez également nous joindre par téléphone ou venir nous rencontrer directement à notre agence.
+                Vous pouvez également nous joindre par téléphone ou venir nous
+                rencontrer directement à notre agence.
               </p>
 
               <div className="mt-6 space-y-3 text-gray-800">
                 <p>
-                  <span className="font-semibold">📍 Adresse :</span><br />
+                  <span className="font-semibold">📍 Adresse :</span>
+                  <br />
                   4 Rue Fontevrault, 72200 La Flèche
                 </p>
                 <p>
@@ -223,25 +251,27 @@ useEffect(() => {
                 </p>
                 <p>
                   <span className="font-semibold">✉️ Email :</span>{" "}
-                  <a href="mailto:bonard@lumea-services.fr" className="text-[#F59E0B] font-medium">
+                  <a
+                    href="mailto:bonard@lumea-services.fr"
+                    className="text-[#F59E0B] font-medium"
+                  >
                     bonard@lumea-services.fr
                   </a>
                 </p>
               </div>
             </div>
 
-          {/* === GOOGLE MAPS === */}
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border-2 border-[#FBBF24]/40 shadow-lg shadow-[#FBBF24]/10">
-            <iframe
-              className="absolute inset-0 w-full h-full"
-              title="Localisation Luméa Services"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6370.4835584843795!2d-0.07706592329613694!3d47.69891958159746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48081eb127aae5b3%3A0xb5a219033f568142!2s4%20Rue%20de%20Fontevrault%2C%2072200%20La%20Fl%C3%A8che!5e1!3m2!1sfr!2sfr!4v1761907510712!5m2!1sfr!2sfr"
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
-          </div>
-
+            {/* === GOOGLE MAPS === */}
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border-2 border-[#FBBF24]/40 shadow-lg shadow-[#FBBF24]/10">
+              <iframe
+                className="absolute inset-0 w-full h-full"
+                title="Localisation Luméa Services"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6370.4835584843795!2d-0.07706592329613694!3d47.69891958159746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48081eb127aae5b3%3A0xb5a219033f568142!2s4%20Rue%20de%20Fontevrault%2C%2072200%20La%20Fl%C3%A8che!5e1!3m2!1sfr!2sfr!4v1761907510712!5m2!1sfr!2sfr"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
           </motion.div>
         </div>
       </section>
