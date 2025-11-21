@@ -175,7 +175,7 @@ export default function HomePage() {
                 </span>
               </h1>
               <p className="mt-5 max-w-2xl text-lg text-[#374151] font-medium leading-relaxed">
-                Société centrée sur l’humain, <strong>Luméa Services</strong> place la qualité, la confiance et l’écoute au cœur de son engagement.
+                Société de ménage centrée sur l’humain, <strong>Luméa Services</strong>, située à La Flèche place la qualité, la confiance et l’écoute au cœur de son engagement.
                 Nos valeurs reposent sur le respect, la bienveillance et la valorisation de nos collaborateurs, afin de garantir un suivi rigoureux et des interventions exemplaires.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
@@ -226,7 +226,7 @@ export default function HomePage() {
             <motion.div {...fadeUp} className="space-y-6">
               <h2 className="text-4xl font-bold text-[#1E293B]">Qui sommes-nous ?</h2>
               <p className="text-lg text-gray-700 leading-relaxed">
-                <strong>Luméa Services</strong>, entreprise indépendante implantée à <strong>La Flèche</strong> et <strong>La Suze-sur-Sarthe</strong>,
+                <strong>Luméa Services</strong>, entreprise indépendante implantée à <strong>La Flèche</strong>, spécialisée dans le ménage et <strong>La Suze-sur-Sarthe</strong>,
                 met son savoir-faire au service des particuliers et des professionnels.
               </p>
               <p className="text-lg text-gray-700 leading-relaxed">
@@ -281,7 +281,7 @@ export default function HomePage() {
         </span>
       </h2>
       <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-        Découvrez toutes nos prestations sur mesure pour votre maison ou vos locaux professionnels.
+        Découvrez toutes nos prestations ménage sur mesure pour votre maison ou vos locaux professionnels sur La Flèche.
       </p>
     </motion.div>
 
@@ -304,14 +304,24 @@ export default function HomePage() {
     {/* Carrousel fluide avec pause/reprise au survol */}
     <CarouselSection />
 
-    {/* CTA cliquable */}
-    <div className="mt-20 text-center">
+        {/* CTA cliquable */}
+    <div className="mt-20 text-center space-y-3">
       <Link
         href="/services"
         className="inline-block rounded-3xl bg-gradient-to-r from-[#F59E0B] to-[#FBBF24] px-10 py-4 text-white font-semibold shadow-lg shadow-[#F59E0B]/30 transition-all hover:scale-[1.06] hover:shadow-xl hover:from-[#FBBF24] hover:to-[#F59E0B]"
       >
         ✨ Explorer tous nos services
       </Link>
+
+      <p className="text-sm text-gray-600">
+        Des questions sur nos prestations de ménage et de nettoyage ?{" "}
+        <Link
+          href="/faq"
+          className="font-semibold text-[#F59E0B] underline underline-offset-4 hover:text-[#92400E]"
+        >
+          Consulter la FAQ
+        </Link>
+      </p>
     </div>
   </div>
 </section>
@@ -338,7 +348,7 @@ export default function HomePage() {
           <p className="text-lg text-gray-700 leading-relaxed">
             <strong>Luméa Services</strong> est une entreprise de proximité ancrée à 
             <strong> La Flèche</strong> et <strong>La Suze-sur-Sarthe</strong>.  
-            Nous mettons un point d’honneur à offrir des prestations sur mesure,
+            Nous mettons un point d’honneur à offrir des prestations de ménage sur mesure,
             où qualité rime avec confiance et accompagnement durable.
           </p>
         </div>

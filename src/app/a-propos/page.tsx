@@ -15,20 +15,32 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen scroll-smooth bg-white text-gray-900">
       {/* HERO SECTION */}
-      <section className="relative isolate overflow-hidden pt-32 pb-20 bg-gradient-to-b from-[#FFFBEA] via-white to-white border-b scroll-mt-24">
+            <section className="relative isolate overflow-hidden pt-32 pb-20 bg-gradient-to-b from-[#FFFBEA] via-white to-white border-b scroll-mt-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <motion.div {...fadeUp} className="text-center">
             <h1 className="text-4xl font-bold sm:text-5xl text-[#1E293B]">
               À propos de <span className="text-[#F59E0B]">Luméa Services</span>
             </h1>
             <p className="mt-6 max-w-2xl mx-auto text-lg text-gray-700 leading-relaxed">
-              Entreprise locale et humaine, Luméa Services place la confiance, la
+              Entreprise locale et humaine située à la flèche, Luméa Services place la confiance, la
               proximité et la valorisation du personnel au cœur de sa démarche.
               Découvrez notre histoire, nos valeurs et notre vision.
+            </p>
+
+            <p className="mt-4 max-w-2xl mx-auto text-base text-gray-700">
+              Vous avez des questions sur nos prestations de ménage et de nettoyage ?{" "}
+              <Link
+                href="/faq"
+                className="font-semibold text-[#F59E0B] underline underline-offset-4 hover:text-[#92400E]"
+              >
+                Consultez notre FAQ
+              </Link>
+              .
             </p>
           </motion.div>
         </div>
       </section>
+
 
       {/* SECTION — NOTRE HISTOIRE */}
       <section className="relative py-20 border-b bg-white scroll-mt-24">

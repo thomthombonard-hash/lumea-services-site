@@ -7,15 +7,15 @@ import AnalyticsConsent from "@/components/AnalyticsConsent";
 import PromoBanner from "@/components/PromoBanner"; // ✅ Nouveau composant
 
 export const metadata: Metadata = {
-  title: "Luméa Services - Services à la personne à La Flèche",
+  title: "Luméa Services - Ménage & nettoyage à La Flèche",
   description:
-    "Services à domicile : ménage, entretien de vitres et nettoyage de locaux à La Flèche et ses environs.",
+    "Services à domicile et nettoyage de locaux : ménage, entretien de vitres et nettoyage pour particuliers et professionnels à La Flèche, La Suze-sur-Sarthe et les environs.",
   keywords:
-    "ménage, repassage, vitres, nettoyage de locaux, La Flèche, Sarthe, services à la personne",
+    "ménage, ménage à domicile, nettoyage, nettoyage de locaux, nettoyage bureaux, vitres, repassage, La Flèche, La Suze-sur-Sarthe, Sarthe, services à la personne, nettoyage professionnel",
   openGraph: {
-    title: "Luméa Services - Services à la personne à La Flèche",
+    title: "Luméa Services - Ménage & nettoyage à La Flèche",
     description:
-      "Découvrez nos prestations de ménage, repassage, vitres et entretien pour particuliers et professionnels à La Flèche et alentours.",
+      "Découvrez nos prestations de ménage à domicile, nettoyage de bureaux, vitres et entretien pour particuliers et professionnels à La Flèche et alentours.",
     url: "https://www.lumea-services.fr",
     siteName: "Luméa Services",
     locale: "fr_FR",
@@ -88,7 +88,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <Header />
 
         {/* === CONTENU DES PAGES === */}
-        <main className="flex-grow container mx-auto p-4 pt-24">{children}</main>
+        <main className="flex-grow container mx-auto p-4 pt-24">
+          {children}
+        </main>
 
         {/* === FOOTER GLOBAL === */}
         <footer className="bg-[#1E293B]/95 text-white text-center py-6 mt-8 text-sm sm:text-base">
@@ -108,6 +110,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               className="underline hover:text-gray-200"
             >
               Politique de confidentialité
+            </Link>{" "}
+            |{" "}
+            <Link
+              href="/faq"
+              className="underline hover:text-gray-200"
+            >
+              FAQ
             </Link>
           </p>
           <p className="text-xs mt-2 text-gray-200">

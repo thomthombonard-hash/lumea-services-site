@@ -234,7 +234,7 @@ export default function ContactPage() {
               </h2>
               <p className="text-gray-700 leading-relaxed">
                 Vous pouvez également nous joindre par téléphone ou venir nous
-                rencontrer directement à notre agence.
+                rencontrer directement à notre agence de La Flèche.
               </p>
 
               <div className="mt-6 space-y-3 text-gray-800">
@@ -283,7 +283,7 @@ export default function ContactPage() {
             Vous préférez nous appeler directement ?
           </h2>
           <p className="mt-4 text-gray-700">
-            Notre équipe est disponible du lundi au vendredi, de 8h à 18h.
+            Notre équipe est disponible du lundi au vendredi, de 9h à 18h.
           </p>
           <a
             href="tel:0673258816"

@@ -51,50 +51,68 @@ export default function ServicesPage() {
   return (
     <main className="min-h-screen scroll-smooth bg-white text-gray-900">
       {/* HERO (sobriété premium) */}
-<section className="relative isolate overflow-hidden pt-32 pb-24 bg-gradient-to-b from-[#FFFBEA] via-white to-[#FFFDF7] border-b scroll-mt-24">
-  <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center relative z-10">
-    <motion.h1
-      {...fadeUp}
-      className="text-5xl sm:text-6xl font-extrabold text-[#1E293B] leading-tight"
-    >
-      Nos{" "}
-      <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F59E0B] to-[#FDE68A]">
-        services
-      </span>
-    </motion.h1>
+      <section className="relative isolate overflow-hidden pt-32 pb-24 bg-gradient-to-b from-[#FFFBEA] via-white to-[#FFFDF7] border-b scroll-mt-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center relative z-10">
+          <motion.h1
+            {...fadeUp}
+            className="text-5xl sm:text-6xl font-extrabold text-[#1E293B] leading-tight"
+          >
+            Nos{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F59E0B] to-[#FDE68A]">
+              services
+            </span>
+          </motion.h1>
 
-    <motion.p
-      {...fadeUp}
-      className="mt-6 max-w-3xl mx-auto text-lg sm:text-xl text-gray-700 leading-relaxed"
-    >
-      Sols impeccables, vitres étincelantes, locaux assainis ou remise en état après travaux :
-      <strong> Luméa Services</strong> accompagne <strong>particuliers</strong> et{" "}
-      <strong>entreprises</strong> avec des prestations sur mesure, réalisées par des équipes
-      expertes et engagées.
-    </motion.p>
+          <motion.p
+            {...fadeUp}
+            className="mt-6 max-w-3xl mx-auto text-lg sm:text-xl text-gray-700 leading-relaxed"
+          >
+            Sols impeccables, vitres étincelantes, locaux assainis ou remise en état après travaux :{" "}
+            <strong>Luméa Services</strong> accompagne <strong>particuliers</strong> et{" "}
+            <strong>entreprises</strong> de La Flèche avec des prestations de ménage sur mesure,
+            réalisées par des équipes expertes et engagées.
+          </motion.p>
 
-    <motion.p
-      {...fadeUp}
-      className="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-gray-600"
-    >
-      Confiez-nous l’entretien de votre maison, bureau, commerce ou copropriété : nous garantissons
-      un résultat irréprochable, pensé pour durer.
-    </motion.p>
+          <motion.p
+            {...fadeUp}
+            className="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-gray-600"
+          >
+            Confiez-nous l&apos;entretien de votre maison, bureau, commerce ou copropriété : nous
+            garantissons un résultat irréprochable, pensé pour durer.
+          </motion.p>
 
-    <motion.div
-      {...fadeUp}
-      className="mt-10 flex justify-center gap-4 flex-wrap"
-    >
-      <span className="px-4 py-1.5 text-sm font-medium rounded-full bg-[#FBBF24]/30 text-[#92400E]">
-        🌟 Formules personnalisées
-      </span>
-      <span className="px-4 py-1.5 text-sm font-medium rounded-full bg-[#FBBF24]/30 text-[#92400E]">
-        🧹 Intervenants qualifiés
-      </span>
-      <span className="px-4 py-1.5 text-sm font-medium rounded-full bg-[#FBBF24]/30 text-[#92400E]">
-        📍 Service local
-      </span>
-    </motion.div>
+          {/* Lien vers la FAQ */}
+          <motion.p
+            {...fadeUp}
+            className="mt-3 max-w-2xl mx-auto text-sm sm:text-base text-gray-700"
+          >
+            Vous avez des questions sur nos prestations, nos tarifs ou le crédit d&apos;impôt ?{" "}
+            <Link
+              href="/faq"
+              className="font-semibold text-[#F59E0B] underline underline-offset-4 hover:text-[#92400E]"
+            >
+              Consultez notre FAQ ménage &amp; nettoyage
+            </Link>
+            .
+          </motion.p>
+
+          <motion.div
+            {...fadeUp}
+            className="mt-10 flex justify-center gap-4 flex-wrap"
+          >
+            <span className="px-4 py-1.5 text-sm font-medium rounded-full bg-[#FBBF24]/30 text-[#92400E]">
+              🌟 Formules personnalisées
+            </span>
+            <span className="px-4 py-1.5 text-sm font-medium rounded-full bg-[#FBBF24]/30 text-[#92400E]">
+              🧹 Intervenants qualifiés
+            </span>
+            <span className="px-4 py-1.5 text-sm font-medium rounded-full bg-[#FBBF24]/30 text-[#92400E]">
+              📍 Service local
+            </span>
+          </motion.div>
+
+          {/* le reste de ta section (bloc crédit d'impôt, etc.) continue ici */}
+
 
     {/* Bloc crédit d'impôt 50 % + image */}
     <motion.div
