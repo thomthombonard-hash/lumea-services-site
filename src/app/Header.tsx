@@ -5,7 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import PromoBanner from "@/components/PromoBanner";
+
 
 type ServiceItem = { label: string; href: string };
 
@@ -223,8 +223,7 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Bannière promo */}
-      <PromoBanner />
+
 
       {/* Menu mobile animé */}
       <AnimatePresence>
