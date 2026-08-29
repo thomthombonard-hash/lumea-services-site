@@ -1,0 +1,104 @@
+[
+  {
+    "id": "source-sarthe-autonomie",
+    "label": "Sarthe Autonomie",
+    "checkedAt": "2026-08-29",
+    "reviewEveryDays": 180
+  },
+  {
+    "id": "source-sarthe-apa",
+    "label": "APA - Sarthe",
+    "checkedAt": "2026-08-29",
+    "reviewEveryDays": 180
+  },
+  {
+    "id": "source-mda-49",
+    "label": "Maison départementale de l'autonomie - Maine-et-Loire",
+    "checkedAt": "2026-08-29",
+    "reviewEveryDays": 180
+  },
+  {
+    "id": "source-apa-49",
+    "label": "APA - Maine-et-Loire",
+    "checkedAt": "2026-08-29",
+    "reviewEveryDays": 180
+  },
+  {
+    "id": "source-mda-53",
+    "label": "Maisons du Département - Mayenne",
+    "checkedAt": "2026-08-29",
+    "reviewEveryDays": 180
+  },
+  {
+    "id": "source-apa-53",
+    "label": "APA - Mayenne",
+    "checkedAt": "2026-08-29",
+    "reviewEveryDays": 180
+  },
+  {
+    "id": "source-pch-53",
+    "label": "PCH - Mayenne",
+    "checkedAt": "2026-08-29",
+    "reviewEveryDays": 180
+  },
+  {
+    "id": "source-carsat-ardh",
+    "label": "Aides après hospitalisation - Assurance retraite",
+    "checkedAt": "2026-08-29",
+    "reviewEveryDays": 180
+  },
+  {
+    "id": "source-caisse-retraite",
+    "label": "Caisses de retraite",
+    "checkedAt": "2026-08-29",
+    "reviewEveryDays": 180
+  },
+  {
+    "id": "source-aide-domicile-age",
+    "label": "Aide à domicile pour les personnes âgées",
+    "checkedAt": "2026-08-29",
+    "reviewEveryDays": 180
+  },
+  {
+    "id": "source-services-aide-domicile",
+    "label": "Services d'aide à domicile",
+    "checkedAt": "2026-08-29",
+    "reviewEveryDays": 180
+  },
+  {
+    "id": "source-portage-repas",
+    "label": "Portage de repas",
+    "checkedAt": "2026-08-29",
+    "reviewEveryDays": 180
+  },
+  {
+    "id": "source-apa-national",
+    "label": "APA - informations nationales",
+    "checkedAt": "2026-08-29",
+    "reviewEveryDays": 180
+  },
+  {
+    "id": "source-pch-national",
+    "label": "PCH - informations nationales",
+    "checkedAt": "2026-08-29",
+    "reviewEveryDays": 180
+  },
+  {
+    "id": "source-sap-general",
+    "label": "Services à la personne",
+    "checkedAt": "2026-08-29",
+    "reviewEveryDays": 180
+  },
+  {
+    "id": "source-sap-credit-impot",
+    "label": "Crédit d'impôt services à la personne",
+    "checkedAt": "2026-08-29",
+    "reviewEveryDays": 180
+  },
+  {
+    "id": "source-ccas",
+    "label": "CCAS et services communaux",
+    "checkedAt": "2026-08-29",
+    "reviewEveryDays": 180
+  }
+]

@@ -28,3 +28,153 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
 }
+
+
+/* ============================================================
+ * OUTIL « QUI PEUT M’AIDER ? »
+ * ============================================================
+ * Styles volontairement isolés dans .orientation-page afin de
+ * ne pas modifier l’identité visuelle des autres pages du site.
+ */
+.orientation-page {
+  --lumea-cream: #f5f0e6;
+  --lumea-cream-2: #fbf8f2;
+  --lumea-navy: #0d2344;
+  --lumea-navy-soft: #19365f;
+  --lumea-gold: #efb72f;
+  --lumea-gold-soft: #f7df96;
+  --lumea-blue: #46698e;
+  --lumea-blue-grey: #586b82;
+  --lumea-muted: #586b82;
+  --lumea-sky-light: #f7f9fc;
+  --lumea-border: rgba(13, 35, 68, 0.12);
+
+  position: relative;
+  min-height: 72vh;
+  overflow: hidden;
+  background: linear-gradient(180deg, #f6f1e8 0%, #f8f4ec 100%);
+  color: var(--lumea-navy);
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.orientation-page::before {
+  content: "";
+  position: absolute;
+  top: 80px;
+  right: -180px;
+  width: 520px;
+  height: 520px;
+  border: 1px solid rgba(13, 35, 68, 0.08);
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+.orientation-page::after {
+  content: "";
+  position: absolute;
+  top: 170px;
+  right: -70px;
+  width: 320px;
+  height: 320px;
+  border: 1px solid rgba(13, 35, 68, 0.08);
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+.orientation-page button,
+.orientation-page input,
+.orientation-page textarea,
+.orientation-page select {
+  font: inherit;
+}
+
+.orientation-page button {
+  cursor: pointer;
+}
+
+.orientation-page ::selection {
+  background: var(--lumea-gold-soft);
+  color: var(--lumea-navy);
+}
+
+.orientation-page :focus-visible {
+  outline: 3px solid rgba(239, 183, 47, 0.65);
+  outline-offset: 3px;
+}
+
+.orientation-page .lumea-dark-panel {
+  background: var(--lumea-navy);
+  color: white;
+  box-shadow: 0 24px 60px rgba(13, 35, 68, 0.18);
+}
+
+.orientation-page .lumea-soft-card {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--lumea-border);
+  box-shadow: 0 18px 40px rgba(13, 35, 68, 0.05);
+}
+
+.orientation-page .lumea-button-primary {
+  background: var(--lumea-gold);
+  color: var(--lumea-navy);
+  border: none;
+  box-shadow: 0 12px 30px rgba(239, 183, 47, 0.3);
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.orientation-page .lumea-button-primary:hover {
+  transform: translateY(-1px);
+  background: #e0aa28;
+}
+
+.orientation-page .lumea-button-secondary {
+  background: white;
+  color: var(--lumea-navy);
+  border: 1px solid rgba(13, 35, 68, 0.16);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.orientation-page .lumea-button-secondary:hover {
+  transform: translateY(-1px);
+  background: #fffdfa;
+}
+
+.orientation-page .orientation-readable {
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  color: var(--lumea-navy);
+}
+
+.orientation-page .orientation-readable h1,
+.orientation-page .orientation-readable h2,
+.orientation-page .orientation-readable h3 {
+  letter-spacing: -0.025em;
+}
+
+.orientation-page .orientation-readable p {
+  line-height: 1.7;
+}
+
+.orientation-page .orientation-readable button,
+.orientation-page .orientation-readable a {
+  font-size: inherit;
+}
+
+.orientation-page .orientation-reading-width {
+  width: 100%;
+  max-width: 840px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orientation-page *,
+  .orientation-page *::before,
+  .orientation-page *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,46 @@
+[
+  {
+    "id": "croix-rouge-ecoute",
+    "name": "Croix-Rouge française à votre écoute",
+    "phone": "0 800 858 858",
+    "type": "listening",
+    "description": "Une ligne nationale pour parler de ses difficultés, être écouté et, si besoin, être orienté vers d'autres ressources.",
+    "details": "Gratuit · Anonyme · Confidentiel",
+    "website": "https://www.croix-rouge.fr/soutien-psychosocial-par-telephone",
+    "checkedAt": "2026-08-29",
+    "reviewEveryDays": 90
+  },
+  {
+    "id": "3114",
+    "name": "3114 - Numéro national de prévention du suicide",
+    "phone": "3114",
+    "type": "crisis",
+    "description": "Pour une personne en grande détresse ou ayant des idées suicidaires. L'entourage inquiet pour un proche peut également appeler.",
+    "details": "Gratuit · 24h/24 · 7j/7 · Professionnels formés",
+    "website": "https://3114.fr/",
+    "checkedAt": "2026-08-29",
+    "reviewEveryDays": 90
+  },
+  {
+    "id": "samu",
+    "name": "SAMU",
+    "phone": "15",
+    "type": "emergency",
+    "description": "En cas de danger immédiat ou d'urgence médicale.",
+    "details": "Urgence",
+    "website": "https://www.service-public.fr/particuliers/actualites/A15841",
+    "checkedAt": "2026-08-29",
+    "reviewEveryDays": 90
+  },
+  {
+    "id": "112",
+    "name": "Numéro d'urgence européen",
+    "phone": "112",
+    "type": "emergency",
+    "description": "Numéro d'urgence utilisable partout dans l'Union européenne.",
+    "details": "Urgence",
+    "website": "https://www.service-public.fr/particuliers/actualites/A15841",
+    "checkedAt": "2026-08-29",
+    "reviewEveryDays": 90
+  }
+]

@@ -170,6 +170,18 @@ export default function Header() {
             </AnimatePresence>
           </div>
 
+          {/* Outil gratuit d’orientation */}
+          <Link
+            href="/qui-peut-maider"
+            className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
+              pathname === "/qui-peut-maider"
+                ? "border-[#FBBF24] bg-[#FBBF24] text-[#1E293B]"
+                : "border-[#FBBF24]/60 text-[#FBBF24] hover:bg-[#FBBF24] hover:text-[#1E293B]"
+            }`}
+          >
+            Qui peut m’aider ?
+          </Link>
+
           {/* ✅ 3) À propos, FAQ, Contact, Recrutement */}
           {navLinks
             .filter((l) => l.href !== "/") // on retire Accueil (déjà affiché)
@@ -305,6 +317,18 @@ export default function Header() {
                   </motion.div>
                 )}
               </AnimatePresence>
+
+              <Link
+                href="/qui-peut-maider"
+                className={`w-full max-w-sm rounded-2xl border border-[#FBBF24]/50 px-4 py-3 text-center font-semibold transition ${
+                  pathname === "/qui-peut-maider"
+                    ? "bg-[#FBBF24] text-[#1E293B]"
+                    : "text-[#FBBF24] hover:bg-[#FBBF24]/10"
+                }`}
+                onClick={() => setMenuOpen(false)}
+              >
+                Qui peut m’aider ?
+              </Link>
 
               {/* Suite du menu mobile */}
               <Link href="/a-propos" className={linkClass("/a-propos")} onClick={() => setMenuOpen(false)}>

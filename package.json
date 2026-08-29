@@ -8,7 +8,9 @@
     "build": "next build",
     "start": "next start",
     "export": "next export",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:orientation": "node tests/orientation/run.cjs",
+    "audit": "npm run test:orientation && node scripts/check-freshness.mjs"
   },
   "dependencies": {
     "autoprefixer": "^10.4.21",

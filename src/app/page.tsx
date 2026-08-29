@@ -262,6 +262,54 @@ export default function HomePage() {
         </div>
       </section>
 
+{/* === OUTIL GRATUIT — QUI PEUT M’AIDER ? === */}
+<section className="relative overflow-hidden border-t bg-[#1E293B]">
+  <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full border border-white/10" />
+  <div className="pointer-events-none absolute right-10 top-10 h-44 w-44 rounded-full border border-[#FBBF24]/20" />
+
+  <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+    <motion.div
+      {...fadeUp}
+      className="grid items-center gap-8 lg:grid-cols-[1fr_auto] lg:gap-14"
+    >
+      <div>
+        <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#FBBF24]">
+          Un service gratuit Luméa
+        </p>
+
+        <h2 className="mt-3 text-3xl font-bold leading-tight text-white sm:text-4xl">
+          Vous ne savez pas qui peut vous aider ?
+        </h2>
+
+        <p className="mt-4 max-w-3xl text-lg leading-8 text-white/75">
+          Hospitalisation, perte d’autonomie, handicap, difficulté temporaire,
+          transport, repas ou aide à domicile : quelques questions suffisent
+          pour identifier les interlocuteurs à contacter et savoir par où commencer.
+        </p>
+
+        <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-white/70">
+          <span>✓ Gratuit</span>
+          <span>✓ Sans inscription</span>
+          <span>✓ Réponses non enregistrées</span>
+        </div>
+      </div>
+
+      <div className="lg:text-right">
+        <Link
+          href="/qui-peut-maider"
+          className="inline-flex min-h-[58px] items-center justify-center rounded-full bg-[#FBBF24] px-7 py-4 text-lg font-bold text-[#1E293B] shadow-lg shadow-black/15 transition hover:scale-[1.02] hover:bg-[#F59E0B]"
+        >
+          Qui peut m’aider ? →
+        </Link>
+
+        <p className="mt-3 text-sm text-white/55">
+          Sarthe · Maine-et-Loire · Mayenne
+        </p>
+      </div>
+    </motion.div>
+  </div>
+</section>
+
 {/* === SECTION 3 — CARROUSEL INFINI DES SERVICES (VERSION AMÉLIORÉE) === */}
 <section
   id="services"
