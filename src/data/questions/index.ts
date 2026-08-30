@@ -142,27 +142,33 @@ export const orientationQuestions: OrientationQuestion[] = [
 
   {
     id: "ageGroup",
-    title: "Quel âge avez-vous ?",
+    title: "Dans quelle tranche d'âge êtes-vous ?",
 
     helpText:
-      "Une tranche d'âge suffit. Nous ne demandons pas votre date de naissance.",
+      "Une tranche d'âge suffit. Elle nous aide simplement à identifier les dispositifs qui peuvent vous concerner.",
 
     options: [
       {
-        id: "age-moins-60",
-        label: "Moins de 60 ans",
+        id: "age-18-29",
+        label: "18 à 29 ans",
+        value: "moins-60",
+      },
+
+      {
+        id: "age-30-59",
+        label: "30 à 59 ans",
         value: "moins-60",
       },
 
       {
         id: "age-60-74",
-        label: "Entre 60 et 74 ans",
+        label: "60 à 74 ans",
         value: "60-74",
       },
 
       {
         id: "age-75-plus",
-        label: "75 ans ou plus",
+        label: "75 ans et plus",
         value: "75-plus",
       },
 

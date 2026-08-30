@@ -138,6 +138,41 @@ export default function RecommendationActions({
         activeType
     );
 
+  const hasTelephoneTemplate =
+    templates.some(
+      (
+        template
+      ) =>
+        template.type ===
+        "telephone"
+    );
+
+  const hasEmailTemplate =
+    templates.some(
+      (
+        template
+      ) =>
+        template.type ===
+        "email"
+    );
+
+  const hasLetterTemplate =
+    templates.some(
+      (
+        template
+      ) =>
+        template.type ===
+        "courrier"
+    );
+
+  const hasContactHelp =
+    hasTelephoneTemplate ||
+    hasEmailTemplate ||
+    hasLetterTemplate;
+
+  const unknownProviderInputId =
+    `unknown-provider-${recommendation.id}`;
+
   function openTemplate(
     type:
       AssistanceTemplateType
@@ -314,7 +349,9 @@ export default function RecommendationActions({
           </p>
 
           <label
-            htmlFor="unknown-provider-name"
+            htmlFor={
+              unknownProviderInputId
+            }
             className="mt-5 block font-bold text-[var(--lumea-navy)]"
           >
             {forRelative
@@ -328,7 +365,9 @@ export default function RecommendationActions({
           </label>
 
           <input
-            id="unknown-provider-name"
+            id={
+              unknownProviderInputId
+            }
             type="text"
             value={
               unknownProviderName
@@ -415,7 +454,7 @@ export default function RecommendationActions({
                   "assurance"
                     ? forRelative
                       ? "Si son assurance a été souscrite auprès d’une banque, son conseiller bancaire peut vous donner le numéro du service assurance ou assistance."
-                      : "Si votre assurance a été souscrite auprès d'une banque, votre conseiller peut vous donner le numéro du service assurance ou assistance."
+                      : "Si votre assurance a été souscrite auprès d’une banque, votre conseiller peut vous donner le numéro du service assurance ou assistance."
                     : forRelative
                       ? "Le numéro correspondant à son contrat est très souvent indiqué sur sa carte de tiers payant."
                       : "Le numéro correspondant à votre contrat est très souvent indiqué sur votre carte de tiers payant."}
@@ -545,122 +584,255 @@ export default function RecommendationActions({
         </a>
       ) : null}
 
-      <div className="mt-7 border-t border-[var(--lumea-border)] pt-6">
-        <h3 className="text-xl font-bold text-[var(--lumea-navy)]">
-          Besoin d&apos;aide pour leur parler ?
-        </h3>
-
-        <button
-          type="button"
-          onClick={() =>
-            openTemplate(
-              "telephone"
-            )
-          }
-          className="mt-4 flex min-h-[58px] w-full items-center justify-between rounded-[16px] border border-[var(--lumea-border)] bg-white px-5 py-3 text-left text-[17px] font-bold text-[var(--lumea-navy)] transition hover:border-[var(--lumea-gold)]"
-        >
-          <span>
-            Voir ce que je dois
-            leur dire
-          </span>
-
-          <span aria-hidden="true">
-            →
-          </span>
-        </button>
-      </div>
-
-      <div className="mt-6 border-t border-[var(--lumea-border)] pt-5">
-        <p className="font-bold text-[var(--lumea-navy)]">
-          Vous préférez écrire ?
-        </p>
-
-        <div className="mt-3 grid gap-3 sm:grid-cols-2">
-          <button
-            type="button"
-            onClick={() =>
-              openTemplate(
-                "email"
-              )
-            }
-            className="min-h-[58px] rounded-[16px] border border-[var(--lumea-border)] bg-white px-5 py-3 text-left font-semibold text-[var(--lumea-navy)] transition hover:border-[var(--lumea-gold)]"
-          >
-            Préparer un mail
-          </button>
-
-          <button
-            type="button"
-            onClick={() =>
-              openTemplate(
-                "courrier"
-              )
-            }
-            className="min-h-[58px] rounded-[16px] border border-[var(--lumea-border)] bg-white px-5 py-3 text-left font-semibold text-[var(--lumea-navy)] transition hover:border-[var(--lumea-gold)]"
-          >
-            Préparer un courrier
-          </button>
-        </div>
-      </div>
-
-      {activeTemplate ? (
+      {/*
+       * ========================================================
+       * AIDE AU CONTACT
+       * ========================================================
+       *
+       * Appel, mail et courrier sont désormais
+       * regroupés dans une seule carte.
+       */}
+      {hasContactHelp ? (
         <div className="mt-7 border-t border-[var(--lumea-border)] pt-6">
-          <p className="text-sm font-bold uppercase tracking-[0.1em] text-[#946800]">
-            {activeType ===
-            "telephone"
-              ? "Vous pouvez dire ceci"
-              : activeType ===
-                  "email"
-                ? "Exemple de mail"
-                : "Exemple de courrier"}
-          </p>
-
-          {activeTemplate.subject ? (
-            <div className="mt-4 rounded-[16px] bg-white p-4">
-              <p className="text-sm font-bold text-[var(--lumea-blue-grey)]">
-                Objet
+          <div className="overflow-hidden rounded-[22px] border border-[var(--lumea-border)] bg-white">
+            <div className="p-5 sm:p-6">
+              <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#8f6500]">
+                On vous aide
               </p>
 
-              <p className="mt-1 text-[17px] font-semibold leading-7 text-[var(--lumea-navy)]">
-                {
-                  activeTemplate.subject
-                }
+              <h3 className="mt-2 text-xl font-bold text-[var(--lumea-navy)] sm:text-[1.35rem]">
+                Besoin d&apos;aide pour
+                les contacter ?
+              </h3>
+
+              <p className="mt-2 text-[15px] leading-6 text-[var(--lumea-blue-grey)]">
+                Choisissez simplement la
+                manière dont vous souhaitez
+                les contacter. Nous vous
+                préparons les mots.
               </p>
+
+              <div className="mt-5 grid gap-3 md:grid-cols-3">
+                {hasTelephoneTemplate ? (
+                  <ContactHelpButton
+                    type="telephone"
+                    activeType={
+                      activeType
+                    }
+                    icon="☎"
+                    title="Préparer mon appel"
+                    description="Ce que je peux dire au téléphone"
+                    onClick={
+                      openTemplate
+                    }
+                  />
+                ) : null}
+
+                {hasEmailTemplate ? (
+                  <ContactHelpButton
+                    type="email"
+                    activeType={
+                      activeType
+                    }
+                    icon="✉"
+                    title="Écrire un mail"
+                    description="Un message prêt à adapter"
+                    onClick={
+                      openTemplate
+                    }
+                  />
+                ) : null}
+
+                {hasLetterTemplate ? (
+                  <ContactHelpButton
+                    type="courrier"
+                    activeType={
+                      activeType
+                    }
+                    icon="✎"
+                    title="Préparer un courrier"
+                    description="Une lettre prête à utiliser"
+                    onClick={
+                      openTemplate
+                    }
+                  />
+                ) : null}
+              </div>
             </div>
-          ) : null}
 
-          <div className="mt-4 whitespace-pre-wrap rounded-[18px] bg-white p-5 text-[17px] leading-8 text-[var(--lumea-navy)] sm:p-6">
-            {
-              activeTemplate.content
-            }
+            {activeTemplate ? (
+              <div className="border-t border-[var(--lumea-border)] bg-[#fbfaf7] p-5 sm:p-6">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-[0.1em] text-[#946800]">
+                      {activeType ===
+                      "telephone"
+                        ? "Préparer mon appel"
+                        : activeType ===
+                            "email"
+                          ? "Préparer mon mail"
+                          : "Préparer mon courrier"}
+                    </p>
+
+                    <h4 className="mt-2 text-lg font-bold text-[var(--lumea-navy)]">
+                      {activeType ===
+                      "telephone"
+                        ? "Vous pouvez dire ceci"
+                        : activeType ===
+                            "email"
+                          ? "Exemple de mail"
+                          : "Exemple de courrier"}
+                    </h4>
+                  </div>
+
+                  <button
+                    type="button"
+                    aria-label="Fermer cette aide"
+                    onClick={() =>
+                      setActiveType(
+                        null
+                      )
+                    }
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-xl font-bold text-[var(--lumea-navy)]"
+                  >
+                    ×
+                  </button>
+                </div>
+
+                {activeTemplate.subject ? (
+                  <div className="mt-5 rounded-[16px] border border-[var(--lumea-border)] bg-white p-4">
+                    <p className="text-sm font-bold text-[var(--lumea-blue-grey)]">
+                      Objet
+                    </p>
+
+                    <p className="mt-1 text-[17px] font-semibold leading-7 text-[var(--lumea-navy)]">
+                      {
+                        activeTemplate.subject
+                      }
+                    </p>
+                  </div>
+                ) : null}
+
+                <div className="mt-4 whitespace-pre-wrap rounded-[18px] border border-[var(--lumea-border)] bg-white p-5 text-[17px] leading-8 text-[var(--lumea-navy)] sm:p-6">
+                  {
+                    activeTemplate.content
+                  }
+                </div>
+
+                <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      copyTemplate(
+                        activeTemplate
+                      )
+                    }
+                    className="min-h-[52px] rounded-full bg-[var(--lumea-navy)] px-6 py-3 font-bold text-white"
+                  >
+                    {copied
+                      ? "Texte copié ✓"
+                      : "Copier ce texte"}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setActiveType(
+                        null
+                      )
+                    }
+                    className="min-h-[48px] px-4 text-sm font-semibold text-[var(--lumea-blue-grey)] underline underline-offset-4"
+                  >
+                    Fermer cette aide
+                  </button>
+                </div>
+              </div>
+            ) : null}
           </div>
-
-          <button
-            type="button"
-            onClick={() =>
-              copyTemplate(
-                activeTemplate
-              )
-            }
-            className="mt-4 min-h-[54px] rounded-full bg-[var(--lumea-navy)] px-6 py-3 font-bold text-white"
-          >
-            {copied
-              ? "Texte copié ✓"
-              : "Copier ce texte"}
-          </button>
-
-          <button
-            type="button"
-            onClick={() =>
-              setActiveType(
-                null
-              )
-            }
-            className="mt-5 block text-sm font-semibold text-[var(--lumea-blue-grey)] underline underline-offset-4"
-          >
-            Fermer cette aide
-          </button>
         </div>
       ) : null}
     </section>
+  );
+}
+
+interface ContactHelpButtonProps {
+  type:
+    AssistanceTemplateType;
+
+  activeType:
+    AssistanceTemplateType | null;
+
+  icon: string;
+
+  title: string;
+
+  description: string;
+
+  onClick: (
+    type:
+      AssistanceTemplateType
+  ) => void;
+}
+
+function ContactHelpButton({
+  type,
+  activeType,
+  icon,
+  title,
+  description,
+  onClick,
+}: ContactHelpButtonProps) {
+  const active =
+    activeType ===
+    type;
+
+  return (
+    <button
+      type="button"
+      aria-pressed={
+        active
+      }
+      onClick={() =>
+        onClick(
+          type
+        )
+      }
+      className={[
+        "group min-h-[112px] rounded-[18px] border p-4 text-left transition",
+
+        active
+          ? "border-[var(--lumea-gold)] bg-[var(--lumea-cream-2)]"
+          : "border-[var(--lumea-border)] bg-white hover:border-[var(--lumea-gold)]",
+      ].join(
+        " "
+      )}
+    >
+      <div className="flex items-start gap-3">
+        <span
+          aria-hidden="true"
+          className={[
+            "flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-base font-bold",
+
+            active
+              ? "bg-[var(--lumea-gold)] text-[var(--lumea-navy)]"
+              : "bg-[var(--lumea-gold-soft)] text-[var(--lumea-navy)]",
+          ].join(
+            " "
+          )}
+        >
+          {icon}
+        </span>
+
+        <div>
+          <p className="font-bold leading-6 text-[var(--lumea-navy)]">
+            {title}
+          </p>
+
+          <p className="mt-1 text-sm leading-5 text-[var(--lumea-blue-grey)]">
+            {description}
+          </p>
+        </div>
+      </div>
+    </button>
   );
 }

@@ -4,7 +4,6 @@ import Link from "next/link";
 import Header from "./Header";
 import CookieConsent from "@/components/CookieConsent";
 import AnalyticsConsent from "@/components/AnalyticsConsent";
-import PromoBanner from "@/components/PromoBanner"; // ✅ Nouveau composant
 import GlobalFloatingActions from "@/components/GlobalFloatingActions";
 
 export const metadata: Metadata = {
@@ -82,8 +81,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </noscript>
         {/* End Google Tag Manager (noscript) */}
 
-        {/* === BANNIÈRE PROMO SPÉCIALE === */}
-        <PromoBanner />
 
         {/* === HEADER GLOBAL === */}
         <Header />
