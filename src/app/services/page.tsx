@@ -58,27 +58,6 @@ export default function ServicesPage() {
     },
   ];
 
-  const servicesPros: ServiceCard[] = [
-    {
-      title: "Nettoyage Pro",
-      desc: "Nettoyage de bureaux, commerces et locaux : sols, sanitaires, points de contact. Prestations ponctuelles ou contrat régulier avec suivi.",
-      img: "/optimized/pexels-tima-miroshnichenko-6196682.webp",
-      href: "/services/professionnels/nettoyage-pro",
-    },
-    {
-      title: "Entretien des Parties Communes",
-      desc: "Copropriétés, syndics, SCI : halls, escaliers, paliers, ascenseurs (selon immeuble). Passage régulier et organisation cadrée.",
-      img: "/optimized/partiecom.webp",
-      href: "/services/professionnels/parties-communes",
-    },
-    {
-      title: "Vitrerie Pro",
-      desc: "Vitrines, façades vitrées, verrières : intervention ponctuelle ou contrat. Un rendu sans traces pour une image de marque impeccable.",
-      img: "/optimized/vitrepro.webp",
-      href: "/services/professionnels/vitrerie-pro",
-    },
-  ];
-
   return (
     <main className="min-h-screen scroll-smooth bg-white text-gray-900">
       {/* HERO */}
@@ -98,9 +77,9 @@ export default function ServicesPage() {
             {...fadeUp}
             className="mt-6 max-w-3xl mx-auto text-lg sm:text-xl text-gray-700 leading-relaxed"
           >
-            Sols impeccables, vitres étincelantes, locaux assainis ou remise en état :{" "}
-            <strong>Luméa Services</strong> accompagne <strong>particuliers</strong> et{" "}
-            <strong>professionnels</strong> à <strong>La Flèche</strong> et{" "}
+            Ménage, vitrerie, grand nettoyage et aide à domicile :{" "}
+            <strong>Luméa Services</strong> accompagne les <strong>particuliers</strong> à{" "}
+            <strong>La Flèche</strong> et{" "}
             <strong>La Suze-sur-Sarthe</strong> avec des prestations sur mesure.
           </motion.p>
 
@@ -108,8 +87,8 @@ export default function ServicesPage() {
             {...fadeUp}
             className="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-gray-600"
           >
-            Maison, appartement, bureaux, commerces, copropriétés : une organisation simple, un
-            résultat durable, un suivi sérieux.
+            Pour votre maison ou votre appartement : une organisation simple, des prestations
+            adaptées à votre quotidien et un suivi régulier.
           </motion.p>
 
           <motion.p
@@ -246,69 +225,6 @@ export default function ServicesPage() {
               className="inline-flex items-center rounded-3xl bg-gradient-to-r from-[#F59E0B] to-[#FBBF24] px-9 py-4 text-white font-semibold shadow-lg shadow-[#F59E0B]/30 transition-all hover:scale-[1.06] hover:shadow-[#F59E0B]/40"
             >
               Demander un devis particulier
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* PROFESSIONNELS */}
-      <section className="relative py-28 bg-gradient-to-b from-[#F9FAFB] via-[#FFFDF7] to-white border-b scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <motion.h2 {...fadeUp} className="text-4xl font-bold text-[#1E293B] text-center mb-16">
-            Pour les <span className="text-[#F59E0B]">professionnels</span>
-          </motion.h2>
-
-          <div className="grid gap-14 sm:grid-cols-2 lg:grid-cols-3">
-            {servicesPros.map((s, i) => (
-              <motion.div
-                key={i}
-                {...fadeUp}
-                className="group relative rounded-3xl border border-[#FDE68A]/30 bg-white overflow-hidden shadow-md transition-all hover:-translate-y-2 hover:shadow-2xl"
-              >
-                <Link href={s.href} className="block">
-                  <div className="relative aspect-[4/3] w-full overflow-hidden">
-                    <Image
-                      src={s.img}
-                      alt={s.title}
-                      fill
-                      quality={80}
-                      sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-70 mix-blend-multiply" />
-                  </div>
-
-                  <div className="p-7">
-                    <h3 className="text-xl font-semibold text-[#1E293B]">{s.title}</h3>
-                    <p className="mt-3 text-gray-700 text-sm leading-relaxed">{s.desc}</p>
-
-                    <div className="mt-5">
-                      <span className="inline-flex items-center gap-2 text-sm font-medium text-[#F59E0B] group-hover:underline">
-                        Voir le détail
-                        <svg
-                          className="w-4 h-4 transition-transform group-hover:translate-x-0.5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-
-                <div className="pointer-events-none absolute inset-0 rounded-3xl ring-0 ring-[#FBBF24]/0 group-hover:ring-4 group-hover:ring-[#FBBF24]/30 transition" />
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div {...fadeUp} className="text-center mt-20">
-            <Link
-              href="/contact#prenom"
-              className="inline-flex items-center rounded-3xl bg-gradient-to-r from-[#F59E0B] to-[#FBBF24] px-9 py-4 text-white font-semibold shadow-lg shadow-[#F59E0B]/30 transition-all hover:scale-[1.06] hover:shadow-[#F59E0B]/40"
-            >
-              Demander un devis professionnel
             </Link>
           </motion.div>
         </div>

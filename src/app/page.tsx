@@ -40,29 +40,7 @@ function CarouselSection() {
     },
   ];
 
-  const servicesPros = [
-    {
-      title: "Nettoyage de Bureaux",
-      desc: "Maintenez un cadre de travail sain et accueillant grâce à nos services de nettoyage régulier ou ponctuel adaptés à votre activité professionnelle.",
-      img: "/optimized/pexels-tima-miroshnichenko-6196682.webp",
-      href: "/services",
-    },
-    {
-      title: "Entretien des Parties Communes",
-      desc: "Nous veillons à la propreté et à l’hygiène des espaces communs d’immeubles et de résidences, pour le confort et la sécurité de tous les occupants.",
-      img: "/optimized/partiecom.webp",
-      href: "/services",
-    },
-    {
-      title: "Vitrerie Professionnelle",
-      desc: "Nettoyage de vitrines, façades et vitres en hauteur. Nos équipes équipées assurent un rendu impeccable en toute sécurité, pour valoriser votre image.",
-      img: "/optimized/vitrepro.webp",
-      href: "/services",
-    },
-  ];
-
-  const allServices = [...servicesParticuliers, ...servicesPros];
-  const duplicatedServices = [...allServices, ...allServices];
+  const duplicatedServices = [...servicesParticuliers, ...servicesParticuliers];
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -169,9 +147,9 @@ export default function HomePage() {
                 Bienvenue chez <span className="text-[#92400E] font-bold">Luméa Services</span>
               </span>
               <h1 className="mt-3 text-4xl font-bold leading-tight sm:text-5xl">
-                Des services à la personne &{" "}
+                Des services à la personne{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FBBF24] to-[#FDE68A]">
-                  aux professionnels
+                  pour votre quotidien
                 </span>
               </h1>
               <p className="mt-5 max-w-2xl text-lg text-[#374151] font-medium leading-relaxed">
@@ -226,8 +204,8 @@ export default function HomePage() {
             <motion.div {...fadeUp} className="space-y-6">
               <h2 className="text-4xl font-bold text-[#1E293B]">Qui sommes-nous ?</h2>
               <p className="text-lg text-gray-700 leading-relaxed">
-                <strong>Luméa Services</strong>, entreprise indépendante implantée à <strong>La Flèche</strong>, spécialisée dans le ménage et <strong>La Suze-sur-Sarthe</strong>,
-                met son savoir-faire au service des particuliers et des professionnels.
+                <strong>Luméa Services</strong>, entreprise indépendante implantée à <strong>La Flèche</strong>,
+                intervient à <strong>La Suze-sur-Sarthe</strong> et dans les communes alentour pour l’entretien de votre domicile.
               </p>
               <p className="text-lg text-gray-700 leading-relaxed">
                 Fondée par <strong>Thomas Bonard</strong>, fort de <strong>plus de 8 ans d’expérience</strong> dans le service à la personne,
@@ -325,11 +303,11 @@ export default function HomePage() {
       <h2 className="text-4xl font-bold text-[#1E293B]">
         À votre service —{" "}
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F59E0B] to-[#FDE68A]">
-          Particuliers & Pros
+          Votre quotidien à domicile
         </span>
       </h2>
       <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-        Découvrez toutes nos prestations ménage sur mesure pour votre maison ou vos locaux professionnels sur La Flèche.
+        Découvrez nos prestations de ménage et d’aide à domicile pour votre maison ou votre appartement à La Flèche et dans les environs.
       </p>
     </motion.div>
 
@@ -628,8 +606,8 @@ export default function HomePage() {
           Prêt à <span className="text-[#F59E0B]">démarrer l’aventure</span> avec Luméa Services ?
         </h2>
         <p className="text-lg text-gray-700">
-          Que vous soyez un particulier ou un professionnel, notre équipe est à votre écoute
-          pour vous accompagner avec réactivité et exigence.
+          Notre équipe est à votre écoute pour l’entretien de votre domicile
+          et pour vous accompagner dans votre quotidien.
         </p>
 
         <div className="flex flex-wrap justify-center gap-4 pt-4">

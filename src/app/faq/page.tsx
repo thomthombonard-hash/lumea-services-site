@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 type FAQ = {
-  category: "Particuliers" | "Professionnels" | "Fonctionnement & tarifs";
+  category: "Particuliers" | "Fonctionnement & tarifs";
   icon: string;
   question: string;
   answer: string;
@@ -38,36 +38,6 @@ const faqs: FAQ[] = [
       "Oui, nos prestations de ménage à domicile entrent dans le cadre des services à la personne. Sous réserve de la réglementation en vigueur, vous pouvez bénéficier d’un crédit d’impôt pouvant aller jusqu’à 50 % des sommes versées. Nous vous fournissons chaque année les justificatifs nécessaires pour votre déclaration.",
   },
 
-  // === PROFESSIONNELS ===
-  {
-    category: "Professionnels",
-    icon: "🏢",
-    question: "Proposez-vous du nettoyage de bureaux et de locaux professionnels ?",
-    answer:
-      "Oui, nous assurons le nettoyage de bureaux, commerces, cabinets médicaux, salles d’attente, ateliers légers et locaux professionnels. Les fréquences d’intervention sont adaptées à votre activité : quotidienne, plusieurs fois par semaine ou ponctuelle.",
-  },
-  {
-    category: "Professionnels",
-    icon: "🏢",
-    question: "Pouvez-vous entretenir les parties communes d’immeubles et de résidences ?",
-    answer:
-      "Oui, nous intervenons pour l’entretien des parties communes : halls, cages d’escaliers, ascenseurs, paliers, locaux poubelles… Nous définissons avec vous un planning précis pour garantir une propreté régulière et rassurante pour les occupants.",
-  },
-  {
-    category: "Professionnels",
-    icon: "🪟",
-    question: "Réalisez-vous le nettoyage de vitrines et vitrages professionnels ?",
-    answer:
-      "Oui, nous proposons le nettoyage de vitrines, façades vitrées et vitres en hauteur lorsque les accès sont sécurisés. Un vitrage propre participe directement à l’image de votre commerce ou de votre entreprise.",
-  },
-  {
-    category: "Professionnels",
-    icon: "📅",
-    question: "Comment se déroule la mise en place d’un contrat de nettoyage professionnel ?",
-    answer:
-      "Nous commençons par une visite de vos locaux pour comprendre vos besoins : surface, nature des sols, contraintes horaires, attentes en matière de propreté. À partir de ces éléments, nous construisons un cahier des charges et un devis personnalisé, puis un planning d’intervention adapté à votre activité.",
-  },
-
   // === FONCTIONNEMENT & TARIFS ===
   {
     category: "Fonctionnement & tarifs",
@@ -88,7 +58,7 @@ const faqs: FAQ[] = [
     icon: "🧴",
     question: "Fournissez-vous le matériel et les produits d’entretien ?",
     answer:
-      "Nous pouvons utiliser votre matériel et vos produits si vous le préférez, ou vous proposer des solutions adaptées. Pour les prestations professionnelles, nous définissons ensemble la meilleure organisation (matériel fourni par nous, par vous, ou mixte) afin de garantir un résultat de qualité.",
+      "Nous pouvons utiliser votre matériel et vos produits si vous le préférez, ou vous proposer des solutions adaptées. Nous définissons ensemble l’organisation adaptée à votre domicile avant la première intervention.",
   },
   {
     category: "Fonctionnement & tarifs",
@@ -109,7 +79,7 @@ const faqs: FAQ[] = [
     icon: "👥",
     question: "Comment sont recrutés et encadrés vos intervenants ?",
     answer:
-      "Nos intervenants sont recrutés sur leur sérieux, leur savoir-être et leur expérience dans le ménage ou le nettoyage professionnel. Ils sont ensuite accompagnés, formés à nos méthodes et suivis régulièrement sur le terrain afin de garantir la qualité des prestations et la sécurité chez nos clients.",
+      "Nos intervenants sont recrutés sur leur sérieux, leur savoir-être et leur expérience dans le ménage et l’entretien du domicile. Ils sont ensuite accompagnés, formés à nos méthodes et suivis régulièrement sur le terrain afin de garantir la qualité des prestations et la sécurité chez nos clients.",
   },
   {
     category: "Fonctionnement & tarifs",
@@ -130,7 +100,7 @@ const faqs: FAQ[] = [
     icon: "📞",
     question: "Comment demander un devis ou réserver une intervention de ménage ou de nettoyage ?",
     answer:
-      "Pour demander un devis ou réserver une prestation, vous pouvez utiliser la page Contact de notre site, appeler le 06 73 25 88 16 ou écrire à bonard@lumea-services.fr. Nous vous répondons rapidement pour vous proposer une solution adaptée à votre situation (particulier ou professionnel).",
+      "Pour demander un devis ou réserver une prestation, vous pouvez utiliser la page Contact de notre site, appeler le 06 73 25 88 16 ou écrire à bonard@lumea-services.fr. Nous vous répondons rapidement pour vous proposer une solution adaptée à votre domicile et à vos besoins.",
   },
 ];
 
@@ -148,15 +118,14 @@ const faqSchema = {
 };
 
 export const metadata = {
-  title: "FAQ – Ménage à domicile & Nettoyage professionnel | Luméa Services",
+  title: "FAQ – Ménage et aide à domicile | Luméa Services",
   description:
-    "Toutes les réponses aux questions sur nos prestations de ménage, nettoyage et vitrerie à La Flèche et La Suze-sur-Sarthe. Aucun frais caché, devis gratuit, services pour particuliers et professionnels.",
+    "Toutes les réponses aux questions sur nos prestations de ménage, nettoyage et vitrerie à La Flèche et La Suze-sur-Sarthe. Aucun frais caché, devis gratuit, services à domicile pour les particuliers.",
 };
 
 export default function FAQPage() {
   const categories: Array<FAQ["category"]> = [
     "Particuliers",
-    "Professionnels",
     "Fonctionnement & tarifs",
   ];
 
@@ -179,17 +148,17 @@ export default function FAQPage() {
             <p className="max-w-3xl mx-auto text-lg text-gray-700 leading-relaxed">
               Vous vous posez des questions sur nos prestations de{" "}
               <strong>ménage à domicile</strong> ou de{" "}
-              <strong>nettoyage professionnel</strong> autour de{" "}
+              <strong>grand nettoyage à domicile</strong> autour de{" "}
               <strong>La Flèche</strong> et <strong>La Suze-sur-Sarthe</strong> ?{" "}
               Cette foire aux questions regroupe les réponses essentielles
-              pour les particuliers et les professionnels.
+              pour l’entretien de votre domicile et votre accompagnement au quotidien.
             </p>
             <div className="flex flex-wrap justify-center gap-3 pt-2">
               <span className="px-4 py-1.5 text-xs sm:text-sm rounded-full bg-[#FBBF24]/15 text-[#92400E]">
                 ✅ Ménage à domicile sur mesure
               </span>
               <span className="px-4 py-1.5 text-xs sm:text-sm rounded-full bg-[#FBBF24]/15 text-[#92400E]">
-                🧼 Nettoyage de bureaux & locaux pros
+                🧼 Grand nettoyage et vitrerie à domicile
               </span>
               <span className="px-4 py-1.5 text-xs sm:text-sm rounded-full bg-[#FBBF24]/15 text-[#92400E]">
                 ✨ Aucun frais caché
@@ -211,7 +180,6 @@ export default function FAQPage() {
                   </span>
                   <h2 className="text-2xl font-semibold text-[#1E293B]">
                     {category === "Particuliers" && "Questions des particuliers"}
-                    {category === "Professionnels" && "Questions des professionnels"}
                     {category === "Fonctionnement & tarifs" &&
                       "Fonctionnement, tarifs & organisation"}
                   </h2>

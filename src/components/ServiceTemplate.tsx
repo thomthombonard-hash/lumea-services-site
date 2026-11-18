@@ -12,7 +12,7 @@ const fadeUp = {
 };
 
 type Props = {
-  audience: "Particuliers" | "Professionnels";
+  audience: "Particuliers";
   title: string;              // H1 SEO
   subtitle: string;           // intro courte
   locationLine?: string;      // ex: "La Flèche • La Suze-sur-Sarthe • Sarthe"
@@ -156,7 +156,6 @@ export default function ServiceTemplate({
             </ol>
 
             {/* Crédit d’impôt (Particuliers) */}
-            {isPart ? (
               <div className="mt-7 rounded-2xl border border-[#FBBF24]/35 bg-[#FFFBEA]/60 p-5">
                 <h3 className="text-lg font-bold text-[#1E293B]">
                   Crédit d’impôt 50% (services à la personne)
@@ -170,16 +169,6 @@ export default function ServiceTemplate({
                   Nous vous remettons une <strong>attestation fiscale</strong> récapitulative pour vos démarches.
                 </p>
               </div>
-            ) : (
-              <div className="mt-7 rounded-2xl border border-gray-200 bg-gray-50 p-5">
-                <h3 className="text-lg font-bold text-[#1E293B]">Devis & organisation pro</h3>
-                <p className="mt-2 text-sm text-gray-700 leading-relaxed">
-                  Pour les professionnels (bureaux, commerces, locaux), nous proposons des
-                  <strong> interventions ponctuelles</strong> ou des <strong>contrats réguliers</strong>,
-                  avec une prestation cadrée (horaires, zones, fréquence, contrôles qualité).
-                </p>
-              </div>
-            )}
 
             <p className="mt-7 text-sm text-gray-600">
               Pour les questions fréquentes (organisation, tarifs, crédit d’impôt…),{" "}

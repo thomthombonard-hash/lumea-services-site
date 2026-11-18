@@ -9,13 +9,13 @@ import GlobalFloatingActions from "@/components/GlobalFloatingActions";
 export const metadata: Metadata = {
   title: "Luméa Services - Ménage & nettoyage à La Flèche",
   description:
-    "Services à domicile et nettoyage de locaux : ménage, entretien de vitres et nettoyage pour particuliers et professionnels à La Flèche, La Suze-sur-Sarthe et les environs.",
+    "Services à la personne à domicile : ménage, vitrerie, grand nettoyage et assistance pour les particuliers à La Flèche, La Suze-sur-Sarthe et les environs.",
   keywords:
-    "ménage, ménage à domicile, nettoyage, nettoyage de locaux, nettoyage bureaux, vitres, repassage, La Flèche, La Suze-sur-Sarthe, Sarthe, services à la personne, nettoyage professionnel",
+    "ménage, ménage à domicile, grand nettoyage, vitrerie à domicile, vitres, repassage, assistance à domicile, La Flèche, La Suze-sur-Sarthe, Sarthe, services à la personne",
   openGraph: {
     title: "Luméa Services - Ménage & nettoyage à La Flèche",
     description:
-      "Découvrez nos prestations de ménage à domicile, nettoyage de bureaux, vitres et entretien pour particuliers et professionnels à La Flèche et alentours.",
+      "Découvrez nos prestations de ménage, vitrerie, grand nettoyage et aide à domicile pour les particuliers à La Flèche et alentours.",
     url: "https://www.lumea-services.fr",
     siteName: "Luméa Services",
     locale: "fr_FR",

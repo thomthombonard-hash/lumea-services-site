@@ -7,6 +7,8 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 
+const PRO_SITE_URL = "https://www.lumea-servicespro.fr/";
+
 type ServiceItem = { label: string; href: string };
 
 const SERVICES_MENU: {
@@ -22,14 +24,6 @@ const SERVICES_MENU: {
       { label: "Transport", href: "/services/particuliers/transport" },
       { label: "Assistance administrative", href: "/services/particuliers/assistance-administrative" },
       { label: "Assistance informatique", href: "/services/particuliers/assistance-informatique" },
-    ],
-  },
-  {
-    category: "Professionnels",
-    items: [
-      { label: "Nettoyage Pro", href: "/services/professionnels/nettoyage-pro" },
-      { label: "Vitrerie Pro", href: "/services/professionnels/vitrerie-pro" },
-      { label: "Entretien des Parties Communes", href: "/services/professionnels/parties-communes" },
     ],
   },
 ];
@@ -87,7 +81,7 @@ export default function Header() {
         </Link>
 
         {/* Menu desktop */}
-        <nav className="hidden md:flex items-center gap-10 text-base font-medium text-white">
+        <nav className="hidden xl:flex items-center gap-4 2xl:gap-7 text-sm 2xl:text-base font-medium text-white">
           {/* ✅ 1) Accueil */}
           <Link href="/" className={linkClass("/")}>
             Accueil
@@ -198,7 +192,7 @@ export default function Header() {
                       alt="SAP"
                       width={85}
                       height={28}
-                      className="object-contain"
+                      className="object-contain w-16 2xl:w-[85px]"
                     />
                   </div>
                 );
@@ -210,11 +204,18 @@ export default function Header() {
                 </Link>
               );
             })}
+          <a
+            href={PRO_SITE_URL}
+            className="shrink-0 rounded-full border border-[#FBBF24]/60 px-3 py-2 font-semibold text-[#FBBF24] transition hover:bg-[#FBBF24] hover:text-[#1E293B]"
+            aria-label="Professionnels : accéder au site Luméa Services Pro"
+          >
+            Professionnels ↗
+          </a>
         </nav>
 
         {/* Bouton burger mobile */}
         <button
-          className="md:hidden text-[#FBBF24] focus:outline-none"
+          className="xl:hidden text-[#FBBF24] focus:outline-none"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Ouvrir le menu"
         >
@@ -245,7 +246,7 @@ export default function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden bg-[#1E293B] border-t border-[#FBBF24]/20"
+            className="xl:hidden max-h-[calc(100dvh-81px)] overflow-y-auto bg-[#1E293B] border-t border-[#FBBF24]/20"
           >
             <div className="flex flex-col items-center py-4 space-y-4 text-white w-full px-6">
               {/* ✅ Ordre mobile : Accueil puis Services */}
@@ -346,6 +347,15 @@ export default function Header() {
               <Link href="/recrutement" className={linkClass("/recrutement")} onClick={() => setMenuOpen(false)}>
                 Recrutement
               </Link>
+
+              <a
+                href={PRO_SITE_URL}
+                onClick={() => setMenuOpen(false)}
+                className="w-full max-w-sm rounded-2xl border border-[#FBBF24]/60 px-4 py-3 text-center font-semibold text-[#FBBF24] transition hover:bg-[#FBBF24] hover:text-[#1E293B]"
+                aria-label="Professionnels : accéder au site Luméa Services Pro"
+              >
+                Professionnels ↗
+              </a>
 
               <div className="w-3/4 border-t border-[#FBBF24]/30 my-2" />
 
