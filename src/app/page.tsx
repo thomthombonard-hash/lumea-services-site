@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 import { motion, useAnimationControls, useMotionValue, easeOut } from "framer-motion";
+import { ChristmasContestTeaser } from "@/components/ChristmasContest";
 
 /** Animation d’apparition commune */
 const fadeUp = {
@@ -132,6 +133,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen scroll-smooth bg-white text-gray-900">
+      <ChristmasContestTeaser />
       {/* === SECTION 1 — HERO === */}
       <section
         id="hero"

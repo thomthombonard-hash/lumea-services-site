@@ -2,6 +2,8 @@ import "./globals.css";
 import { Metadata } from "next";
 import Link from "next/link";
 import Header from "./Header";
+import ChristmasSeason from "@/components/ChristmasSeason";
+import { christmasSeasonBootstrap } from "@/lib/christmasSeason";
 import CookieConsent from "@/components/CookieConsent";
 import AnalyticsConsent from "@/components/AnalyticsConsent";
 import GlobalFloatingActions from "@/components/GlobalFloatingActions";
@@ -29,8 +31,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr">
+    <html lang="fr" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: christmasSeasonBootstrap }} />
         <link rel="icon" href="/favicon.ico" />
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="apple-touch-icon" href="/favicon.ico" />
@@ -86,12 +89,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <Header />
 
         {/* === CONTENU DES PAGES === */}
-        <main className="flex-grow container mx-auto p-4 pt-24">
+        <main className="site-main flex-grow container mx-auto p-4 pt-24">
+          <ChristmasSeason />
           {children}
         </main>
 
         {/* === FOOTER GLOBAL === */}
-        <footer className="bg-[#1E293B]/95 text-white text-center py-6 mt-8 text-sm sm:text-base">
+        <footer className="site-footer bg-[#1E293B]/95 text-white text-center py-6 mt-8 text-sm sm:text-base">
           <p className="font-semibold">
             © {new Date().getFullYear()} Luméa Services
           </p>
@@ -122,6 +126,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               className="underline hover:text-gray-200"
             >
               FAQ
+            </Link>
+            {" "}|{" "}
+            <Link href="/concours-noel-2026" className="underline hover:text-gray-200">
+              Concours de Noël 2026
             </Link>
           </p>
           <p className="text-xs mt-2 text-gray-200">

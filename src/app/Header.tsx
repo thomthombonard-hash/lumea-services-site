@@ -70,7 +70,7 @@ export default function Header() {
     }`;
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-[#1E293B]/95 backdrop-blur-sm shadow-lg">
+    <header className="site-header fixed inset-x-0 top-0 z-50 bg-[#1E293B]/95 backdrop-blur-sm shadow-lg">
       {/* Barre du haut : logo + navigation */}
       <div className="flex w-full items-center justify-between px-6 lg:px-12 py-4 border-b border-[#FBBF24]/20">
         {/* Logo */}
