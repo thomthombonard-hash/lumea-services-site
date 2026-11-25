@@ -193,6 +193,7 @@ function QuickContactForm() {
 export default function HomePage() {
   return (
     <main className="lumea-home min-h-screen bg-white text-[#0d1c35]">
+      <ChristmasContestTeaser />
       <section id="hero" className="bg-[#fcfcfb]">
         <div className={`${sectionWidth} grid items-center gap-9 pb-10 pt-12 sm:gap-12 sm:py-16 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1fr)] lg:gap-14 lg:py-20 xl:gap-20 xl:py-24`}>
           <div className="min-w-0">
@@ -409,7 +410,6 @@ export default function HomePage() {
             Voir le recrutement <span aria-hidden="true">→</span>
           </Link>
         </section>
-        <ChristmasContestTeaser />
       </div>
     </main>
   );

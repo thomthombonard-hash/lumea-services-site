@@ -222,7 +222,8 @@ html[data-christmas="2026"]:has(.contest-page) .christmas-season-banner {
   isolation: isolate;
   overflow: hidden;
   min-height: 114px;
-  margin: 0 0 1.25rem;
+  width: calc(min(100%, var(--site-special-width)) - 2 * var(--site-special-padding));
+  margin: var(--site-special-padding) auto 0;
   padding: 1.5rem 6rem;
   border: 1px solid #a8c8b5;
   border-radius: 1.5rem;
@@ -374,18 +375,10 @@ html[data-christmas="2026"]:has(.contest-page) .site-footer::before {
 
 /* Cadre commun des pages Luméa. */
 .site-main {
+  --site-special-width: 92rem;
+  --site-special-padding: clamp(.75rem, 3.5vw, 2.75rem);
   padding-top: 4.25rem;
   background: #fff;
-}
-
-.site-main > .christmas-season-banner {
-  display: none;
-}
-
-.site-main:has(.contest-page) > .christmas-season-banner {
-  display: flex;
-  width: min(100% - 2rem, 78rem);
-  margin: 1rem auto 0;
 }
 
 .site-page {
@@ -456,9 +449,13 @@ html[data-christmas="2026"]:has(.contest-page) .site-footer::before {
 }
 
 .site-special-page {
-  max-width: 92rem;
+  max-width: var(--site-special-width);
   margin-inline: auto;
-  padding: clamp(.75rem, 3.5vw, 2.75rem);
+  padding: var(--site-special-padding);
+}
+
+html[data-christmas="2026"] .contest-page {
+  padding-top: clamp(.75rem, 2vw, 1.5rem);
 }
 
 .site-footer {
@@ -472,6 +469,7 @@ html[data-christmas="2026"]:has(.contest-page) .site-footer::before {
 
 @media (max-width: 767px) {
   .site-footer { padding-bottom: calc(4rem + env(safe-area-inset-bottom)); }
+  body:has(.contest-page) .site-footer { padding-bottom: env(safe-area-inset-bottom); }
 }
 
 .site-page-button-secondary {
@@ -491,3 +489,78 @@ html[data-christmas="2026"]:has(.contest-page) .site-footer::before {
 .site-page-button-secondary:hover { background: #e7f1f8; }
 
 .site-page input[type="file"] { min-width: 0; max-width: 100%; }
+
+/* Décors animés de la page concours. */
+.contest-page .contest-garland {
+  position: absolute;
+  inset: 1.05rem 1.5rem auto;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #e4c47166;
+  opacity: .9;
+}
+
+.contest-page .contest-garland span {
+  width: .38rem;
+  height: .55rem;
+  border-radius: 0 0 .5rem .5rem;
+  background: #f9d78c;
+  box-shadow: 0 0 12px #f9d78c99;
+}
+
+.contest-page .contest-garland span:nth-child(3n) {
+  background: #e99795;
+  box-shadow: 0 0 12px #e9979599;
+}
+
+.contest-page .contest-garland span:nth-child(3n + 2) {
+  background: #c2e8c6;
+  box-shadow: 0 0 12px #c2e8c699;
+}
+
+.contest-page .contest-snow {
+  position: absolute;
+  inset: -2rem 0 0;
+  opacity: .26;
+  background-image:
+    radial-gradient(circle, #fff9e9 1px, transparent 2px),
+    radial-gradient(circle, #fff9e9 1px, transparent 2px);
+  background-position: 0 0, 2.5rem 1.4rem;
+  background-size: 5.4rem 6rem, 8.1rem 8.6rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .contest-page .contest-snow {
+    animation: contest-snowfall 4.6s ease-out both;
+  }
+
+  .contest-page .contest-garland span,
+  .contest-page .contest-stars g {
+    animation: contest-twinkle 2.1s ease-in-out 2;
+  }
+
+  .contest-page .contest-garland span:nth-child(even),
+  .contest-page .contest-stars g:nth-child(odd) {
+    animation-delay: .35s;
+  }
+
+  .contest-page .contest-prize {
+    animation: contest-unwrapped .65s cubic-bezier(.2, .7, .2, 1) both;
+  }
+}
+
+@keyframes contest-snowfall {
+  from { transform: translate3d(0, -1.25rem, 0); opacity: 0; }
+  28% { opacity: .28; }
+  to { transform: translate3d(.45rem, 1.75rem, 0); opacity: .26; }
+}
+
+@keyframes contest-twinkle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .42; }
+}
+
+@keyframes contest-unwrapped {
+  from { translate: 0 .7rem; opacity: .35; }
+  to { translate: 0 0; opacity: 1; }
+}

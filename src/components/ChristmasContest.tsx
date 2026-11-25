@@ -52,10 +52,14 @@ function Gift({ className = "h-6 w-6" }: { className?: string }) {
   );
 }
 
-// Décor purement visuel : branches, boules et flocons sans animation.
+// Décor du concours, masqué aux technologies d’assistance.
 function ChristmasDecor() {
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="contest-snow" />
+      <div className="contest-garland">
+        {Array.from({ length: 13 }, (_, index) => <span key={index} />)}
+      </div>
       <svg viewBox="0 0 360 210" fill="none" className="absolute -right-12 -top-6 w-64 text-[#77A483] opacity-70 sm:w-96">
         <g stroke="currentColor" strokeLinecap="round">
           <path d="M355 5C280 45 210 69 80 78M345 0C300 70 280 120 269 182" strokeWidth="4" />
@@ -71,7 +75,7 @@ function ChristmasDecor() {
         <path d="M220 10C180 130 120 190 20 240" stroke="currentColor" strokeWidth="4" />
         {[0,1,2,3,4,5].map((i) => <g key={i} transform={`translate(${60+i*26} ${216-i*30}) rotate(-42)`}><path d="M0 0l-38-28M0 0l-38 28M12-8l-29-33M12-8l-27 33" stroke="currentColor" strokeWidth="3" strokeLinecap="round" /></g>)}
       </svg>
-      <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full text-[#FFF2C9] opacity-40">
+      <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" className="contest-stars absolute inset-0 h-full w-full text-[#FFF2C9] opacity-40">
         {[[70,100],[560,65],[720,285],[1110,510],[490,580],[95,520],[650,625],[1080,320]].map(([x,y],i)=><g key={i} transform={`translate(${x} ${y})`} fill="currentColor"><path d="M0-7L2-2 7 0 2 2 0 7-2 2-7 0-2-2Z" /></g>)}
         {[[300,30],[730,140],[580,380],[40,330],[900,630],[1160,90],[355,650],[670,490],[790,45],[260,430]].map(([x,y],i)=><circle key={i} cx={x} cy={y} r="2" fill="currentColor" />)}
       </svg>
@@ -86,16 +90,23 @@ export function ChristmasContestTeaser() {
   if (phase === "closed") return null;
 
   return (
-    <aside aria-label="Concours de Noël Luméa Services" className="rounded-2xl border border-[#e9dfce] bg-[#fcf3e2] px-5 py-6 sm:px-8 lg:flex lg:items-center lg:justify-between lg:gap-10">
-      <div>
-        <h2 className="text-2xl font-extrabold tracking-tight text-[#0d1c35]">Le concours de Noël Luméa</h2>
-        <p className="mt-2 max-w-2xl leading-relaxed text-[#445267]">
-          3 mois de ménage et deux autres cadeaux à gagner à La Flèche et dans les environs.
-          {phase === "open" ? " Participez avant le 24 décembre à midi." : " Rendez-vous dès le 1er décembre sur Facebook."}
-        </p>
-      </div>
-      <Link href={CHRISTMAS_CONTEST.pagePath} className="mt-5 inline-flex min-h-11 shrink-0 items-center gap-2 rounded-lg border border-[#0d2446] px-4 py-2 font-bold text-[#0d2446] hover:bg-white lg:mt-0">
-        Découvrir le concours <span aria-hidden="true">→</span>
+    <aside aria-label="Concours de Noël Luméa Services" className="border-b border-[#bf934b] bg-gradient-to-r from-[#143b30] via-[#1e4a37] to-[#143b30] text-white">
+      <Link
+        href={CHRISTMAS_CONTEST.pagePath}
+        className={`group mx-auto flex min-h-14 max-w-[92rem] items-center gap-3 px-5 py-2.5 transition-colors hover:bg-white/5 sm:gap-4 sm:px-10 xl:px-16 ${focus} focus-visible:-outline-offset-4`}
+      >
+        <Gift className="h-7 w-7 shrink-0 text-[#f8d57e]" />
+        <span className="min-w-0 flex-1 text-sm leading-snug sm:text-base">
+          <strong className="block text-[#fff0c7] sm:inline">Concours de Noël</strong>
+          <span className="hidden sm:inline" aria-hidden="true"> · </span>
+          <span className="block sm:inline">3 mois de ménage à gagner</span>
+        </span>
+        <span className="hidden shrink-0 text-sm text-[#f9e7c1] lg:inline">
+          {phase === "open" ? "Jusqu’au 24 décembre à midi" : "Dès le 1er décembre"}
+        </span>
+        <span className="shrink-0 rounded-full bg-[#f8d57e] px-3 py-2 text-xs font-bold text-[#173f35] group-hover:bg-[#ffe9ac] sm:px-4 sm:text-sm">
+          Découvrir <span aria-hidden="true">→</span>
+        </span>
       </Link>
     </aside>
   );
@@ -188,8 +199,7 @@ export function ChristmasContestPageContent() {
         <div aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5 bg-[repeating-linear-gradient(135deg,#A7313E_0px,#A7313E_16px,#FFF2D5_16px,#FFF2D5_30px)]" />
         <div className="relative mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
           <div>
-            <Link href="/" className={`text-base text-slate-200 underline decoration-white/40 underline-offset-4 ${focus}`}>Luméa Services</Link>
-            <p className="mt-9 inline-flex rounded-full border border-[#F8D57E]/40 bg-[#F8D57E]/10 px-4 py-2 text-sm font-semibold uppercase tracking-[0.16em] text-[#F8D57E]">Le grand concours de Noël</p>
+            <p className="inline-flex rounded-full border border-[#F8D57E]/40 bg-[#F8D57E]/10 px-4 py-2 text-sm font-semibold uppercase tracking-[0.16em] text-[#F8D57E]">Le grand concours de Noël</p>
             <h1 id="concours-title" className="mt-5 max-w-3xl text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
               Un peu de magie.<br />Du temps offert.<br /><span className="font-serif italic font-normal text-[#F8D57E]">Joyeux Noël.</span>
             </h1>
@@ -207,7 +217,7 @@ export function ChristmasContestPageContent() {
               </a>
             </div>
           </div>
-          <div className="relative mx-auto w-full max-w-sm lg:rotate-2">
+          <div className="contest-prize relative mx-auto w-full max-w-sm lg:rotate-2">
             <div className="relative overflow-hidden rounded-[2rem] border-4 border-[#F8D57E]/60 bg-[#FFFCF5] p-8 text-[#173F35] shadow-2xl sm:p-10">
               <div aria-hidden="true" className="absolute right-8 top-0 h-24 w-9 bg-[#A7313E] [clip-path:polygon(0_0,100%_0,100%_100%,50%_82%,0_100%)]" />
               <div className="inline-flex rounded-2xl bg-[#FBE9E8] p-3 text-[#A7313E]"><Gift className="h-12 w-12" /></div>

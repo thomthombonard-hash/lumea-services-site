@@ -4,8 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
+import LumeaIcon from "@/components/LumeaIcon";
 
 const PRO_SITE_URL = "https://www.lumea-servicespro.fr/";
 
@@ -32,6 +33,8 @@ export default function Header() {
   const pathname = usePathname();
 
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuToggleRef = useRef<HTMLButtonElement>(null);
+  const reduceMotion = useReducedMotion();
 
   // Dropdown desktop
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -43,6 +46,7 @@ export default function Header() {
   useEffect(() => {
     setServicesOpen(false);
     setMenuOpen(false);
+    setServicesMobileOpen(false);
   }, [pathname]);
 
   useEffect(() => {
@@ -61,14 +65,28 @@ export default function Header() {
     { name: "Recrutement", href: "/recrutement" },
   ];
 
-  const mobileLinkClass = (href: string) =>
-    pathname === href ? "text-[#FBBF24] underline underline-offset-4" : "hover:text-[#FBBF24]";
+  function closeMobileMenu() {
+    setMenuOpen(false);
+    setServicesMobileOpen(false);
+  }
+
+  const mobileRow = "flex min-h-12 w-full items-center justify-between gap-3 rounded-xl px-4 py-2.5 text-left font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#0d4772]";
+  const mobileLinkClass = (active: boolean) =>
+    `${mobileRow} ${active ? "bg-[#e7f1f8] text-[#0d2446]" : "hover:bg-[#f2f7fb]"}`;
 
   const desktopLinkClass = (href: string) =>
     pathname === href ? "underline underline-offset-4" : "hover:underline hover:underline-offset-4";
 
   return (
-    <header className="site-header fixed inset-x-0 top-0 z-50 border-b border-[#dedbd4] bg-[#fcf3e2] text-[#0d1c35]">
+    <header
+      className={`site-header fixed inset-x-0 top-0 border-b border-[#dedbd4] bg-[#fcf3e2] text-[#0d1c35] ${menuOpen ? "z-[80] xl:z-50" : "z-50"}`}
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && menuOpen) {
+          closeMobileMenu();
+          menuToggleRef.current?.focus();
+        }
+      }}
+    >
       <div className="mx-auto flex h-[4.25rem] w-full max-w-[105rem] items-center justify-between gap-4 px-5 xl:h-[4.75rem] xl:px-8 2xl:px-12">
         <nav aria-label="Navigation principale" className="hidden min-w-0 flex-1 items-center gap-4 whitespace-nowrap text-sm font-medium xl:flex 2xl:gap-8 2xl:text-base">
           <Link href="/" aria-current={pathname === "/" ? "page" : undefined} className={desktopLinkClass("/")}>
@@ -163,15 +181,17 @@ export default function Header() {
         {/* Bouton burger mobile */}
         <button
           type="button"
-          className="-ml-2 flex h-11 w-11 items-center justify-center rounded-md focus-visible:outline focus-visible:outline-2 xl:hidden"
-          onClick={() => setMenuOpen(!menuOpen)}
+          ref={menuToggleRef}
+          className="flex h-11 min-w-11 items-center gap-2 rounded-xl border border-[#d9d5cc] bg-white px-2.5 text-sm font-semibold focus-visible:outline focus-visible:outline-2 xl:hidden"
+          onClick={menuOpen ? closeMobileMenu : () => setMenuOpen(true)}
           aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
           aria-expanded={menuOpen}
           aria-controls="menu-mobile"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-7 w-7"
+            aria-hidden="true"
+            className="h-5 w-5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -183,9 +203,10 @@ export default function Header() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
             )}
           </svg>
+          <span>{menuOpen ? "Fermer" : "Menu"}</span>
         </button>
 
-        <Link href="/" onClick={() => setMenuOpen(false)} className="relative block aspect-[3.65] w-40 shrink-0 overflow-hidden rounded-sm focus-visible:outline focus-visible:outline-2 xl:w-44 2xl:w-48">
+        <Link href="/" onClick={closeMobileMenu} className="relative block aspect-[3.65] w-40 shrink-0 overflow-hidden rounded-sm focus-visible:outline focus-visible:outline-2 xl:w-44 2xl:w-48">
           <Image
             src="/brand/lumea-services-logo.jpg"
             alt="Luméa Services — accueil"
@@ -197,147 +218,67 @@ export default function Header() {
         </Link>
       </div>
 
-
-
-      {/* Menu mobile animé */}
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.25 }}
+          <motion.nav
+            aria-label="Navigation mobile"
             id="menu-mobile"
-            className="xl:hidden max-h-[calc(100dvh-4.25rem)] overflow-y-auto bg-[#1E293B] border-t border-[#FBBF24]/20"
+            initial={reduceMotion ? false : { opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reduceMotion ? undefined : { opacity: 0, y: -6 }}
+            transition={{ duration: reduceMotion ? 0 : 0.18 }}
+            className="max-h-[calc(100dvh-4.25rem)] overflow-y-auto overscroll-contain border-t border-[#dedbd4] bg-[#fcf3e2] shadow-lg xl:hidden"
           >
-            <div className="flex flex-col items-center py-4 space-y-4 text-white w-full px-6">
-              {/* ✅ Ordre mobile : Accueil puis Services */}
-              <Link href="/" aria-current={pathname === "/" ? "page" : undefined} className={mobileLinkClass("/")} onClick={() => setMenuOpen(false)}>
-                Accueil
-              </Link>
+            <div className="mx-auto max-w-lg px-4 pt-3 pb-[calc(1rem+env(safe-area-inset-bottom))]">
+              <div className="grid gap-1 rounded-2xl border border-[#dce4ec] bg-white p-2">
+                <Link href="/" aria-current={pathname === "/" ? "page" : undefined} className={mobileLinkClass(pathname === "/")} onClick={closeMobileMenu}>
+                  Accueil
+                </Link>
 
-              {/* Services (accordéon) */}
-              <button
-                type="button"
-                onClick={() => setServicesMobileOpen((v) => !v)}
-                className={`w-full max-w-sm flex items-center justify-between rounded-2xl px-4 py-3 border border-[#FBBF24]/30 ${
-                  pathname.startsWith("/services") ? "text-[#FBBF24]" : "text-white"
-                }`}
-                aria-expanded={servicesMobileOpen}
-              >
-                <span className="font-semibold">Services</span>
-                <svg
-                  className={`h-4 w-4 transition-transform ${servicesMobileOpen ? "rotate-180" : ""}`}
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
+                <button
+                  type="button"
+                  onClick={() => setServicesMobileOpen((open) => !open)}
+                  className={mobileLinkClass(servicesMobileOpen || pathname.startsWith("/services"))}
+                  aria-expanded={servicesMobileOpen}
+                  aria-controls="menu-mobile-services"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
+                  Services
+                  <svg aria-hidden="true" className={`h-5 w-5 shrink-0 motion-safe:transition-transform ${servicesMobileOpen ? "rotate-180" : ""}`} viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" />
+                  </svg>
+                </button>
 
-              <AnimatePresence>
-                {servicesMobileOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.2 }}
-                    className="w-full max-w-sm overflow-hidden"
-                  >
-                    <div className="mt-2 rounded-2xl bg-white/5 border border-white/10 p-4 space-y-4">
-                      <Link
-                        href="/services"
-                        className="block text-sm font-semibold text-[#FBBF24]"
-                        onClick={() => setMenuOpen(false)}
-                      >
-                        Voir tous les services →
-                      </Link>
+                <div id="menu-mobile-services" hidden={!servicesMobileOpen} className="rounded-xl bg-[#f2f7fb] p-2">
+                  <Link href="/services" aria-current={pathname === "/services" ? "page" : undefined} className={`${mobileLinkClass(pathname === "/services")} text-sm`} onClick={closeMobileMenu}>
+                    Voir tous les services <span aria-hidden="true">→</span>
+                  </Link>
+                  {SERVICES_MENU.flatMap(({ items }) => items).map(({ href, label }) => (
+                    <Link key={href} href={href} aria-current={pathname === href ? "page" : undefined} className={`${mobileLinkClass(pathname === href)} text-sm`} onClick={closeMobileMenu}>
+                      {label}
+                    </Link>
+                  ))}
+                </div>
 
-                      {SERVICES_MENU.map((block) => (
-                        <div key={block.category}>
-                          <p className="text-xs font-bold uppercase tracking-wider text-white/70 mb-2">
-                            {block.category}
-                          </p>
-                          <div className="flex flex-col gap-1">
-                            {block.items.map((it) => (
-                              <Link
-                                key={it.href}
-                                href={it.href}
-                                onClick={() => setMenuOpen(false)}
-                                className="rounded-xl px-3 py-2 text-sm text-white hover:bg-white/10 transition"
-                              >
-                                {it.label}
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              <Link
-                href="/qui-peut-maider"
-                className={`w-full max-w-sm rounded-2xl border border-[#FBBF24]/50 px-4 py-3 text-center font-semibold transition ${
-                  pathname === "/qui-peut-maider"
-                    ? "bg-[#FBBF24] text-[#1E293B]"
-                    : "text-[#FBBF24] hover:bg-[#FBBF24]/10"
-                }`}
-                onClick={() => setMenuOpen(false)}
-              >
-                Qui peut m’aider ?
-              </Link>
-
-              {/* Suite du menu mobile */}
-              <Link href="/a-propos" className={mobileLinkClass("/a-propos")} onClick={() => setMenuOpen(false)}>
-                À propos
-              </Link>
-
-              <Link href="/faq" className={mobileLinkClass("/faq")} onClick={() => setMenuOpen(false)}>
-                FAQ
-              </Link>
-
-              <Link href="/contact" className={mobileLinkClass("/contact")} onClick={() => setMenuOpen(false)}>
-                Contact
-              </Link>
-
-              <Link href="/recrutement" className={mobileLinkClass("/recrutement")} onClick={() => setMenuOpen(false)}>
-                Recrutement
-              </Link>
-
-              <a
-                href={PRO_SITE_URL}
-                onClick={() => setMenuOpen(false)}
-                className="w-full max-w-sm rounded-2xl border border-[#FBBF24]/60 px-4 py-3 text-center font-semibold text-[#FBBF24] transition hover:bg-[#FBBF24] hover:text-[#1E293B]"
-                aria-label="Professionnels : accéder au site Luméa Services Pro"
-              >
-                Professionnels ↗
-              </a>
-
-              <div className="w-3/4 border-t border-[#FBBF24]/30 my-2" />
-
-              <Image
-                src="/optimized/sap-transparent.webp"
-                alt="SAP"
-                width={98}
-                height={28}
-                className="object-contain"
-              />
+                {[{ name: "Qui peut m’aider ?", href: "/qui-peut-maider" }, ...navLinks].map(({ name, href }) => (
+                  <Link key={href} href={href} aria-current={pathname === href ? "page" : undefined} className={mobileLinkClass(pathname === href)} onClick={closeMobileMenu}>
+                    {name}
+                  </Link>
+                ))}
+                <a href={PRO_SITE_URL} className={mobileLinkClass(false)} onClick={closeMobileMenu}>
+                  Professionnels <span aria-hidden="true">↗</span>
+                </a>
+              </div>
 
               <Link
                 href="/contact#prenom"
-                onClick={() => setMenuOpen(false)}
-                className="rounded-xl bg-[#FBBF24] px-5 py-2.5 text-base font-semibold text-[#1E293B] shadow-md transition hover:scale-[1.05] hover:shadow-lg"
+                onClick={closeMobileMenu}
+                className="mt-3 flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#ffbd3b] px-4 py-2.5 text-center font-bold hover:bg-[#f4ac23] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
               >
+                <LumeaIcon name="quote" className="h-5 w-5 shrink-0" />
                 Demander un devis
               </Link>
             </div>
-          </motion.div>
+          </motion.nav>
         )}
       </AnimatePresence>
     </header>

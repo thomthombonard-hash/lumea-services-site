@@ -3,13 +3,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import LumeaIcon from "@/components/LumeaIcon";
+import { CHRISTMAS_CONTEST } from "@/lib/christmasContest";
 
 export default function GlobalFloatingActions() {
   const pathname = usePathname();
 
-  // L’outil d’orientation doit rester neutre : on ne pousse pas
-  // Luméa comme solution commerciale pendant le questionnaire.
-  if (pathname === "/qui-peut-maider") {
+  if (pathname === "/qui-peut-maider" || pathname === CHRISTMAS_CONTEST.pagePath) {
     return null;
   }
 
