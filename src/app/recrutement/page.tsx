@@ -62,15 +62,15 @@ export default function RecrutementPage() {
 
 
   return (
-    <main className="min-h-screen scroll-smooth bg-white text-gray-900">
+    <main className="site-page">
       {/* HERO */}
-      <section className="relative isolate overflow-hidden pt-32 pb-20 bg-gradient-to-b from-[#FFFBEA] via-white to-white border-b scroll-mt-24">
+      <section className="site-page-hero">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center">
           <motion.h1
             {...fadeUp}
             className="text-4xl sm:text-5xl font-bold text-[#1E293B]"
           >
-            Rejoignez <span className="text-[#F59E0B]">Luméa Services</span>
+            Rejoignez <span className="site-page-accent">Luméa Services</span>
           </motion.h1>
           <motion.p
             {...fadeUp}
@@ -81,11 +81,12 @@ export default function RecrutementPage() {
             Chez Luméa Services, nous croyons que le bien-être des salariés est
             la clé d’un service de qualité.
           </motion.p>
+          <a href="#candidature" className="site-page-button mt-6">Envoyer ma candidature</a>
         </div>
       </section>
 
       {/* SECTION – VALEURS RH */}
-      <section className="py-20 border-b bg-[#F9FAFB] scroll-mt-24">
+      <section className="site-page-section border-b bg-[#f2f7fb] scroll-mt-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <motion.h2
             {...fadeUp}
@@ -144,7 +145,7 @@ export default function RecrutementPage() {
       </section>
 
       {/* SECTION – FORMULAIRE CANDIDATURE */}
-      <section className="py-20 border-b bg-white scroll-mt-24">
+      <section className="site-page-section border-b bg-white scroll-mt-24">
         <div className="mx-auto max-w-6xl px-6 lg:px-8 grid gap-12 lg:grid-cols-2 items-start">
           {/* FORM */}
           <motion.div {...fadeUp}>
@@ -154,16 +155,17 @@ export default function RecrutementPage() {
 
             <form
               onSubmit={handleSubmit}
-              className="space-y-5 bg-white border rounded-2xl shadow-sm p-6"
+              id="candidature"
+              className="site-page-card space-y-5 p-4 sm:p-6 lg:p-8"
             >
               <div>
-                <label className="block text-sm font-medium mb-1">
-                  Nom complet <span className="text-[#F59E0B]">*</span>
+                <label htmlFor="application-name" className="block text-sm font-medium mb-1">
+                  Nom complet <span className="site-page-accent">*</span>
                 </label>
-                <input
+                <input id="application-name"
                   type="text"
                   required
-                  className="w-full rounded-xl border px-3 py-2 outline-none focus:ring focus:ring-[#FBBF24]/40"
+                  className="site-page-field"
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   placeholder="Marie Dupont"
@@ -172,13 +174,13 @@ export default function RecrutementPage() {
 
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Email <span className="text-[#F59E0B]">*</span>
+                  <label htmlFor="application-email" className="block text-sm font-medium mb-1">
+                    Email <span className="site-page-accent">*</span>
                   </label>
-                  <input
+                  <input id="application-email"
                     type="email"
                     required
-                    className="w-full rounded-xl border px-3 py-2 outline-none focus:ring focus:ring-[#FBBF24]/40"
+                    className="site-page-field"
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                     placeholder="vous@example.com"
@@ -186,12 +188,12 @@ export default function RecrutementPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-1">
+                  <label htmlFor="application-phone" className="block text-sm font-medium mb-1">
                     Téléphone
                   </label>
-                  <input
+                  <input id="application-phone"
                     type="tel"
-                    className="w-full rounded-xl border px-3 py-2 outline-none focus:ring focus:ring-[#FBBF24]/40"
+                    className="site-page-field"
                     value={form.phone}
                     onChange={(e) => setForm({ ...form, phone: e.target.value })}
                     placeholder="06 00 00 00 00"
@@ -200,11 +202,11 @@ export default function RecrutementPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">
+                <label htmlFor="application-message" className="block text-sm font-medium mb-1">
                   Message ou présentation
                 </label>
-                <textarea
-                  className="w-full rounded-xl border px-3 py-2 outline-none focus:ring focus:ring-[#FBBF24]/40"
+                <textarea id="application-message"
+                  className="site-page-field"
                   rows={4}
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
@@ -213,13 +215,13 @@ export default function RecrutementPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">
+                <label htmlFor="application-file" className="block text-sm font-medium mb-1">
                   CV (PDF ou Word)
                 </label>
-                <input
+                <input id="application-file"
                   type="file"
                   accept=".pdf,.doc,.docx"
-                  className="w-full rounded-xl border px-3 py-2 text-sm"
+                  className="site-page-field"
                   onChange={(e) =>
                     setForm({
                       ...form,
@@ -240,7 +242,7 @@ export default function RecrutementPage() {
                   J’accepte le traitement de mes données (voir la{" "}
                   <Link
                     href="/politique-confidentialite"
-                    className="underline text-[#F59E0B]"
+                    className="underline text-[#0d4772]"
                   >
                     politique de confidentialité
                   </Link>
@@ -251,11 +253,7 @@ export default function RecrutementPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full mt-4 rounded-2xl px-5 py-3 text-white font-semibold shadow-md transition ${
-                  loading
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-[#FBBF24] hover:scale-[1.02] hover:shadow-lg hover:bg-[#F59E0B]"
-                }`}
+                className="site-page-button w-full sm:w-auto"
               >
                 {loading ? "Envoi en cours..." : "Envoyer ma candidature"}
               </button>
@@ -295,7 +293,7 @@ export default function RecrutementPage() {
       </section>
 
       {/* CTA FINALE */}
-      <section className="border-t bg-gradient-to-b from-white to-[#FFFBEA] py-16 text-center">
+      <section className="border-t bg-[#f2f7fb] site-page-section text-center">
         <motion.div {...fadeUp}>
           <h2 className="text-3xl font-semibold text-[#1E293B]">
             Envie de rejoindre une équipe qui vous ressemble ?
@@ -306,7 +304,7 @@ export default function RecrutementPage() {
           </p>
           <Link
             href="/contact"
-            className="inline-block mt-6 rounded-2xl bg-[#FBBF24] px-6 py-3 text-white font-semibold shadow-md transition hover:scale-[1.03] hover:shadow-lg"
+            className="site-page-button"
           >
             Nous contacter
           </Link>

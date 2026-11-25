@@ -55,55 +55,41 @@ export default function Header() {
   }, []);
 
   const navLinks = [
-    { name: "Accueil", href: "/" },
     { name: "À propos", href: "/a-propos" },
     { name: "FAQ", href: "/faq" },
     { name: "Contact", href: "/contact" },
     { name: "Recrutement", href: "/recrutement" },
   ];
 
-  const linkClass = (href: string) =>
-    `transition ${
-      pathname === href
-        ? "text-[#FBBF24] underline underline-offset-4"
-        : "hover:text-[#FBBF24]"
-    }`;
+  const mobileLinkClass = (href: string) =>
+    pathname === href ? "text-[#FBBF24] underline underline-offset-4" : "hover:text-[#FBBF24]";
+
+  const desktopLinkClass = (href: string) =>
+    pathname === href ? "underline underline-offset-4" : "hover:underline hover:underline-offset-4";
 
   return (
-    <header className="site-header fixed inset-x-0 top-0 z-50 bg-[#1E293B]/95 backdrop-blur-sm shadow-lg">
-      {/* Barre du haut : logo + navigation */}
-      <div className="flex w-full items-center justify-between px-6 lg:px-12 py-4 border-b border-[#FBBF24]/20">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 text-white">
-          <span className="text-2xl font-bold tracking-wide">
-            <span className="text-[#FBBF24]">Luméa</span> Services
-          </span>
-        </Link>
-
-        {/* Menu desktop */}
-        <nav className="hidden xl:flex items-center gap-4 2xl:gap-7 text-sm 2xl:text-base font-medium text-white">
-          {/* ✅ 1) Accueil */}
-          <Link href="/" className={linkClass("/")}>
+    <header className="site-header fixed inset-x-0 top-0 z-50 border-b border-[#dedbd4] bg-[#fcf3e2] text-[#0d1c35]">
+      <div className="mx-auto flex h-[4.25rem] w-full max-w-[105rem] items-center justify-between gap-4 px-5 xl:h-[4.75rem] xl:px-8 2xl:px-12">
+        <nav aria-label="Navigation principale" className="hidden min-w-0 flex-1 items-center gap-4 whitespace-nowrap text-sm font-medium xl:flex 2xl:gap-8 2xl:text-base">
+          <Link href="/" aria-current={pathname === "/" ? "page" : undefined} className={desktopLinkClass("/")}>
             Accueil
           </Link>
 
-          {/* ✅ 2) Services (dropdown) */}
           <div
             ref={dropdownRef}
             className="relative"
-            onMouseEnter={() => setServicesOpen(true)}
-            onMouseLeave={() => setServicesOpen(false)}
+            onKeyDown={(event) => {
+              if (event.key === "Escape") {
+                setServicesOpen(false);
+                dropdownRef.current?.querySelector("button")?.focus();
+              }
+            }}
           >
             <button
               type="button"
               onClick={() => setServicesOpen((v) => !v)}
-              aria-haspopup="menu"
               aria-expanded={servicesOpen}
-              className={`inline-flex items-center gap-2 ${
-                pathname.startsWith("/services")
-                  ? "text-[#FBBF24] underline underline-offset-4"
-                  : "hover:text-[#FBBF24]"
-              } transition`}
+              className={`inline-flex items-center gap-2 ${pathname.startsWith("/services") ? "underline underline-offset-4" : "hover:underline hover:underline-offset-4"}`}
             >
               Services
               <svg
@@ -119,105 +105,69 @@ export default function Header() {
               </svg>
             </button>
 
-            <AnimatePresence>
-              {servicesOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 8 }}
-                  transition={{ duration: 0.18 }}
-                  className="absolute left-0 mt-3 w-[340px] rounded-2xl bg-white shadow-xl border border-gray-100 overflow-hidden"
-                >
-                  <div className="px-4 py-3 bg-gradient-to-r from-[#FFFBEA] to-white border-b">
-                    <Link
-                      href="/services"
-                      className="text-sm font-semibold text-[#1E293B] hover:text-[#F59E0B]"
-                      onClick={() => setServicesOpen(false)}
-                    >
-                      Voir tous les services →
-                    </Link>
-                  </div>
+            {servicesOpen && (
+              <div
+                className="absolute left-0 top-[calc(100%+0.75rem)] w-[340px] overflow-hidden rounded-2xl border border-[#dce4ec] bg-white shadow-xl"
+              >
+                <div className="border-b border-[#dce4ec] bg-[#f2f7fb] px-4 py-3">
+                  <Link
+                    href="/services"
+                    className="text-sm font-semibold text-[#0d2446] hover:underline"
+                    onClick={() => setServicesOpen(false)}
+                  >
+                    Voir tous les services →
+                  </Link>
+                </div>
 
-                  <div className="p-4 grid gap-4">
-                    {SERVICES_MENU.map((block) => (
-                      <div key={block.category}>
-                        <p className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">
-                          {block.category}
-                        </p>
-                        <div className="grid gap-1">
-                          {block.items.map((it) => (
-                            <Link
-                              key={it.href}
-                              href={it.href}
-                              onClick={() => setServicesOpen(false)}
-                              className="rounded-xl px-3 py-2 text-sm text-[#1E293B] hover:bg-[#FFFBEA] hover:text-[#92400E] transition"
-                            >
-                              {it.label}
-                            </Link>
-                          ))}
-                        </div>
+                <div className="p-4 grid gap-4">
+                  {SERVICES_MENU.map((block) => (
+                    <div key={block.category}>
+                      <p className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">
+                        {block.category}
+                      </p>
+                      <div className="grid gap-1">
+                        {block.items.map((it) => (
+                          <Link
+                            key={it.href}
+                            href={it.href}
+                            onClick={() => setServicesOpen(false)}
+                            className="rounded-xl px-3 py-2 text-sm text-[#1E293B] hover:bg-[#e7f1f8] transition"
+                          >
+                            {it.label}
+                          </Link>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
-          {/* Outil gratuit d’orientation */}
-          <Link
-            href="/qui-peut-maider"
-            className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
-              pathname === "/qui-peut-maider"
-                ? "border-[#FBBF24] bg-[#FBBF24] text-[#1E293B]"
-                : "border-[#FBBF24]/60 text-[#FBBF24] hover:bg-[#FBBF24] hover:text-[#1E293B]"
-            }`}
-          >
+          <Link href="/qui-peut-maider" className={desktopLinkClass("/qui-peut-maider")}>
             Qui peut m’aider ?
           </Link>
-
-          {/* ✅ 3) À propos, FAQ, Contact, Recrutement */}
-          {navLinks
-            .filter((l) => l.href !== "/") // on retire Accueil (déjà affiché)
-            .map((link) => {
-              if (link.name === "Recrutement") {
-                return (
-                  <div key={link.href} className="flex items-center gap-4">
-                    <Link href={link.href} className={linkClass(link.href)}>
-                      {link.name}
-                    </Link>
-
-                    <Image
-                      src="/optimized/sap-transparent.webp"
-                      alt="SAP"
-                      width={85}
-                      height={28}
-                      className="object-contain w-16 2xl:w-[85px]"
-                    />
-                  </div>
-                );
-              }
-
-              return (
-                <Link key={link.href} href={link.href} className={linkClass(link.href)}>
-                  {link.name}
-                </Link>
-              );
-            })}
-          <a
-            href={PRO_SITE_URL}
-            className="shrink-0 rounded-full border border-[#FBBF24]/60 px-3 py-2 font-semibold text-[#FBBF24] transition hover:bg-[#FBBF24] hover:text-[#1E293B]"
-            aria-label="Professionnels : accéder au site Luméa Services Pro"
-          >
-            Professionnels ↗
+          {navLinks.map((link) => (
+            <Link key={link.href} href={link.href} className={desktopLinkClass(link.href)}>
+              {link.name}
+            </Link>
+          ))}
+          <a href={PRO_SITE_URL} className="hover:underline hover:underline-offset-4">
+            Professionnels <span aria-hidden="true">↗</span>
           </a>
+          <Link href="/contact#prenom" className="ml-auto shrink-0 rounded-xl bg-[#ffbd3b] px-4 py-2.5 font-bold hover:bg-[#f4ac23]">
+            Demander un devis
+          </Link>
         </nav>
 
         {/* Bouton burger mobile */}
         <button
-          className="xl:hidden text-[#FBBF24] focus:outline-none"
+          type="button"
+          className="-ml-2 flex h-11 w-11 items-center justify-center rounded-md focus-visible:outline focus-visible:outline-2 xl:hidden"
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Ouvrir le menu"
+          aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+          aria-expanded={menuOpen}
+          aria-controls="menu-mobile"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -234,6 +184,17 @@ export default function Header() {
             )}
           </svg>
         </button>
+
+        <Link href="/" onClick={() => setMenuOpen(false)} className="relative block aspect-[3.65] w-40 shrink-0 overflow-hidden rounded-sm focus-visible:outline focus-visible:outline-2 xl:w-44 2xl:w-48">
+          <Image
+            src="/brand/lumea-services-logo.jpg"
+            alt="Luméa Services — accueil"
+            fill
+            priority
+            sizes="(min-width: 1536px) 192px, (min-width: 1280px) 176px, 160px"
+            className="object-cover object-[50%_49%]"
+          />
+        </Link>
       </div>
 
 
@@ -246,11 +207,12 @@ export default function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25 }}
-            className="xl:hidden max-h-[calc(100dvh-81px)] overflow-y-auto bg-[#1E293B] border-t border-[#FBBF24]/20"
+            id="menu-mobile"
+            className="xl:hidden max-h-[calc(100dvh-4.25rem)] overflow-y-auto bg-[#1E293B] border-t border-[#FBBF24]/20"
           >
             <div className="flex flex-col items-center py-4 space-y-4 text-white w-full px-6">
               {/* ✅ Ordre mobile : Accueil puis Services */}
-              <Link href="/" className={linkClass("/")} onClick={() => setMenuOpen(false)}>
+              <Link href="/" aria-current={pathname === "/" ? "page" : undefined} className={mobileLinkClass("/")} onClick={() => setMenuOpen(false)}>
                 Accueil
               </Link>
 
@@ -332,19 +294,19 @@ export default function Header() {
               </Link>
 
               {/* Suite du menu mobile */}
-              <Link href="/a-propos" className={linkClass("/a-propos")} onClick={() => setMenuOpen(false)}>
+              <Link href="/a-propos" className={mobileLinkClass("/a-propos")} onClick={() => setMenuOpen(false)}>
                 À propos
               </Link>
 
-              <Link href="/faq" className={linkClass("/faq")} onClick={() => setMenuOpen(false)}>
+              <Link href="/faq" className={mobileLinkClass("/faq")} onClick={() => setMenuOpen(false)}>
                 FAQ
               </Link>
 
-              <Link href="/contact" className={linkClass("/contact")} onClick={() => setMenuOpen(false)}>
+              <Link href="/contact" className={mobileLinkClass("/contact")} onClick={() => setMenuOpen(false)}>
                 Contact
               </Link>
 
-              <Link href="/recrutement" className={linkClass("/recrutement")} onClick={() => setMenuOpen(false)}>
+              <Link href="/recrutement" className={mobileLinkClass("/recrutement")} onClick={() => setMenuOpen(false)}>
                 Recrutement
               </Link>
 

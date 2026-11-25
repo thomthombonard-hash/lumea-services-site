@@ -57,8 +57,6 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://www.gstatic.com" />
         <link rel="dns-prefetch" href="https://www.google.com" />
 
-        <link rel="icon" href="/logo.ico" />
-
         {/* Google Tag Manager */}
         <script
           dangerouslySetInnerHTML={{
@@ -89,52 +87,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <Header />
 
         {/* === CONTENU DES PAGES === */}
-        <main className="site-main flex-grow container mx-auto p-4 pt-24">
+        <div className="site-main flex-grow">
           <ChristmasSeason />
           {children}
-        </main>
+        </div>
 
-        {/* === FOOTER GLOBAL === */}
-        <footer className="site-footer bg-[#1E293B]/95 text-white text-center py-6 mt-8 text-sm sm:text-base">
-          <p className="font-semibold">
-            © {new Date().getFullYear()} Luméa Services
-          </p>
-          <p className="mt-2">
-            <Link
-              href="/mentions-legales"
-              className="underline hover:text-gray-200"
-            >
-              Mentions légales
-            </Link>{" "}
-            |{" "}
-            <Link
-              href="/politique-confidentialite"
-              className="underline hover:text-gray-200"
-            >
-              Politique de confidentialité
-            </Link>{" "}
-            |{" "}
-            <Link
-              href="/qui-peut-maider"
-              className="underline hover:text-gray-200"
-            >
-              Qui peut m’aider ?
-            </Link>{" "}
-            |{" "}
-            <Link
-              href="/faq"
-              className="underline hover:text-gray-200"
-            >
-              FAQ
-            </Link>
-            {" "}|{" "}
-            <Link href="/concours-noel-2026" className="underline hover:text-gray-200">
-              Concours de Noël 2026
-            </Link>
-          </p>
-          <p className="text-xs mt-2 text-gray-200">
-            Site réalisé par HBS Partners – Tous droits réservés
-          </p>
+        <footer className="site-footer">
+          <div className="mx-auto grid max-w-[92rem] gap-8 px-5 py-9 sm:grid-cols-2 sm:px-10 lg:grid-cols-[1.2fr_1fr_1fr] xl:px-16">
+            <div>
+              <Link href="/" className="text-xl font-extrabold hover:underline">Luméa Services</Link>
+              <p className="mt-2 text-sm text-slate-200">4 rue Fontevrault, 72200 La Flèche</p>
+            </div>
+            <nav aria-label="Pied de page Luméa" className="grid content-start gap-2 text-sm">
+              <Link href="/" className="hover:underline">Accueil</Link>
+              <Link href="/services" className="hover:underline">Nos services</Link>
+              <Link href="/qui-peut-maider" className="hover:underline">Qui peut m’aider ?</Link>
+              <Link href="/faq" className="hover:underline">FAQ</Link>
+              <Link href="/concours-noel-2026" className="hover:underline">Concours de Noël 2026</Link>
+            </nav>
+            <div className="grid content-start gap-2 text-sm">
+              <Link href="/mentions-legales" className="hover:underline">Mentions légales</Link>
+              <Link href="/politique-confidentialite" className="hover:underline">Politique de confidentialité</Link>
+              <p className="mt-2 text-slate-200">© {new Date().getFullYear()} Luméa Services</p>
+              <p className="text-xs text-slate-300">Site réalisé par HBS Partners</p>
+            </div>
+          </div>
         </footer>
 
         {/* === COMPOSANTS RGPD === */}

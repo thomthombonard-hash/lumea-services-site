@@ -1,4 +1,17 @@
+import type { Metadata } from "next";
 import ServiceTemplate from "@/components/ServiceTemplate";
+
+const title = "Ménage à domicile à La Flèche | Luméa Services";
+const description =
+  "Ménage régulier ou ponctuel pour particuliers à La Flèche et La Suze-sur-Sarthe. Entretien des sols, de la cuisine et des sanitaires. Demandez votre devis.";
+const url = "https://www.lumea-services.fr/services/particuliers/menage";
+
+export const metadata: Metadata = {
+  title,
+  description,
+  alternates: { canonical: url },
+  openGraph: { title, description, url, siteName: "Luméa Services", locale: "fr_FR", type: "website" },
+};
 
 export default function Page() {
   return (
@@ -18,7 +31,6 @@ export default function Page() {
         "Notre équipe intervient pour un ménage à domicile soigné, avec des méthodes simples, efficaces et un vrai suivi.",
         "Que ce soit pour un entretien hebdomadaire, un besoin ponctuel ou une remise au propre, Luméa Services vous accompagne dans la durée.",
       ]}
-      keywordsLine="Mots-clés : ménage à domicile, aide à domicile, entretien du logement, La Flèche, La Suze-sur-Sarthe, Sarthe."
     />
   );
 }

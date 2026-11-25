@@ -20,8 +20,8 @@ export const metadata: Metadata = {
 
 export default function QuiPeutMAiderPage() {
   return (
-    <div className="pb-8 pt-4 sm:pt-8">
+    <main className="site-page site-special-page">
       <OrientationTool />
-    </div>
+    </main>
   );
 }

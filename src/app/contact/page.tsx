@@ -7,6 +7,7 @@ import type React from "react";
 import { motion, easeOut } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { homeQuoteServices } from "@/lib/homeQuoteServices";
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
@@ -24,6 +25,19 @@ export default function ContactPage() {
   });
   const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search);
+    const postalCode = query.get("codePostal") ?? "";
+    const service = homeQuoteServices.find((item) => item.slug === query.get("service"));
+    if (!/^[0-9]{5}$/.test(postalCode)) return;
+
+    setForm((current) => ({
+      ...current,
+      subject: current.subject || (service ? `Demande de devis – ${service.title}` : "Demande de devis"),
+      message: current.message || `Code postal de l’intervention : ${postalCode}\n\n`,
+    }));
+  }, []);
 
   // 🔹 Chargement différé du script reCAPTCHA Enterprise
   useEffect(() => {
@@ -92,42 +106,29 @@ export default function ContactPage() {
 
   // 👉 ICI le seul return du composant
   return (
-    <main className="min-h-screen bg-white text-gray-900 scroll-smooth">
+    <main className="site-page">
       {/* === HERO === */}
-      <section className="relative isolate overflow-hidden pt-32 pb-20 bg-gradient-to-b from-[#FFFBEA] via-white to-white border-b scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center">
-          <motion.h1
-            {...fadeUp}
-            className="text-4xl sm:text-5xl font-bold text-[#1E293B]"
-          >
-            Contactez <span className="text-[#F59E0B]">Luméa Services</span>
-          </motion.h1>
+      <section className="site-page-hero">
+        <div className="mx-auto grid max-w-6xl items-center gap-8 px-5 sm:px-8 lg:grid-cols-2 lg:gap-14">
+          <motion.div {...fadeUp}>
+            <h1>Contactez <span className="site-page-accent">Luméa Services</span></h1>
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-[#37465b]">
+              Une question ou une demande de devis ? Contactez notre agence à La Flèche. Nous vous répondons sous 24 à 48 h ouvrées.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a href="#prenom" className="site-page-button">Écrire à l’agence</a>
+              <a href="tel:0673258816" className="site-page-button-secondary">Appeler le 06 73 25 88 16</a>
+            </div>
+          </motion.div>
 
-          <motion.p
-            {...fadeUp}
-            className="mt-6 max-w-2xl mx-auto text-lg text-gray-700 leading-relaxed"
-          >
-            Une question, un devis ou une candidature spontanée ?{" "}
-            Remplissez le formulaire ci-dessous, nous vous répondrons sous 24 à 48h jours ouvrés.
-          </motion.p>
-
-          <motion.div {...fadeUp} className="mt-10">
-            <Image
-              src="/optimized/pexels-mikhail-nilov-7681302.webp"
-              alt="Contact Luméa Services"
-              width={1000}
-              height={500}
-              quality={70}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
-              className="mx-auto rounded-3xl shadow-lg border object-cover"
-              priority
-            />
+          <motion.div {...fadeUp} className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+            <Image src="/brand/lumea-agence-appel.webp" alt="" fill priority sizes="(min-width: 1024px) 520px, 100vw" className="object-cover" />
           </motion.div>
         </div>
       </section>
 
       {/* === FORMULAIRE === */}
-      <section className="py-20 border-b bg-white scroll-mt-24">
+      <section className="site-page-section border-b bg-white scroll-mt-24">
         <div className="mx-auto max-w-6xl px-6 lg:px-8 grid gap-12 lg:grid-cols-2 items-start">
           {/* FORMULAIRE */}
           <motion.div {...fadeUp}>
@@ -137,16 +138,16 @@ export default function ContactPage() {
 
             <form
               onSubmit={handleSubmit}
-              className="space-y-5 bg-white border rounded-2xl shadow-sm p-6"
+              className="site-page-card space-y-5 p-4 sm:p-6 lg:p-8"
             >
               <div id="prenom" className="scroll-mt-[7rem]">
-                <label className="block text-sm font-medium mb-1">
-                  Votre nom <span className="text-[#F59E0B]">*</span>
+                <label htmlFor="contact-name" className="block text-sm font-medium mb-1">
+                  Votre nom <span className="site-page-accent">*</span>
                 </label>
-                <input
+                <input id="contact-name"
                   type="text"
                   required
-                  className="w-full rounded-xl border px-3 py-2 outline-none focus:ring focus:ring-[#FBBF24]/40"
+                  className="site-page-field"
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   placeholder="Marie Dupont"
@@ -154,13 +155,13 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">
-                  Votre email <span className="text-[#F59E0B]">*</span>
+                <label htmlFor="contact-email" className="block text-sm font-medium mb-1">
+                  Votre email <span className="site-page-accent">*</span>
                 </label>
-                <input
+                <input id="contact-email"
                   type="email"
                   required
-                  className="w-full rounded-xl border px-3 py-2 outline-none focus:ring focus:ring-[#FBBF24]/40"
+                  className="site-page-field"
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                   placeholder="vous@example.com"
@@ -168,10 +169,10 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">Sujet</label>
-                <input
+                <label htmlFor="contact-subject" className="block text-sm font-medium mb-1">Sujet</label>
+                <input id="contact-subject"
                   type="text"
-                  className="w-full rounded-xl border px-3 py-2 outline-none focus:ring focus:ring-[#FBBF24]/40"
+                  className="site-page-field"
                   value={form.subject}
                   onChange={(e) => setForm({ ...form, subject: e.target.value })}
                   placeholder="Objet de votre message"
@@ -179,12 +180,12 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">
-                  Message <span className="text-[#F59E0B]">*</span>
+                <label htmlFor="contact-message" className="block text-sm font-medium mb-1">
+                  Message <span className="site-page-accent">*</span>
                 </label>
-                <textarea
+                <textarea id="contact-message"
                   required
-                  className="w-full rounded-xl border px-3 py-2 outline-none focus:ring focus:ring-[#FBBF24]/40"
+                  className="site-page-field"
                   rows={5}
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
@@ -198,7 +199,7 @@ export default function ContactPage() {
                   J’accepte le traitement de mes données (voir la{" "}
                   <Link
                     href="/politique-confidentialite"
-                    className="underline text-[#F59E0B]"
+                    className="underline text-[#0d4772]"
                   >
                     politique de confidentialité
                   </Link>
@@ -215,11 +216,7 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full mt-4 rounded-2xl px-5 py-3 text-white font-semibold shadow-md transition ${
-                  loading
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-[#FBBF24] hover:scale-[1.02] hover:shadow-lg"
-                }`}
+                className="site-page-button w-full sm:w-auto"
               >
                 {loading ? "Envoi en cours..." : "Envoyer le message"}
               </button>
@@ -262,7 +259,7 @@ export default function ContactPage() {
             </div>
 
             {/* === GOOGLE MAPS === */}
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border-2 border-[#FBBF24]/40 shadow-lg shadow-[#FBBF24]/10">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border-2 border-[#dce4ec] shadow-lg shadow-slate-900/5">
               <iframe
                 className="absolute inset-0 w-full h-full"
                 title="Localisation Luméa Services"
@@ -277,7 +274,7 @@ export default function ContactPage() {
       </section>
 
       {/* === CTA FINALE === */}
-      <section className="border-t bg-[#F9FAFB] py-16 text-center">
+      <section className="border-t bg-[#f2f7fb] site-page-section text-center">
         <motion.div {...fadeUp}>
           <h2 className="text-3xl font-semibold text-[#1E293B]">
             Vous préférez nous appeler directement ?
@@ -287,7 +284,7 @@ export default function ContactPage() {
           </p>
           <a
             href="tel:0673258816"
-            className="inline-block mt-6 rounded-2xl bg-[#FBBF24] px-6 py-3 text-white font-semibold shadow-md transition hover:scale-[1.03] hover:shadow-lg"
+            className="site-page-button"
           >
             📞 06 73 25 88 16
           </a>

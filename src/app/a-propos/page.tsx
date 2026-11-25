@@ -162,17 +162,17 @@ export default function AboutPage() {
   };
 
   return (
-    <main className="min-h-screen scroll-smooth bg-white text-gray-900">
+    <main className="site-page">
 
       {/* HERO SECTION */}
-      <section className="relative isolate overflow-hidden pt-32 pb-20 bg-gradient-to-b from-[#FFFBEA] via-white to-white border-b scroll-mt-24">
+      <section className="site-page-hero">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
 
           <motion.div {...fadeUp} className="text-center">
 
             <h1 className="text-4xl font-bold sm:text-5xl text-[#1E293B]">
               À propos de{" "}
-              <span className="text-[#F59E0B]">
+              <span className="site-page-accent">
                 Luméa Services
               </span>
             </h1>
@@ -190,7 +190,7 @@ export default function AboutPage() {
 
               <Link
                 href="/faq"
-                className="font-semibold text-[#F59E0B] underline underline-offset-4 hover:text-[#92400E]"
+                className="font-semibold text-[#0d4772] underline underline-offset-4 hover:text-[#0d2446]"
               >
                 Consultez notre FAQ
               </Link>
@@ -204,7 +204,7 @@ export default function AboutPage() {
 
 
       {/* SECTION — NOTRE HISTOIRE */}
-      <section className="relative py-20 border-b bg-white scroll-mt-24">
+      <section className="relative site-page-section border-b bg-white scroll-mt-24">
 
         <div className="mx-auto max-w-7xl px-6 lg:px-8 grid gap-12 lg:grid-cols-2 items-center">
 
@@ -257,7 +257,7 @@ export default function AboutPage() {
 
 
       {/* SECTION — NOS VALEURS */}
-      <section className="relative py-20 border-b bg-[#F9FAFB] scroll-mt-24">
+      <section className="relative site-page-section border-b bg-[#f2f7fb] scroll-mt-24">
 
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
 
@@ -335,7 +335,7 @@ export default function AboutPage() {
 
 
       {/* SECTION — NOTRE VISION */}
-      <section className="relative py-20 bg-gradient-to-b from-[#FFFBEA] via-white to-white border-b scroll-mt-24">
+      <section className="site-page-section bg-[#fcf3e2]">
 
         <div className="mx-auto max-w-7xl px-6 lg:px-8 grid gap-12 lg:grid-cols-2 items-center">
 
@@ -363,7 +363,7 @@ export default function AboutPage() {
 
             <Link
               href="/contact"
-              className="inline-block mt-6 rounded-2xl bg-[#FBBF24] px-6 py-3 text-white shadow-md transition hover:scale-[1.03] hover:shadow-lg"
+              className="site-page-button"
             >
               Nous contacter
             </Link>
@@ -393,7 +393,7 @@ export default function AboutPage() {
 
 
       {/* SECTION — ÉQUIPE */}
-      <section className="relative py-20 bg-[#F9FAFB]">
+      <section className="relative site-page-section bg-[#f2f7fb]">
 
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
 

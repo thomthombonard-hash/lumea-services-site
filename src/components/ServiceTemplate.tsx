@@ -37,13 +37,20 @@ export default function ServiceTemplate({
   const isPart = audience === "Particuliers";
 
   return (
-    <main className="min-h-screen bg-white text-gray-900">
+    <main className="site-page">
       {/* HERO */}
-      <section className="pt-32 pb-14 bg-gradient-to-b from-[#FFFBEA] via-white to-[#FFFDF7] border-b">
+      <section className="site-page-hero">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="grid gap-10 lg:grid-cols-2 items-center">
+          <nav aria-label="Fil d’Ariane" className="mb-7 flex flex-wrap items-center gap-2 text-sm text-[#37465b]">
+            <Link className="underline underline-offset-4" href="/">Accueil</Link>
+            <span aria-hidden="true">/</span>
+            <Link className="underline underline-offset-4" href="/services">Services</Link>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">{title}</span>
+          </nav>
+          <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
             <motion.div {...fadeUp}>
-              <p className="text-sm font-semibold uppercase tracking-wider text-[#92400E]">
+              <p className="text-sm font-semibold uppercase tracking-wider text-[#0d4772]">
                 {audience}
               </p>
 
@@ -69,38 +76,29 @@ export default function ServiceTemplate({
               <div className="mt-7 flex gap-3 flex-wrap">
                 <Link
                   href="/contact#prenom"
-                  className="rounded-3xl bg-[#FBBF24] px-7 py-3 text-white font-semibold shadow-md transition hover:bg-[#F59E0B]"
+                  className="site-page-button"
                 >
                   Demander un devis
                 </Link>
                 <Link
                   href="/services"
-                  className="rounded-3xl border px-7 py-3 font-medium text-[#1E293B] hover:bg-gray-50 transition"
+                  className="site-page-button-secondary"
                 >
                   Voir tous les services
                 </Link>
               </div>
 
-              {/* Badges */}
-              <div className="mt-7 flex gap-3 flex-wrap">
-                <span className="px-4 py-1.5 text-sm font-medium rounded-full bg-[#FBBF24]/20 text-[#92400E]">
-                  ✅ Devis clair
-                </span>
-                <span className="px-4 py-1.5 text-sm font-medium rounded-full bg-[#FBBF24]/20 text-[#92400E]">
-                  ⭐ Suivi qualité
-                </span>
-                {isPart && (
-                  <span className="px-4 py-1.5 text-sm font-medium rounded-full bg-[#FBBF24]/20 text-[#92400E]">
-                    🧾 Crédit d’impôt 50%
-                  </span>
-                )}
-              </div>
+              {isPart && (
+                <p className="mt-5 text-sm text-[#37465b]">
+                  Crédit d’impôt de 50 % sous conditions. <Link href="/#credit-impot" className="font-bold text-[#0d4772] underline underline-offset-4">Voir les modalités</Link>.
+                </p>
+              )}
             </motion.div>
 
             {/* Image (style identique à tes cartes) */}
             <motion.div
               {...fadeUp}
-              className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl border bg-white shadow-lg"
+              className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-[#e9dfce] bg-white"
             >
               <Image
                 src={img}
@@ -111,17 +109,16 @@ export default function ServiceTemplate({
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover object-center transition-transform duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* CONTENU */}
-      <section className="py-16">
+      <section className="site-page-section">
         <div className="mx-auto max-w-6xl px-6 grid gap-10 lg:grid-cols-2">
           {/* Bloc prestation */}
-          <motion.div {...fadeUp} className="rounded-3xl border bg-white p-8 shadow-sm">
+          <motion.div {...fadeUp} className="site-page-card p-5 sm:p-8">
             <h2 className="text-2xl font-bold text-[#1E293B]">
               Ce que comprend notre prestation
             </h2>
@@ -147,7 +144,7 @@ export default function ServiceTemplate({
           </motion.div>
 
           {/* Bloc organisation */}
-          <motion.div {...fadeUp} className="rounded-3xl border bg-white p-8 shadow-sm">
+          <motion.div {...fadeUp} className="site-page-card p-5 sm:p-8">
             <h2 className="text-2xl font-bold text-[#1E293B]">Comment ça se passe ?</h2>
             <ol className="mt-5 space-y-2 text-gray-700 list-decimal pl-5">
               <li>Vous décrivez votre besoin (surface, fréquence, contraintes).</li>
@@ -156,7 +153,7 @@ export default function ServiceTemplate({
             </ol>
 
             {/* Crédit d’impôt (Particuliers) */}
-              <div className="mt-7 rounded-2xl border border-[#FBBF24]/35 bg-[#FFFBEA]/60 p-5">
+              <div className="mt-7 rounded-2xl border border-[#dce4ec] bg-[#f2f7fb] p-5">
                 <h3 className="text-lg font-bold text-[#1E293B]">
                   Crédit d’impôt 50% (services à la personne)
                 </h3>
@@ -172,7 +169,7 @@ export default function ServiceTemplate({
 
             <p className="mt-7 text-sm text-gray-600">
               Pour les questions fréquentes (organisation, tarifs, crédit d’impôt…),{" "}
-              <Link href="/faq" className="underline text-[#F59E0B] hover:text-[#92400E]">
+              <Link href="/faq" className="underline text-[#0d4772] hover:text-[#0d2446]">
                 consultez la FAQ
               </Link>
               .
@@ -182,7 +179,7 @@ export default function ServiceTemplate({
       </section>
 
       {/* CTA */}
-      <section className="py-16 border-t bg-gradient-to-b from-white to-[#FFFBEA]">
+      <section className="site-page-section border-t bg-[#f2f7fb]">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <motion.h2 {...fadeUp} className="text-3xl font-bold text-[#1E293B]">
             Besoin d’un devis rapide à {locationLine.split("•")[0].trim()} ?
@@ -193,7 +190,7 @@ export default function ServiceTemplate({
           <motion.div {...fadeUp} className="mt-8">
             <Link
               href="/contact#prenom"
-              className="inline-flex items-center rounded-3xl bg-gradient-to-r from-[#F59E0B] to-[#FBBF24] px-10 py-4 text-white font-semibold shadow-lg shadow-[#F59E0B]/30 transition hover:scale-[1.03]"
+              className="site-page-button"
             >
               Obtenir un devis
             </Link>

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import LumeaIcon from "@/components/LumeaIcon";
 
 export default function GlobalFloatingActions() {
   const pathname = usePathname();
@@ -14,25 +15,22 @@ export default function GlobalFloatingActions() {
 
   return (
     <>
-      <div className="fixed bottom-4 left-1/2 z-[70] -translate-x-1/2 flex gap-3 md:hidden px-4">
+      <div className="fixed inset-x-0 bottom-0 z-[70] grid grid-cols-[minmax(0,1fr)_minmax(0,1.45fr)] gap-2 border-t border-[#d6deea] bg-white px-3 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] md:hidden">
         <a
           href="tel:0673258816"
-          className="flex items-center gap-2 rounded-full bg-[#1E293B] px-5 py-3 text-xs font-semibold text-white shadow-lg shadow-black/20 transition-all hover:scale-[1.05]"
+          className="flex min-h-11 min-w-0 items-center justify-center gap-2 rounded-lg border border-[#0d1c35] px-1 text-center text-sm font-bold text-[#0d1c35]"
         >
-          <span className="text-sm">📞</span>
-          <span>Appeler</span>
+          <LumeaIcon name="phone" className="h-4 w-4 shrink-0" /> Appeler
         </a>
-
         <Link
           href="/contact#prenom"
-          className="flex items-center gap-2 rounded-full bg-[#FBBF24] px-5 py-3 text-xs font-semibold text-[#1E293B] shadow-lg shadow-[#F59E0B]/30 transition-all hover:scale-[1.05]"
+          className="flex min-h-11 items-center justify-center rounded-lg bg-[#ffbd3b] px-1 text-center text-sm font-bold text-[#0d1c35]"
         >
-          <span className="text-sm">💬</span>
-          <span>Devis</span>
+          Demander un devis
         </Link>
       </div>
 
-      <div className="hidden md:flex flex-col items-end gap-3 fixed bottom-8 right-6 z-[70]">
+      <div className={`hidden ${pathname === "/" ? "" : "md:flex"} fixed bottom-8 right-6 z-[70] flex-col items-end gap-3`}>
         <a
           href="tel:0673258816"
           className="flex items-center justify-center gap-2 rounded-full bg-[#1E293B] px-6 py-3 font-semibold text-white shadow-lg transition hover:scale-[1.05] hover:bg-[#374151] hover:shadow-xl"

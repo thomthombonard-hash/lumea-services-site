@@ -3,10 +3,10 @@ import Link from "next/link";
 
 export default function Page() {
   return (
-    <main className="bg-white text-gray-900">
+    <main className="site-page">
       
       {/* HERO */}
-      <section className="relative pt-28 pb-20 bg-gradient-to-b from-[#FFFBEA] to-white">
+      <section className="site-page-hero">
         <div className="max-w-7xl mx-auto px-6 grid gap-12 lg:grid-cols-2 items-center">
 
           {/* TEXTE */}
@@ -29,7 +29,7 @@ export default function Page() {
 
             <Link
               href="/contact#prenom"
-              className="inline-block mt-8 rounded-2xl bg-[#FBBF24] px-6 py-3 text-white font-semibold shadow hover:scale-[1.03]"
+              className="site-page-button"
             >
               Demander un devis
             </Link>

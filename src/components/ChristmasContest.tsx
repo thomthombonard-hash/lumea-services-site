@@ -53,10 +53,10 @@ function Gift({ className = "h-6 w-6" }: { className?: string }) {
 }
 
 // Décor purement visuel : branches, boules et flocons sans animation.
-function ChristmasDecor({ compact = false }: { compact?: boolean }) {
+function ChristmasDecor() {
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-      <svg viewBox="0 0 360 210" fill="none" className={`absolute -right-12 -top-6 text-[#77A483] ${compact ? "w-52 opacity-40 sm:w-72" : "w-64 opacity-70 sm:w-96"}`}>
+      <svg viewBox="0 0 360 210" fill="none" className="absolute -right-12 -top-6 w-64 text-[#77A483] opacity-70 sm:w-96">
         <g stroke="currentColor" strokeLinecap="round">
           <path d="M355 5C280 45 210 69 80 78M345 0C300 70 280 120 269 182" strokeWidth="4" />
           {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => <g key={i} transform={`translate(${110+i*28} ${76-i*6}) rotate(-12)`}><path d="M0 0l-31-25M0 0l-34 23M9-2l-20-30M9-2l-22 29" strokeWidth="2.5" /></g>)}
@@ -67,14 +67,14 @@ function ChristmasDecor({ compact = false }: { compact?: boolean }) {
         <circle cx="197" cy="149" r="26" fill="#B4313E" /><path d="M181 134c-6 9-5 20-2 25" stroke="#F0AAA6" strokeWidth="3" strokeLinecap="round" />
         <circle cx="100" cy="128" r="15" fill="#F8D57E" /><path d="M93 120l-2 8" stroke="#FFF0C4" strokeWidth="2" strokeLinecap="round" />
       </svg>
-      <svg viewBox="0 0 240 260" fill="none" className={`absolute -bottom-16 -left-14 w-64 rotate-180 text-[#77A483] ${compact ? "opacity-20" : "opacity-35"}`}>
+      <svg viewBox="0 0 240 260" fill="none" className="absolute -bottom-16 -left-14 w-64 rotate-180 text-[#77A483] opacity-35">
         <path d="M220 10C180 130 120 190 20 240" stroke="currentColor" strokeWidth="4" />
         {[0,1,2,3,4,5].map((i) => <g key={i} transform={`translate(${60+i*26} ${216-i*30}) rotate(-42)`}><path d="M0 0l-38-28M0 0l-38 28M12-8l-29-33M12-8l-27 33" stroke="currentColor" strokeWidth="3" strokeLinecap="round" /></g>)}
       </svg>
-      {!compact && <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full text-[#FFF2C9] opacity-40">
+      <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full text-[#FFF2C9] opacity-40">
         {[[70,100],[560,65],[720,285],[1110,510],[490,580],[95,520],[650,625],[1080,320]].map(([x,y],i)=><g key={i} transform={`translate(${x} ${y})`} fill="currentColor"><path d="M0-7L2-2 7 0 2 2 0 7-2 2-7 0-2-2Z" /></g>)}
         {[[300,30],[730,140],[580,380],[40,330],[900,630],[1160,90],[355,650],[670,490],[790,45],[260,430]].map(([x,y],i)=><circle key={i} cx={x} cy={y} r="2" fill="currentColor" />)}
-      </svg>}
+      </svg>
     </div>
   );
 }
@@ -86,26 +86,17 @@ export function ChristmasContestTeaser() {
   if (phase === "closed") return null;
 
   return (
-    <aside aria-label="Concours de Noël Luméa Services" className="mx-auto max-w-7xl px-4 pb-2 pt-3 sm:px-6 lg:px-8">
-      <div className="relative isolate overflow-hidden rounded-3xl border border-[#C55255] bg-[linear-gradient(115deg,#792932,#A22E3B)] px-6 py-8 text-white shadow-lg shadow-red-950/10 sm:px-9 sm:py-9">
-        <ChristmasDecor compact />
-        <div className="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-start gap-4">
-            <Gift className="mt-1 hidden h-12 w-12 shrink-0 text-[#FBBF24] sm:block" />
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-amber-200">Noël 2026 · La Flèche et 20 km autour</p>
-              <h2 className="mt-2 max-w-2xl text-2xl font-bold tracking-tight sm:text-3xl">À Noël, offrez-vous du temps pour vous.</h2>
-              <p className="mt-2 max-w-2xl text-base leading-7 text-rose-50">
-                3 mois de ménage et deux autres cadeaux à gagner près de chez vous.
-                {phase === "open" ? " Participez avant le 24 décembre à midi." : " Rendez-vous dès le 1er décembre sur Facebook."}
-              </p>
-            </div>
-          </div>
-          <Link href={CHRISTMAS_CONTEST.pagePath} className={`${primary} shrink-0 self-start md:self-center`}>
-            Découvrir le concours
-          </Link>
-        </div>
+    <aside aria-label="Concours de Noël Luméa Services" className="rounded-2xl border border-[#e9dfce] bg-[#fcf3e2] px-5 py-6 sm:px-8 lg:flex lg:items-center lg:justify-between lg:gap-10">
+      <div>
+        <h2 className="text-2xl font-extrabold tracking-tight text-[#0d1c35]">Le concours de Noël Luméa</h2>
+        <p className="mt-2 max-w-2xl leading-relaxed text-[#445267]">
+          3 mois de ménage et deux autres cadeaux à gagner à La Flèche et dans les environs.
+          {phase === "open" ? " Participez avant le 24 décembre à midi." : " Rendez-vous dès le 1er décembre sur Facebook."}
+        </p>
       </div>
+      <Link href={CHRISTMAS_CONTEST.pagePath} className="mt-5 inline-flex min-h-11 shrink-0 items-center gap-2 rounded-lg border border-[#0d2446] px-4 py-2 font-bold text-[#0d2446] hover:bg-white lg:mt-0">
+        Découvrir le concours <span aria-hidden="true">→</span>
+      </Link>
     </aside>
   );
 }
@@ -190,7 +181,8 @@ export function ChristmasContestPageContent() {
     : phase === "open" ? "Le concours est ouvert" : phase === "upcoming" ? "Ouverture le 1er décembre" : "Du 1er au 24 décembre 2026";
 
   return (
-    <div className="overflow-hidden rounded-[2rem] bg-white text-[#173F35] shadow-xl shadow-emerald-950/5">
+    <main className="site-special-page contest-page">
+      <div className="overflow-hidden rounded-2xl bg-white text-[#173F35]">
       <section aria-labelledby="concours-title" className="relative isolate overflow-hidden bg-[radial-gradient(ellipse_at_70%_30%,#2B6350_0%,#153E33_55%,#102F28_100%)] px-6 py-14 text-white sm:px-10 lg:px-14 lg:py-20">
         <ChristmasDecor />
         <div aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5 bg-[repeating-linear-gradient(135deg,#A7313E_0px,#A7313E_16px,#FFF2D5_16px,#FFF2D5_30px)]" />
@@ -327,6 +319,7 @@ export function ChristmasContestPageContent() {
         </div>
         <p className="mt-8 text-base leading-7 text-slate-500">Concours organisé par SARL Luméa Services, 992 784 090 RCS Le Mans. Facebook et Meta ne sont ni organisateurs, ni partenaires, ni parrains du jeu. Conditions détaillées, reports et protection des données : consultez le règlement complet.</p>
       </section>
-    </div>
+      </div>
+    </main>
   );
 }

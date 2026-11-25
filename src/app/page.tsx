@@ -2,636 +2,415 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState, useRef } from "react";
-import { motion, useAnimationControls, useMotionValue, easeOut } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import type { FormEvent } from "react";
+import LumeaIcon from "@/components/LumeaIcon";
 import { ChristmasContestTeaser } from "@/components/ChristmasContest";
+import { homeQuoteServices } from "@/lib/homeQuoteServices";
 
-/** Animation d’apparition commune */
-const fadeUp = {
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.2 },
-  transition: { duration: 0.6, ease: easeOut },
-};
+const sectionWidth = "mx-auto w-full max-w-[92rem] px-5 sm:px-10 xl:px-16";
+const sectionTitle = "text-[clamp(2rem,3.15vw,3.4rem)] font-extrabold leading-[1.08] tracking-[-0.035em] text-[#0d1c35]";
+const secondaryLink = "inline-flex items-center gap-2 font-bold text-[#0d2446] underline-offset-4 hover:underline";
+const callButton = "inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-[#0d2446] bg-white px-4 py-2 font-bold text-[#0d2446] transition hover:bg-[#e7f1f8] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0d2446]";
+const formField = "min-h-12 w-full rounded-lg border border-[#9da8b4] bg-white px-3 py-2 text-base text-[#0d1c35] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0d1c35]";
 
-function CarouselSection() {
-  const x = useMotionValue(0);
-  const controls = useAnimationControls();
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const currentX = useRef(0);
-
-  const servicesParticuliers = [
-    {
-      title: "Ménage à Domicile",
-      desc: "Retrouvez un intérieur propre et soigné grâce à nos prestations de ménage sur mesure : entretien régulier ou ponctuel, selon vos besoins et votre rythme de vie.",
-      img: "/optimized/ménage.webp",
-      href: "/services",
-    },
-    {
-      title: "Grand Nettoyage",
-      desc: "Remise en état complète après travaux, déménagement ou longue absence. Nous redonnons éclat et fraîcheur à votre logement du sol au plafond.",
-      img: "/optimized/gros.webp",
-      href: "/services",
-    },
-    {
-      title: "Vitrerie",
-      desc: "Des vitres toujours impeccables, sans traces ni reflets : nos intervenants assurent un nettoyage soigné de vos fenêtres, baies vitrées et vérandas.",
-      img: "/optimized/vitrepart.webp",
-      href: "/services",
-    },
-  ];
-
-  const duplicatedServices = [...servicesParticuliers, ...servicesParticuliers];
+function HomeQuoteStart() {
+  const router = useRouter();
+  const [postalCode, setPostalCode] = useState("");
+  const [choosingService, setChoosingService] = useState(false);
+  const [service, setService] = useState("");
+  const serviceField = useRef<HTMLSelectElement>(null);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (choosingService) serviceField.current?.focus();
+  }, [choosingService]);
 
-    const totalWidth = containerRef.current.scrollWidth / 2;
-
-    const loop = (startX = 0) => {
-      const distance = totalWidth + startX;
-      const duration = (distance / totalWidth) * 30;
-
-      controls.start({
-        x: [startX, -totalWidth],
-        transition: {
-          duration,
-          ease: "linear",
-          repeat: Infinity,
-          repeatType: "loop",
-        },
-      });
-    };
-
-    loop();
-
-    const container = containerRef.current;
-
-    const stopScroll = () => {
-      controls.stop();
-      currentX.current = x.get();
-    };
-
-    const startScroll = () => {
-      loop(currentX.current);
-    };
-
-    container.addEventListener("mouseenter", stopScroll);
-    container.addEventListener("mouseleave", startScroll);
-
-    return () => {
-      container.removeEventListener("mouseenter", stopScroll);
-      container.removeEventListener("mouseleave", startScroll);
-    };
-  }, [controls, x]);
+  function continueQuote(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!choosingService) {
+      setChoosingService(true);
+      return;
+    }
+    const query = new URLSearchParams({ codePostal: postalCode, service });
+    router.push(`/contact?${query}#prenom`);
+  }
 
   return (
-    <div className="relative overflow-hidden">
-      <motion.div
-        ref={containerRef}
-        className="flex gap-8"
-        animate={controls}
-        style={{ x }}
-      >
-        {duplicatedServices.map((s, i) => (
-          <Link
-            key={`srv-${i}`}
-            href={s.href}
-            className="relative min-w-[300px] sm:min-w-[400px] lg:min-w-[450px] overflow-hidden rounded-3xl shadow-lg group block"
-          >
-            <div className="relative h-64 w-full">
-              <Image
-                src={s.img}
-                alt={s.title}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-              <h3 className="absolute bottom-5 left-6 text-2xl font-semibold text-white drop-shadow-md">
-                {s.title}
-              </h3>
-            </div>
-            <div className="bg-white p-5">
-              <p className="text-gray-700 text-sm leading-relaxed">{s.desc}</p>
-              <span className="mt-3 inline-flex items-center text-sm font-medium text-[#F59E0B] group-hover:underline">
-                Voir le détail →
-              </span>
-            </div>
-          </Link>
-        ))}
-      </motion.div>
-
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[#FFFDF7] to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[#FFFDF7] to-transparent" />
-    </div>
+    <form onSubmit={continueQuote} className="mt-7 w-full max-w-xl rounded-2xl border border-[#dce4ec] bg-white p-4 shadow-sm sm:p-5 lg:mt-8">
+      <p className="mb-3 font-extrabold text-[#0d1c35]">Votre devis gratuit et sans engagement</p>
+      <div className="flex flex-col gap-2 sm:flex-row sm:gap-3">
+        <label className="min-w-0 flex-1">
+          <span className="sr-only">Code postal de l’intervention</span>
+          <input
+            name="codePostal"
+            autoComplete="postal-code"
+            inputMode="numeric"
+            pattern="[0-9]{5}"
+            title="Saisissez un code postal à 5 chiffres"
+            maxLength={5}
+            required
+            placeholder="Code postal"
+            value={postalCode}
+            onChange={(event) => setPostalCode(event.target.value)}
+            className={formField}
+          />
+        </label>
+        {choosingService && (
+          <label className="min-w-0 flex-[1.35]">
+            <span className="sr-only">Votre service</span>
+            <select ref={serviceField} name="service" value={service} onChange={(event) => setService(event.target.value)} required className={formField}>
+              <option value="">Choisir un service</option>
+              {homeQuoteServices.map((item) => <option key={item.slug} value={item.slug}>{item.title}</option>)}
+              <option value="autre">Autre service</option>
+            </select>
+          </label>
+        )}
+        <button type="submit" className="min-h-12 shrink-0 rounded-lg bg-[#0d2446] px-4 py-2 font-bold text-white hover:bg-[#1b3e64]">
+          {choosingService ? "Continuer" : "Choisir un service"} <span aria-hidden="true">→</span>
+        </button>
+      </div>
+      <Link href="/contact#prenom" className={`mt-3 text-sm ${secondaryLink}`}>Accéder au formulaire de devis <span aria-hidden="true">→</span></Link>
+    </form>
   );
 }
 
-/** === Composant principal === */
-export default function HomePage() {
-  const [miniForm, setMiniForm] = useState({ name: "", email: "", message: "" });
+const servicePhotos: Record<(typeof homeQuoteServices)[number]["slug"], string> = {
+  menage: "/brand/lumea-menage.webp",
+  vitrerie: "/brand/lumea-vitrerie.webp",
+  nettoyage: "/brand/lumea-grand-nettoyage.webp",
+};
+
+const serviceSteps = [
+  {
+    title: "Vous nous parlez de votre besoin",
+    description: "Ménage régulier, vitres ou grand nettoyage : dites-nous ce que vous souhaitez, par téléphone ou en ligne.",
+  },
+  {
+    title: "On prépare votre devis",
+    description: "Nous faisons le point sur le logement, la fréquence et les tâches à prévoir, puis nous vous transmettons une proposition.",
+  },
+  {
+    title: "On organise la première intervention",
+    description: "Une fois le devis accepté, nous convenons avec vous d’un créneau adapté.",
+  },
+  {
+    title: "Votre agence assure le suivi",
+    description: "Si vos besoins ou vos horaires changent, vous pouvez faire le point avec votre interlocuteur à La Flèche.",
+  },
+];
+
+const localAgency = {
+  reviews: "https://www.pagesjaunes.fr/pros/64449237",
+  directions: "https://www.google.com/maps/dir/?api=1&destination=4%20rue%20Fontevrault%2C%2072200%20La%20Fl%C3%A8che",
+};
+
+const commitments = [
+  { icon: "team", title: "Des équipes formées", text: "Des intervenants recrutés et accompagnés par Luméa." },
+  { icon: "quote", title: "Un devis sans engagement", text: "Un devis gratuit, adapté à votre logement et à vos besoins." },
+  { icon: "pin", title: "Une agence à La Flèche", text: "Un interlocuteur local pour organiser et suivre vos prestations." },
+  { icon: "credit", title: "50 % de crédit d’impôt", text: "Avance immédiate disponible, sous réserve d’éligibilité." },
+] as const;
+
+const homeQuestions = [
+  {
+    question: "Puis-je demander un ménage ponctuel ?",
+    answer: "Oui. Nous proposons des prestations ponctuelles et des passages réguliers. Indiquez-nous les pièces et les tâches à prévoir pour que nous puissions établir votre devis.",
+  },
+  {
+    question: "Que se passe-t-il après ma demande de devis ?",
+    answer: "L’agence vous contacte pour préciser votre besoin. Si une visite est utile pour chiffrer la prestation, nous la convenons avec vous. Vous recevez ensuite un devis gratuit et sans engagement.",
+  },
+  {
+    question: "Comment savoir si vous intervenez dans ma commune ?",
+    answer: "Nous intervenons à La Flèche, à La Suze-sur-Sarthe et dans les environs. Indiquez votre code postal dans la demande : l’agence vous confirmera si nous pouvons intervenir à votre adresse.",
+  },
+];
+
+function QuickContactForm() {
+  const [sending, setSending] = useState(false);
+  const [status, setStatus] = useState<"success" | "error" | null>(null);
+
+  async function sendMessage(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (sending) return;
+
+    const form = event.currentTarget;
+    const body = new FormData(form);
+    body.set("formType", "contact");
+    body.set("subject", "Demande rapide (page d’accueil)");
+    setSending(true);
+    setStatus(null);
+
+    try {
+      const response = await fetch("/api/form", { method: "POST", body });
+      if (!response.ok) throw new Error("Envoi impossible");
+      form.reset();
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    } finally {
+      setSending(false);
+    }
+  }
 
   return (
-    <div className="min-h-screen scroll-smooth bg-white text-gray-900">
-      <ChristmasContestTeaser />
-      {/* === SECTION 1 — HERO === */}
-      <section
-        id="hero"
-        className="relative isolate overflow-hidden pt-28 sm:pt-24 lg:pt-20 scroll-mt-24"
-      >
-        {/* Fond dégradé */}
-        <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[#FFFBEA] via-white to-white" />
-        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            {/* Texte */}
-            <motion.div {...fadeUp}>
-              <span className="inline-block rounded-full bg-white/90 px-5 py-1.5 text-sm font-semibold uppercase tracking-wider text-[#1E293B] shadow-sm">
-                Bienvenue chez <span className="text-[#92400E] font-bold">Luméa Services</span>
-              </span>
-              <h1 className="mt-3 text-4xl font-bold leading-tight sm:text-5xl">
-                Des services à la personne{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FBBF24] to-[#FDE68A]">
-                  pour votre quotidien
-                </span>
-              </h1>
-              <p className="mt-5 max-w-2xl text-lg text-[#374151] font-medium leading-relaxed">
-                Société de ménage centrée sur l’humain, <strong>Luméa Services</strong>, située à La Flèche place la qualité, la confiance et l’écoute au cœur de son engagement.
-                Nos valeurs reposent sur le respect, la bienveillance et la valorisation de nos collaborateurs, afin de garantir un suivi rigoureux et des interventions exemplaires.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link
-                  href="#services"
-                  className="rounded-2xl bg-[#FBBF24] px-5 py-3 text-white shadow transition hover:scale-[1.02] hover:shadow-lg"
-                >
-                  Découvrir nos services 
-                </Link>
-                <Link
-                  href="#contact"
-                  className="rounded-2xl border px-5 py-3 transition hover:bg-gray-50"
-                >
-                  Nous contacter
-                </Link>
-              </div>
-            </motion.div>
+    <form onSubmit={sendMessage} className="min-w-0 rounded-2xl border border-[#dce4ec] bg-white p-5 sm:p-8">
+      <h3 className="text-2xl font-extrabold tracking-tight text-[#0d1c35]">Écrivez-nous</h3>
+      <div className="mt-6 grid gap-4 sm:grid-cols-2">
+        <label className="min-w-0 space-y-2 text-sm font-semibold text-[#263348]">
+          <span>Votre nom</span>
+          <input type="text" name="name" autoComplete="name" required className={formField} />
+        </label>
+        <label className="min-w-0 space-y-2 text-sm font-semibold text-[#263348]">
+          <span>Votre e-mail</span>
+          <input type="email" name="email" autoComplete="email" required className={formField} />
+        </label>
+        <label className="space-y-2 text-sm font-semibold text-[#263348] sm:col-span-2">
+          <span>Votre message</span>
+          <textarea name="message" rows={4} required className={formField} />
+        </label>
+      </div>
+      <div className="mt-4 flex items-start gap-3 text-sm text-[#445267]">
+        <input id="home-contact-consent" type="checkbox" required className="mt-0.5 h-5 w-5 shrink-0 accent-[#0d2446]" />
+        <label htmlFor="home-contact-consent">
+          J’accepte le traitement de mes données. Consultez notre{" "}
+          <Link href="/politique-confidentialite" className="underline underline-offset-2">politique de confidentialité</Link>.
+        </label>
+      </div>
+      <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
+        <button type="submit" disabled={sending} className="min-h-12 rounded-lg bg-[#0d2446] px-5 py-2 font-bold text-white hover:bg-[#1b3e64] disabled:opacity-60">
+          {sending ? "Envoi en cours…" : "Envoyer le message"}
+        </button>
+        <Link href="/contact#prenom" className={secondaryLink}>Formulaire complet <span aria-hidden="true">→</span></Link>
+      </div>
+      {status === "success" && <p role="status" className="mt-4 font-semibold text-[#24583e]">Merci, votre message a bien été envoyé.</p>}
+      {status === "error" && <p role="alert" className="mt-4 font-semibold text-[#943631]">L’envoi a échoué. Réessayez dans quelques instants ou appelez-nous.</p>}
+    </form>
+  );
+}
 
-            {/* Image */}
-            <motion.div
-              {...fadeUp}
-              className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl border bg-white shadow-lg"
-            >
-            <Image
-              src="/optimized/pouss.webp"
-              alt="Présentation visuelle"
-              fill
-              priority
-              quality={70}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover object-center scale-110 transition-transform duration-700"
-            />
+export default function HomePage() {
+  return (
+    <main className="lumea-home min-h-screen bg-white text-[#0d1c35]">
+      <section id="hero" className="bg-[#fcfcfb]">
+        <div className={`${sectionWidth} grid items-center gap-9 pb-10 pt-12 sm:gap-12 sm:py-16 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1fr)] lg:gap-14 lg:py-20 xl:gap-20 xl:py-24`}>
+          <div className="min-w-0">
+            <div aria-hidden="true" className="mb-6 h-1.5 w-14 rounded-full bg-[#f3b434] lg:mb-8" />
+            <h1 className="max-w-[16ch] text-[clamp(2.15rem,4.1vw,4.4rem)] font-extrabold leading-[1.08] tracking-[-0.045em]">
+              Votre ménage à domicile, près de chez vous.
+            </h1>
+            <p className="mt-5 max-w-lg text-lg leading-relaxed text-[#37465b] lg:mt-7 lg:text-xl">
+              Ménage régulier, nettoyage de vitres et grand nettoyage à <strong>La Flèche</strong>, à La Suze-sur-Sarthe et dans les environs.
+            </p>
+            <HomeQuoteStart />
+            <div className="mt-5 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4">
+              <a href="tel:0673258816" className={`w-full sm:w-auto ${callButton}`}>
+                <LumeaIcon name="phone" className="h-5 w-5 shrink-0" /> Nous appeler
+              </a>
+              <span className="text-sm font-semibold text-[#445267]">06 73 25 88 16</span>
+            </div>
+          </div>
+          <Image
+            src="/brand/lumea-home-hero.webp"
+            alt=""
+            width={1448}
+            height={1086}
+            priority
+            sizes="(min-width: 1472px) 680px, (min-width: 1024px) 48vw, 100vw"
+            className="block h-auto w-full rounded-2xl lg:rounded-3xl"
+          />
+        </div>
+      </section>
 
-            </motion.div>
+      <section aria-labelledby="engagements-title" className="border-y border-[#e9dfce] bg-[#fcf3e2]">
+        <div className={sectionWidth}>
+          <h2 id="engagements-title" className="sr-only">Les engagements Luméa Services</h2>
+          <ul className="grid gap-5 py-7 min-[380px]:grid-cols-2 sm:gap-6 sm:py-9 lg:grid-cols-4 lg:divide-x lg:divide-[#e9dfce]">
+            {commitments.map(({ icon, title, text }) => (
+              <li key={icon} className="min-w-0 lg:px-6 lg:first:pl-0 lg:last:pr-0">
+                <LumeaIcon name={icon} className="h-8 w-8 text-[#0d4772] sm:h-10 sm:w-10" />
+                {icon === "credit" ? (
+                  <a href="#credit-impot" className={`mt-3 ${secondaryLink}`}>{title}</a>
+                ) : (
+                  <h3 className="mt-3 font-extrabold leading-snug">{title}</h3>
+                )}
+                <p className="mt-1 max-w-[28ch] text-sm leading-relaxed text-[#445267]">{text}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section id="services" className="bg-[#e7f1f8] py-12 sm:py-16 lg:py-20">
+        <div className={sectionWidth}>
+          <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
+            <h2 className={sectionTitle}>Nos services pour votre maison</h2>
+            <Link href="/services" className={secondaryLink}>Voir tous les services <span aria-hidden="true">→</span></Link>
+          </div>
+          <div className="mt-8 grid items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+            {homeQuoteServices.map((service) => (
+              <Link
+                key={service.slug}
+                href={`/services/particuliers/${service.slug}`}
+                className="group flex flex-col overflow-hidden rounded-2xl border border-[#c5d8e8] bg-white transition hover:border-[#7196b5] hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0d1c35]"
+              >
+                <div className="relative aspect-square overflow-hidden bg-[#d9e4eb]">
+                  <Image
+                    src={servicePhotos[service.slug]}
+                    alt=""
+                    fill
+                    sizes="(min-width: 1472px) 440px, (min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw"
+                    className="object-cover object-[50%_55%] transition-transform duration-300 motion-safe:group-hover:scale-[1.03]"
+                  />
+                </div>
+                <div className="flex flex-1 items-start justify-between gap-4 p-5 xl:p-6">
+                  <div>
+                    <h3 className="text-xl font-extrabold leading-tight">{service.title}</h3>
+                    <p className="mt-2 leading-relaxed text-[#445267]">{service.description}</p>
+                  </div>
+                  <span aria-hidden="true" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#e7f1f8] text-lg text-[#0d2446] group-hover:bg-[#d3e7f6]">→</span>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* === SECTION 2 — PRÉSENTATION === */}
-      <section
-        id="presentation"
-        className="relative border-t overflow-hidden scroll-mt-24 bg-gradient-to-b from-[#FFFBEA] via-white to-[#F9FAFB]"
-      >
-        <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_30%_20%,rgba(251,191,36,0.2),transparent_70%)]" />
-        <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-          <div className="grid gap-16 lg:grid-cols-2 items-center">
-            {/* Texte principal */}
-            <motion.div {...fadeUp} className="space-y-6">
-              <h2 className="text-4xl font-bold text-[#1E293B]">Qui sommes-nous ?</h2>
-              <p className="text-lg text-gray-700 leading-relaxed">
-                <strong>Luméa Services</strong>, entreprise indépendante implantée à <strong>La Flèche</strong>,
-                intervient à <strong>La Suze-sur-Sarthe</strong> et dans les communes alentour pour l’entretien de votre domicile.
-              </p>
-              <p className="text-lg text-gray-700 leading-relaxed">
-                Fondée par <strong>Thomas Bonard</strong>, fort de <strong>plus de 8 ans d’expérience</strong> dans le service à la personne,
-                Luméa Services s’appuie sur des valeurs humaines fortes : la <strong>proximité</strong>, la <strong>confiance</strong> et la
-                <strong> valorisation des équipes</strong>.
-              </p>
-              <div className="flex flex-wrap gap-3 mt-8">
-                <Link href="/a-propos" className="rounded-2xl bg-[#FBBF24] px-6 py-3 text-white font-semibold shadow transition hover:scale-[1.03] hover:shadow-lg">
-                  En savoir plus
-                </Link>
-                <Link href="/services" className="rounded-2xl border border-gray-300 px-6 py-3 font-medium text-gray-700 transition hover:bg-gray-100">
-                  Découvrir nos services
-                </Link>
-              </div>
-            </motion.div>
+      <section aria-labelledby="home-steps-title" className="border-b border-[#e5ebf1] py-12 sm:py-16 lg:py-20">
+        <div className={sectionWidth}>
+          <h2 id="home-steps-title" className={sectionTitle}>Comment ça se passe ?</h2>
+          <ol className="mt-8 grid gap-6 sm:grid-cols-2 xl:grid-cols-4 xl:gap-7">
+            {serviceSteps.map((step, index) => (
+              <li key={step.title} className="flex gap-4 border-t border-[#d8e3ec] pt-5">
+                <span aria-hidden="true" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#fcf3e2] font-extrabold">{index + 1}</span>
+                <div>
+                  <h3 className="text-lg font-extrabold">{step.title}</h3>
+                  <p className="mt-2 max-w-sm leading-relaxed text-[#445267]">{step.description}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
 
-            {/* Carte valeurs */}
-            <motion.div {...fadeUp} className="relative overflow-hidden rounded-3xl border bg-white shadow-xl p-8">
-              <div className="absolute -top-8 -right-8 h-40 w-40 bg-gradient-to-br from-[#FDE68A]/70 to-[#FBBF24]/40 blur-2xl rounded-full" />
-              <h3 className="text-2xl font-semibold text-[#1E293B] mb-4">Nos valeurs au quotidien</h3>
-              <p className="text-gray-700 leading-relaxed mb-6">
-                Nous croyons que la qualité passe par le respect et la valorisation des intervenants. L’humain est au centre de chaque action.
-              </p>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-800">
-                <li>Respect & bienveillance</li>
-                <li>Exigence & qualité</li>
-                <li>Écoute & accompagnement</li>
-                <li>Valorisation du personnel</li>
-              </ul>
-            </motion.div>
+      <section id="presentation" className="bg-[#fcf3e2] py-12 sm:py-16 lg:py-20">
+        <div className={`${sectionWidth} grid items-center gap-8 lg:grid-cols-2 lg:gap-16`}>
+          <div>
+            <h2 className={sectionTitle}>Pourquoi choisir Luméa Services ?</h2>
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-[#37465b]">
+              Notre agence est à La Flèche. Nous intervenons aussi à La Suze-sur-Sarthe et dans les environs.
+            </p>
+            <ul className="mt-6 space-y-3 text-[#263348]">
+              <li className="flex items-start gap-3"><LumeaIcon name="team" className="mt-0.5 h-5 w-5 shrink-0 text-[#0d4772]" /> Une équipe qui connaît votre logement et vos habitudes.</li>
+              <li className="flex items-start gap-3"><LumeaIcon name="quote" className="mt-0.5 h-5 w-5 shrink-0 text-[#0d4772]" /> Des prestations régulières ou ponctuelles, selon vos besoins.</li>
+              <li className="flex items-start gap-3"><LumeaIcon name="pin" className="mt-0.5 h-5 w-5 shrink-0 text-[#0d4772]" /> Un interlocuteur à l’agence pour adapter vos passages.</li>
+            </ul>
+            <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
+              <a href="tel:0673258816" className={callButton}>
+                <LumeaIcon name="phone" className="h-5 w-5 shrink-0" /> Appeler l’agence
+              </a>
+              <Link href="/a-propos" className={secondaryLink}>Découvrir Luméa <span aria-hidden="true">→</span></Link>
+            </div>
+          </div>
+          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-[#eadfd1] lg:rounded-3xl">
+            <Image src="/brand/lumea-agence-appel.webp" alt="" fill sizes="(min-width: 1472px) 640px, (min-width: 1024px) 45vw, 100vw" className="object-cover object-[50%_45%]" />
           </div>
         </div>
       </section>
 
-{/* === OUTIL GRATUIT — QUI PEUT M’AIDER ? === */}
-<section className="relative overflow-hidden border-t bg-[#1E293B]">
-  <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full border border-white/10" />
-  <div className="pointer-events-none absolute right-10 top-10 h-44 w-44 rounded-full border border-[#FBBF24]/20" />
-
-  <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-    <motion.div
-      {...fadeUp}
-      className="grid items-center gap-8 lg:grid-cols-[1fr_auto] lg:gap-14"
-    >
-      <div>
-        <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#FBBF24]">
-          Un service gratuit Luméa
-        </p>
-
-        <h2 className="mt-3 text-3xl font-bold leading-tight text-white sm:text-4xl">
-          Vous ne savez pas qui peut vous aider ?
-        </h2>
-
-        <p className="mt-4 max-w-3xl text-lg leading-8 text-white/75">
-          Hospitalisation, perte d’autonomie, handicap, difficulté temporaire,
-          transport, repas ou aide à domicile : quelques questions suffisent
-          pour identifier les interlocuteurs à contacter et savoir par où commencer.
-        </p>
-
-        <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-white/70">
-          <span>✓ Gratuit</span>
-          <span>✓ Sans inscription</span>
-          <span>✓ Réponses non enregistrées</span>
+      <section id="avis-clients" className="border-b border-[#e5ebf1] bg-[#f7f9fc] py-12 sm:py-16 lg:py-20">
+        <div className={sectionWidth}>
+          <h2 className={sectionTitle}>Ce que disent nos clients</h2>
+          <div className="mt-7 grid gap-5 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1fr)] lg:gap-6">
+            <div className="rounded-2xl border border-[#dce4ec] bg-white p-5 sm:p-7">
+              <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <strong className="text-4xl leading-none">5<span className="text-xl">/5</span></strong>
+                <span aria-hidden="true" className="text-xl tracking-wide text-[#a86700]">★★★★★</span>
+              </p>
+              <p className="mt-3 text-[#37465b]">29 avis Google, selon la fiche PagesJaunes consultée le 24 novembre 2026.</p>
+              <a href={localAgency.reviews} className={`mt-4 ${secondaryLink}`}>Consulter les avis <span aria-hidden="true">↗</span></a>
+            </div>
+            <figure className="flex flex-col justify-between rounded-2xl border border-[#dce4ec] bg-white p-5 sm:p-7">
+              <blockquote cite={localAgency.reviews} className="text-lg font-semibold leading-relaxed text-[#263348]">
+                « L’équipe est arrivée à l’heure, super souriante et vraiment professionnelle. »
+              </blockquote>
+              <figcaption className="mt-5 text-sm text-[#445267]">Extrait d’un avis PagesJaunes du 11 mars 2026 · Ménage à domicile</figcaption>
+            </figure>
+          </div>
         </div>
+      </section>
+
+      <section id="credit-impot" className="scroll-mt-6 bg-[#e7f1f8] py-12 sm:py-16 lg:py-20">
+        <div className={`${sectionWidth} grid items-center gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.72fr)] lg:gap-12`}>
+          <div>
+            <h2 className={sectionTitle}>Crédit d’impôt et Avance immédiate</h2>
+            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-[#37465b]">
+              Les prestations éligibles peuvent ouvrir droit à un crédit d’impôt de 50 %, dans les limites et conditions du dispositif. Avec l’Avance immédiate de l’Urssaf, une fois le service activé, vous réglez directement votre reste à charge.
+            </p>
+            <Link href="/faq" className={`mt-5 ${secondaryLink}`}>Consulter la FAQ <span aria-hidden="true">→</span></Link>
+          </div>
+          <div className="rounded-2xl border border-[#c5d8e8] bg-white p-5 sm:p-7">
+            <h3 className="text-xl font-extrabold">Besoin d’aide pour l’activer ?</h3>
+            <p className="mt-2 leading-relaxed text-[#445267]">Indiquez-le lors de votre demande. L’agence peut vous expliquer les démarches.</p>
+            <Link href="/contact#prenom" className={`mt-4 ${secondaryLink}`}>Poser une question à l’agence <span aria-hidden="true">→</span></Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-12 sm:py-16 lg:py-20">
+        <div className={`${sectionWidth} grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.66fr)] lg:gap-12`}>
+          <div>
+            <h2 className={sectionTitle}>Vos questions avant de commencer</h2>
+            <div className="mt-6 divide-y divide-[#dce4ec] border-y border-[#dce4ec]">
+              {homeQuestions.map(({ question, answer }) => (
+                <details key={question} className="group py-4">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-bold [&::-webkit-details-marker]:hidden">
+                    {question}
+                    <span aria-hidden="true" className="text-xl leading-none group-open:hidden">+</span>
+                    <span aria-hidden="true" className="hidden text-xl leading-none group-open:inline">−</span>
+                  </summary>
+                  <p className="mt-3 max-w-2xl leading-relaxed text-[#445267]">{answer}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+          <div className="rounded-2xl border border-[#e9dfce] bg-[#fcf3e2] p-5 sm:p-7 lg:mt-2">
+            <h2 className="text-2xl font-extrabold tracking-tight">Qui peut m’aider ?</h2>
+            <p className="mt-3 leading-relaxed text-[#37465b]">Perte d’autonomie, sortie d’hospitalisation ou besoin d’aide au quotidien ? Trouvez les bons interlocuteurs près de chez vous.</p>
+            <Link href="/qui-peut-maider" className={`mt-5 ${secondaryLink}`}>Découvrir l’outil <span aria-hidden="true">→</span></Link>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" className="bg-[#f2f7fb] py-14 sm:py-20 lg:py-24">
+        <div className={`${sectionWidth} grid items-start gap-9 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1fr)] lg:gap-16`}>
+          <div>
+            <h2 className={sectionTitle}>Votre agence à La Flèche</h2>
+            <address className="mt-5 space-y-3 not-italic text-[#37465b]">
+              <p className="font-semibold">4 rue Fontevrault, 72200 La Flèche</p>
+              <p><a className={callButton} href="tel:0673258816"><LumeaIcon name="phone" className="h-5 w-5 shrink-0" /> 06 73 25 88 16</a></p>
+              <p><a className={secondaryLink} href="mailto:bonard@lumea-services.fr">bonard@lumea-services.fr</a></p>
+            </address>
+            <p className="mt-4 text-[#445267]">Joignable du lundi au vendredi, de 9 h à 18 h.</p>
+            <a href={localAgency.directions} className={`mt-5 ${secondaryLink}`}>Itinéraire vers l’agence <span aria-hidden="true">↗</span></a>
+          </div>
+          <QuickContactForm />
+        </div>
+      </section>
+
+      <div className={`${sectionWidth} space-y-5 py-12 sm:py-16`}>
+        <section id="recrutement" className="rounded-2xl border border-[#dce4ec] px-5 py-6 sm:px-8 lg:flex lg:items-center lg:justify-between lg:gap-10">
+          <div>
+            <h2 className="text-2xl font-extrabold tracking-tight">Rejoindre Luméa Services</h2>
+            <p className="mt-2 max-w-2xl leading-relaxed text-[#445267]">Une équipe locale à taille humaine, avec de la formation et du matériel fourni pour vos interventions.</p>
+          </div>
+          <Link href="/recrutement" className="mt-5 inline-flex min-h-11 shrink-0 items-center gap-2 rounded-lg border border-[#0d2446] px-4 py-2 font-bold text-[#0d2446] hover:bg-[#e7f1f8] lg:mt-0">
+            Voir le recrutement <span aria-hidden="true">→</span>
+          </Link>
+        </section>
+        <ChristmasContestTeaser />
       </div>
-
-      <div className="lg:text-right">
-        <Link
-          href="/qui-peut-maider"
-          className="inline-flex min-h-[58px] items-center justify-center rounded-full bg-[#FBBF24] px-7 py-4 text-lg font-bold text-[#1E293B] shadow-lg shadow-black/15 transition hover:scale-[1.02] hover:bg-[#F59E0B]"
-        >
-          Qui peut m’aider ? →
-        </Link>
-
-        <p className="mt-3 text-sm text-white/55">
-          Sarthe · Maine-et-Loire · Mayenne
-        </p>
-      </div>
-    </motion.div>
-  </div>
-</section>
-
-{/* === SECTION 3 — CARROUSEL INFINI DES SERVICES (VERSION AMÉLIORÉE) === */}
-<section
-  id="services"
-  className="relative isolate overflow-hidden scroll-mt-24 border-t bg-gradient-to-br from-[#FFF7E6] via-[#FFFDF7] to-[#F9FAFB]"
->
-  {/* Fond décoratif doux */}
-  <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_20%,rgba(251,191,36,0.25),transparent_70%)]" />
-  <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-white/90 via-[#FFFBEA]/80 to-[#F9FAFB]" />
-
-  <div className="relative z-10 mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-    {/* Titre */}
-    <motion.div {...fadeUp} className="text-center mb-14 space-y-4">
-      <h2 className="text-4xl font-bold text-[#1E293B]">
-        À votre service —{" "}
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F59E0B] to-[#FDE68A]">
-          Votre quotidien à domicile
-        </span>
-      </h2>
-      <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-        Découvrez nos prestations de ménage et d’aide à domicile pour votre maison ou votre appartement à La Flèche et dans les environs.
-      </p>
-    </motion.div>
-
-    {/* Badges catégories */}
-    <motion.div
-      {...fadeUp}
-      className="flex justify-center gap-4 mb-12 flex-wrap"
-    >
-      <span className="px-4 py-1.5 text-sm font-medium rounded-full bg-[#FBBF24]/20 text-[#92400E]">
-        ✅ Interventions sur mesure
-      </span>
-      <span className="px-4 py-1.5 text-sm font-medium rounded-full bg-[#FBBF24]/20 text-[#92400E]">
-        🧾 Services éligibles au crédit d’impôt
-      </span>
-      <span className="px-4 py-1.5 text-sm font-medium rounded-full bg-[#FBBF24]/20 text-[#92400E]">
-        🌿 Engagement local & qualité humaine
-      </span>
-    </motion.div>
-
-    {/* Carrousel fluide avec pause/reprise au survol */}
-    <CarouselSection />
-
-        {/* CTA cliquable */}
-    <div className="mt-20 text-center space-y-3">
-      <Link
-        href="/services"
-        className="inline-block rounded-3xl bg-gradient-to-r from-[#F59E0B] to-[#FBBF24] px-10 py-4 text-white font-semibold shadow-lg shadow-[#F59E0B]/30 transition-all hover:scale-[1.06] hover:shadow-xl hover:from-[#FBBF24] hover:to-[#F59E0B]"
-      >
-        ✨ Explorer tous nos services
-      </Link>
-
-      <p className="text-sm text-gray-600">
-        Des questions sur nos prestations de ménage et de nettoyage ?{" "}
-        <Link
-          href="/faq"
-          className="font-semibold text-[#F59E0B] underline underline-offset-4 hover:text-[#92400E]"
-        >
-          Consulter la FAQ
-        </Link>
-      </p>
-    </div>
-  </div>
-</section>
-
-
-{/* === SECTION 4 — SOCIÉTÉ & CONTACT (RELOOKÉE) === */}
-<section
-  id="contact"
-  className="relative isolate overflow-hidden scroll-mt-24 border-t bg-gradient-to-b from-[#FFFBEA] via-white to-[#F9FAFB]"
->
-  {/* Halo doré subtil */}
-  <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_70%_30%,rgba(251,191,36,0.25),transparent_70%)]" />
-
-  <div className="relative z-10 mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-    <div className="grid gap-16 lg:grid-cols-2 items-start">
-      
-      {/* === Bloc société === */}
-      <motion.div {...fadeUp} className="space-y-8">
-        <div>
-          <h2 className="text-4xl font-bold text-[#1E293B] mb-3">
-            Contact
-          </h2>
-          <div className="h-1 w-20 bg-[#FBBF24] rounded-full mb-6" />
-          <p className="text-lg text-gray-700 leading-relaxed">
-            <strong>Luméa Services</strong> est une entreprise de proximité ancrée à 
-            <strong> La Flèche</strong> et <strong>La Suze-sur-Sarthe</strong>.  
-            Nous mettons un point d’honneur à offrir des prestations de ménage sur mesure,
-            où qualité rime avec confiance et accompagnement durable.
-          </p>
-        </div>
-
-        <div className="space-y-4 text-gray-800">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FBBF24]/10 text-[#FBBF24]">
-              📍
-            </div>
-            <p><span className="font-semibold">Adresse :</span> 4 Rue Fontevrault, 72200 La Flèche</p>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FBBF24]/10 text-[#FBBF24]">
-              ☎️
-            </div>
-            <p><span className="font-semibold">Téléphone :</span> 06 73 25 88 16</p>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FBBF24]/10 text-[#FBBF24]">
-              ✉️
-            </div>
-            <p><span className="font-semibold">Email :</span> bonard@lumea-services.fr</p>
-          </div>
-        </div>
-
-        <div className="pt-6 border-t border-gray-200 text-sm text-gray-600">
-          <Link href="/mentions-legales" className="underline underline-offset-4 hover:text-[#FBBF24]">
-            Mentions légales
-          </Link>
-          <span className="mx-2 text-gray-300">•</span>
-          <Link href="/politique-confidentialite" className="underline underline-offset-4 hover:text-[#FBBF24]">
-            Politique de confidentialité
-          </Link>
-        </div>
-      </motion.div>
-
-      {/* === Bloc formulaire === */}
-      <motion.div
-        {...fadeUp}
-        className="relative rounded-3xl border border-[#FBBF24]/30 bg-white p-8 shadow-lg shadow-[#FBBF24]/5"
-      >
-        {/* Halo décoratif */}
-        <div className="absolute -top-10 -right-10 h-48 w-48 bg-gradient-to-br from-[#FBBF24]/40 to-transparent blur-2xl rounded-full" />
-
-        <h3 className="text-2xl font-semibold text-[#1E293B] mb-3">Un projet ? Parlons-en</h3>
-        <p className="text-gray-600 mb-6">
-          Ce formulaire rapide nous permet de mieux comprendre votre besoin.  
-          Pour une demande complète, rendez-vous sur la page{" "}
-          <Link href="/contact#prenom" className="underline hover:text-[#FBBF24]">Contact</Link>.
-        </p>
-
-          <form
-            onSubmit={async (e) => {
-              e.preventDefault();
-
-              if (!miniForm.name || !miniForm.email || !miniForm.message) {
-                alert("Merci de renseigner tous les champs.");
-                return;
-              }
-
-              try {
-                const fd = new FormData();
-                fd.append("formType", "contact"); // ou “mini-contact” si tu veux le distinguer
-                fd.append("name", miniForm.name);
-                fd.append("email", miniForm.email);
-                fd.append("subject", "Demande rapide (page d'accueil)");
-                fd.append("message", miniForm.message);
-
-                const res = await fetch("/api/form", {
-                  method: "POST",
-                  body: fd,
-                });
-
-                if (!res.ok) throw new Error("Erreur serveur");
-                alert("✅ Merci pour votre message ! Nous vous répondrons rapidement.");
-                setMiniForm({ name: "", email: "", message: "" });
-              } catch (err) {
-                console.error("Erreur lors de l’envoi :", err);
-                alert("❌ Une erreur est survenue. Merci de réessayer plus tard.");
-              }
-            }}
-            className="space-y-5"
->
-
-          <div>
-            <label className="block text-sm font-medium">Votre nom</label>
-            <input
-              type="text"
-              className="mt-1 w-full rounded-xl border border-gray-300 px-3 py-2 outline-none focus:ring-2 focus:ring-[#FBBF24]/50"
-              value={miniForm.name}
-              onChange={(e) => setMiniForm({ ...miniForm, name: e.target.value })}
-              placeholder="Marie Dupont"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium">Votre email</label>
-            <input
-              type="email"
-              className="mt-1 w-full rounded-xl border border-gray-300 px-3 py-2 outline-none focus:ring-2 focus:ring-[#FBBF24]/50"
-              value={miniForm.email}
-              onChange={(e) => setMiniForm({ ...miniForm, email: e.target.value })}
-              placeholder="vous@example.com"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium">Message</label>
-            <textarea
-              className="mt-1 w-full rounded-xl border border-gray-300 px-3 py-2 outline-none focus:ring-2 focus:ring-[#FBBF24]/50"
-              rows={4}
-              value={miniForm.message}
-              onChange={(e) => setMiniForm({ ...miniForm, message: e.target.value })}
-              placeholder="Expliquez-nous votre besoin..."
-              required
-            />
-          </div>
-
-          <div className="flex items-start gap-2 text-xs text-gray-500">
-            <input id="rgpd" type="checkbox" className="mt-1 h-4 w-4 rounded border" required />
-            <label htmlFor="rgpd">
-              J’accepte le traitement de mes données (voir la{" "}
-              <Link href="/politique-confidentialite" className="underline hover:text-[#FBBF24]">
-                politique de confidentialité
-              </Link>).
-            </label>
-          </div>
-
-          <div className="flex flex-wrap gap-3 pt-2">
-            <button
-              type="submit"
-              className="rounded-2xl bg-[#FBBF24] px-6 py-3 text-white font-semibold shadow-md transition hover:scale-[1.02] hover:shadow-lg hover:bg-[#F59E0B]"
-            >
-              Envoyer la demande rapide
-            </button>
-            <Link
-              href="/contact"
-              className="rounded-2xl border border-gray-300 px-6 py-3 font-medium text-gray-700 transition hover:bg-gray-100"
-            >
-              Formulaire complet
-            </Link>
-          </div>
-        </form>
-      </motion.div>
-    </div>
-  </div>
-</section>
-
-
-{/* === SECTION 5 — RECRUTEMENT (VERSION PREMIUM) === */}
-<section
-  id="recrutement"
-  className="relative isolate overflow-hidden scroll-mt-24 border-t bg-gradient-to-b from-[#FFFBEA] via-white to-[#F9FAFB]"
->
-  {/* Halo doré dynamique */}
-  <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_20%_80%,rgba(251,191,36,0.25),transparent_70%)]" />
-
-  <div className="relative z-10 mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-    <div className="grid items-center gap-16 lg:grid-cols-2">
-      {/* Bloc gauche : texte */}
-      <motion.div {...fadeUp} className="space-y-6">
-        <h2 className="text-4xl font-bold text-[#1E293B]">
-          Rejoindre <span className="text-[#F59E0B]">Luméa Services</span>
-        </h2>
-        <p className="text-lg text-gray-700 leading-relaxed">
-          Chez <strong>Luméa Services</strong>, nous croyons que le bien-être de nos clients
-          commence par celui de nos collaborateurs.  
-          Nous offrons un environnement de travail respectueux, des formations continues
-          et des perspectives d’évolution concrètes.
-        </p>
-
-        <ul className="mt-6 grid gap-3 text-gray-800">
-          <li className="flex items-start gap-3">
-            <span className="text-[#FBBF24] mt-1">🌿</span>
-            Ambiance bienveillante & équipe à taille humaine
-          </li>
-          <li className="flex items-start gap-3">
-            <span className="text-[#FBBF24] mt-1">🎓</span>
-            Formations & montées en compétences
-          </li>
-          <li className="flex items-start gap-3">
-            <span className="text-[#FBBF24] mt-1">🧤</span>
-            Matériel & tenue fournis pour des interventions confortables
-          </li>
-        </ul>
-
-        <div className="pt-4 flex flex-wrap gap-3">
-          <Link
-            href="/recrutement"
-            className="rounded-2xl bg-[#FBBF24] px-6 py-3 text-white font-semibold shadow-md transition hover:scale-[1.03] hover:shadow-lg hover:bg-[#F59E0B]"
-          >
-            Postuler maintenant
-          </Link>
-          
-        </div>
-      </motion.div>
-
-      {/* Bloc droit : visuel équipe */}
-      <motion.div
-        {...fadeUp}
-        className="relative h-80 md:h-[450px] overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl"
-      >
-      <Image
-        src="/optimized/pexels-fauxels-3184418.webp"
-        alt="Présentation visuelle"
-        fill
-        priority
-        quality={70}
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        className="object-cover object-center scale-110 transition-transform duration-700"
-      />
-
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent rounded-3xl" />
-        <div className="absolute bottom-5 left-6 text-white drop-shadow-lg">
-        </div>
-      </motion.div>
-    </div>
-  </div>
-</section>
-
-  {/* === SECTION 6 — FOOT CTA (MODERNE & IMPACTANT) === */}
-  <section className="relative border-t bg-gradient-to-r from-[#FFFBEA] via-[#FFFDF7] to-[#F9FAFB]">
-    {/* Halo décoratif */}
-    <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(251,191,36,0.15),transparent_70%)]" />
-
-    <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 text-center">
-      <motion.div {...fadeUp} className="mx-auto max-w-3xl space-y-6">
-        <h2 className="text-3xl sm:text-4xl font-bold text-[#1E293B]">
-          Prêt à <span className="text-[#F59E0B]">démarrer l’aventure</span> avec Luméa Services ?
-        </h2>
-        <p className="text-lg text-gray-700">
-          Notre équipe est à votre écoute pour l’entretien de votre domicile
-          et pour vous accompagner dans votre quotidien.
-        </p>
-
-        <div className="flex flex-wrap justify-center gap-4 pt-4">
-          <Link
-            href="#contact"
-            className="rounded-2xl bg-[#FBBF24] px-8 py-3 text-white font-semibold shadow-md transition hover:scale-[1.03] hover:shadow-lg hover:bg-[#F59E0B]"
-          >
-            Demander un devis
-          </Link>
-          <Link
-            href="/services"
-            className="rounded-2xl border border-gray-300 px-8 py-3 font-medium text-gray-700 transition hover:bg-gray-100"
-          >
-            Voir nos services
-          </Link>
-        </div>
-      </motion.div>
-    </div>
-  </section>
-
-
-
-    </div>
+    </main>
   );
 }

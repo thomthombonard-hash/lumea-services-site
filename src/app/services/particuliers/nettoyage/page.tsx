@@ -1,4 +1,17 @@
+import type { Metadata } from "next";
 import ServiceTemplate from "@/components/ServiceTemplate";
+
+const title = "Grand nettoyage de logement à La Flèche | Luméa Services";
+const description =
+  "Nettoyage approfondi de votre logement après déménagement ou travaux à La Flèche et La Suze-sur-Sarthe. Demandez un devis adapté à votre logement.";
+const url = "https://www.lumea-services.fr/services/particuliers/nettoyage";
+
+export const metadata: Metadata = {
+  title,
+  description,
+  alternates: { canonical: url },
+  openGraph: { title, description, url, siteName: "Luméa Services", locale: "fr_FR", type: "website" },
+};
 
 export default function Page() {
   return (
@@ -18,7 +31,6 @@ export default function Page() {
         "Un grand nettoyage, c’est une vraie remise à neuf : on traite l’ensemble des pièces avec une logique de résultat et de gain de temps.",
         "Idéal avant un état des lieux, après chantier, après une longue absence, ou pour retrouver un intérieur sain et agréable.",
       ]}
-      keywordsLine="Mots-clés : grand nettoyage, remise en état, nettoyage après travaux, La Flèche, La Suze-sur-Sarthe, Sarthe."
     />
   );
 }

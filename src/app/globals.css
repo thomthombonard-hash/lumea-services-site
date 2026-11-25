@@ -186,25 +186,20 @@ body {
  * ============================================================ */
 .christmas-season-banner { display: none; }
 
-html[data-christmas="2026"] {
+html[data-christmas="2026"]:has(.contest-page) {
   --christmas-pine: #174b3b;
   --christmas-red: #9c2e3b;
   --christmas-gold: #f8d57e;
 }
 
-html[data-christmas="2026"] body {
+html[data-christmas="2026"]:has(.contest-page) body {
   background: #edf5ef;
   background-image: radial-gradient(circle at 5% 18%, #d5e6d9 0, transparent 32%),
     radial-gradient(circle at 96% 65%, #fae7e5 0, transparent 30%);
   background-attachment: fixed;
 }
 
-html[data-christmas="2026"] .site-header {
-  background: linear-gradient(110deg, #12372e, #20543f 65%, #163c30);
-  box-shadow: 0 5px 25px #12372e30;
-}
-
-html[data-christmas="2026"] .site-header::after {
+html[data-christmas="2026"]:has(.contest-page) .site-header::after {
   content: "";
   position: absolute;
   /* Sous les menus, dans le contexte d'empilement du header (z-50). */
@@ -215,25 +210,11 @@ html[data-christmas="2026"] .site-header::after {
   pointer-events: none;
 }
 
-/* Le petit bonnet est attaché au nom Luméa, sans déplacer le logo. */
-html[data-christmas="2026"] .site-header > div:first-child > a:first-child > span {
-  position: relative;
-}
-html[data-christmas="2026"] .site-header > div:first-child > a:first-child > span::before {
-  content: "";
-  position: absolute;
-  width: 31px; height: 25px;
-  top: -15px; left: -9px;
-  transform: rotate(-17deg);
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 32'%3E%3Cpath d='M5 24Q10 1 28 4L34 16 24 13 25 24Z' fill='%23b63845'/%3E%3Crect x='2' y='23' width='28' height='7' rx='3' fill='%23fffaf0'/%3E%3Ccircle cx='34' cy='16' r='5' fill='%23fffaf0'/%3E%3C/svg%3E") center/contain no-repeat;
-  pointer-events: none;
-}
-
-html[data-christmas="2026"] .site-header [class~="bg-[#1E293B]"] {
+html[data-christmas="2026"]:has(.contest-page) .site-header [class~="bg-[#1E293B]"] {
   background-color: #173f32;
 }
 
-html[data-christmas="2026"] .christmas-season-banner {
+html[data-christmas="2026"]:has(.contest-page) .christmas-season-banner {
   position: relative;
   display: flex;
   align-items: center;
@@ -250,7 +231,7 @@ html[data-christmas="2026"] .christmas-season-banner {
   box-shadow: 0 8px 28px #174b3b10;
 }
 
-html[data-christmas="2026"] .christmas-season-greeting {
+html[data-christmas="2026"]:has(.contest-page) .christmas-season-greeting {
   position: relative;
   z-index: 1;
   display: flex;
@@ -259,7 +240,7 @@ html[data-christmas="2026"] .christmas-season-greeting {
   gap: 1.25rem;
   text-align: center;
 }
-html[data-christmas="2026"] .christmas-season-eyebrow {
+html[data-christmas="2026"]:has(.contest-page) .christmas-season-eyebrow {
   margin: 0 0 .4rem;
   font-size: .875rem;
   font-weight: 700;
@@ -267,17 +248,17 @@ html[data-christmas="2026"] .christmas-season-eyebrow {
   text-transform: uppercase;
   color: #f8d57e;
 }
-html[data-christmas="2026"] .christmas-season-wish {
+html[data-christmas="2026"]:has(.contest-page) .christmas-season-wish {
   margin: 0;
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(1.15rem, 2.4vw, 1.65rem);
   line-height: 1.4;
 }
-html[data-christmas="2026"] .christmas-season-star {
+html[data-christmas="2026"]:has(.contest-page) .christmas-season-star {
   color: #f8d57e;
   font-size: 2rem;
 }
-html[data-christmas="2026"] .christmas-season-branch {
+html[data-christmas="2026"]:has(.contest-page) .christmas-season-branch {
   position: absolute;
   top: 0; left: 0;
   z-index: 0;
@@ -285,65 +266,65 @@ html[data-christmas="2026"] .christmas-season-branch {
   pointer-events: none;
   opacity: .65;
 }
-html[data-christmas="2026"] .christmas-season-branch-right {
+html[data-christmas="2026"]:has(.contest-page) .christmas-season-branch-right {
   left: auto; right: 0;
   transform: scaleX(-1);
 }
 
 /* Palette des pages : seules les couleurs de marque existantes sont ciblées.
  * Les textes blancs sur photo, erreurs, champs et états métier restent lisibles. */
-html[data-christmas="2026"] .site-main :is(h1,h2,h3)[class~="text-[#1E293B]"] {
+html[data-christmas="2026"]:has(.contest-page) .site-main :is(h1,h2,h3)[class~="text-[#1E293B]"] {
   color: #174b3b;
 }
-html[data-christmas="2026"] .site-main :is(a,button)[class~="bg-[#FBBF24]"],
-html[data-christmas="2026"] .site-main :is(a,button)[class~="bg-[#F59E0B]"],
-html[data-christmas="2026"] .site-main :is(a,button)[class~="bg-gradient-to-r"][class~="from-[#F59E0B]"] {
+html[data-christmas="2026"]:has(.contest-page) .site-main :is(a,button)[class~="bg-[#FBBF24]"],
+html[data-christmas="2026"]:has(.contest-page) .site-main :is(a,button)[class~="bg-[#F59E0B]"],
+html[data-christmas="2026"]:has(.contest-page) .site-main :is(a,button)[class~="bg-gradient-to-r"][class~="from-[#F59E0B]"] {
   background: #9c2e3b;
   color: #ffffff;
   box-shadow: 0 5px 16px #9c2e3b1a;
 }
-html[data-christmas="2026"] .site-main :is(a,button)[class~="bg-[#FBBF24]"]:hover,
-html[data-christmas="2026"] .site-main :is(a,button)[class~="bg-[#F59E0B]"]:hover,
-html[data-christmas="2026"] .site-main :is(a,button)[class~="bg-gradient-to-r"][class~="from-[#F59E0B]"]:hover {
+html[data-christmas="2026"]:has(.contest-page) .site-main :is(a,button)[class~="bg-[#FBBF24]"]:hover,
+html[data-christmas="2026"]:has(.contest-page) .site-main :is(a,button)[class~="bg-[#F59E0B]"]:hover,
+html[data-christmas="2026"]:has(.contest-page) .site-main :is(a,button)[class~="bg-gradient-to-r"][class~="from-[#F59E0B]"]:hover {
   background: #7f2230;
 }
-html[data-christmas="2026"] .site-main [class~="bg-clip-text"][class~="from-[#FBBF24]"],
-html[data-christmas="2026"] .site-main [class~="bg-clip-text"][class~="from-[#F59E0B]"] {
+html[data-christmas="2026"]:has(.contest-page) .site-main [class~="bg-clip-text"][class~="from-[#FBBF24]"],
+html[data-christmas="2026"]:has(.contest-page) .site-main [class~="bg-clip-text"][class~="from-[#F59E0B]"] {
   background-image: linear-gradient(110deg, #9c2e3b, #b34143 55%, #27644c);
 }
-html[data-christmas="2026"] .site-main :is(a,span)[class~="text-[#F59E0B]"] {
+html[data-christmas="2026"]:has(.contest-page) .site-main :is(a,span)[class~="text-[#F59E0B]"] {
   color: #9c2e3b;
 }
-html[data-christmas="2026"] .site-main [class~="bg-[#FFFBEA]"],
-html[data-christmas="2026"] .site-main [class~="bg-[#FFFBEA]/60"] {
+html[data-christmas="2026"]:has(.contest-page) .site-main [class~="bg-[#FFFBEA]"],
+html[data-christmas="2026"]:has(.contest-page) .site-main [class~="bg-[#FFFBEA]/60"] {
   background-color: #eef5ef;
 }
-html[data-christmas="2026"] .site-main [class~="from-[#FFFBEA]"],
-html[data-christmas="2026"] .site-main [class~="from-[#FFF7E6]"] {
+html[data-christmas="2026"]:has(.contest-page) .site-main [class~="from-[#FFFBEA]"],
+html[data-christmas="2026"]:has(.contest-page) .site-main [class~="from-[#FFF7E6]"] {
   --tw-gradient-from: #eaf3ec var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(234 243 236 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 /* Respect des dégradés à trois couleurs existants. */
-html[data-christmas="2026"] .site-main [class~="from-[#FFFBEA]"][class~="via-white"],
-html[data-christmas="2026"] .site-main [class~="from-[#FFF7E6]"][class~="via-[#FFFDF7]"] {
+html[data-christmas="2026"]:has(.contest-page) .site-main [class~="from-[#FFFBEA]"][class~="via-white"],
+html[data-christmas="2026"]:has(.contest-page) .site-main [class~="from-[#FFF7E6]"][class~="via-[#FFFDF7]"] {
   --tw-gradient-stops: var(--tw-gradient-from), #ffffff var(--tw-gradient-via-position), var(--tw-gradient-to);
 }
-html[data-christmas="2026"] .site-main [class~="to-[#FFFBEA]"],
-html[data-christmas="2026"] .site-main [class~="to-[#FFFDF7]"] {
+html[data-christmas="2026"]:has(.contest-page) .site-main [class~="to-[#FFFBEA]"],
+html[data-christmas="2026"]:has(.contest-page) .site-main [class~="to-[#FFFDF7]"] {
   --tw-gradient-to: #f1f6f1 var(--tw-gradient-to-position);
 }
-html[data-christmas="2026"] .site-main [class~="bg-[#1E293B]"] {
+html[data-christmas="2026"]:has(.contest-page) .site-main [class~="bg-[#1E293B]"] {
   background-color: #174b3b;
 }
-html[data-christmas="2026"] .site-main [class~="border-[#FBBF24]/20"],
-html[data-christmas="2026"] .site-main [class~="border-[#FBBF24]/30"],
-html[data-christmas="2026"] .site-main [class~="border-[#FDE68A]/40"] {
+html[data-christmas="2026"]:has(.contest-page) .site-main [class~="border-[#FBBF24]/20"],
+html[data-christmas="2026"]:has(.contest-page) .site-main [class~="border-[#FBBF24]/30"],
+html[data-christmas="2026"]:has(.contest-page) .site-main [class~="border-[#FDE68A]/40"] {
   border-color: #bbd2c3;
 }
 
 /* L'outil d'orientation conserve ses contrastes et ses états interactifs. */
-html[data-christmas="2026"] .orientation-page {
+html[data-christmas="2026"]:has(.contest-page) .orientation-page {
   --lumea-navy: #174b3b;
   --lumea-navy-soft: #265b45;
   --lumea-cream: #edf5ef;
@@ -351,12 +332,12 @@ html[data-christmas="2026"] .orientation-page {
   background: linear-gradient(180deg, #edf5ef, #f9fbf9);
 }
 
-html[data-christmas="2026"] .site-footer {
+html[data-christmas="2026"]:has(.contest-page) .site-footer {
   position: relative;
   background: radial-gradient(ellipse at top, #275c45, #12372e);
   border-top: 4px solid #d8b66a;
 }
-html[data-christmas="2026"] .site-footer::before {
+html[data-christmas="2026"]:has(.contest-page) .site-footer::before {
   content: "Joyeuses fêtes de la part de toute l’équipe Luméa Services";
   display: block;
   margin: 0 auto 1rem;
@@ -369,24 +350,144 @@ html[data-christmas="2026"] .site-footer::before {
 }
 
 @media (max-width: 639px) {
-  html[data-christmas="2026"] .christmas-season-banner {
+  html[data-christmas="2026"]:has(.contest-page) .christmas-season-banner {
     min-height: 122px;
     padding: 1.4rem 1.25rem;
     border-radius: 1.15rem;
   }
-  html[data-christmas="2026"] .christmas-season-branch {
+  html[data-christmas="2026"]:has(.contest-page) .christmas-season-branch {
     width: 112px;
     opacity: .3;
   }
-  html[data-christmas="2026"] .christmas-season-greeting { gap: .4rem; }
-  html[data-christmas="2026"] .christmas-season-star { display: none; }
-  html[data-christmas="2026"] .christmas-season-eyebrow { font-size: .875rem; letter-spacing: .06em; }
-  html[data-christmas="2026"] body { background-attachment: scroll; }
+  html[data-christmas="2026"]:has(.contest-page) .christmas-season-greeting { gap: .4rem; }
+  html[data-christmas="2026"]:has(.contest-page) .christmas-season-star { display: none; }
+  html[data-christmas="2026"]:has(.contest-page) .christmas-season-eyebrow { font-size: .875rem; letter-spacing: .06em; }
+  html[data-christmas="2026"]:has(.contest-page) body { background-attachment: scroll; }
 }
 
 @media print {
-  html[data-christmas="2026"] .christmas-season-banner,
-  html[data-christmas="2026"] .site-footer::before,
-  html[data-christmas="2026"] .site-header::after { display: none; }
-  html[data-christmas="2026"] body { background: white; }
+  html[data-christmas="2026"]:has(.contest-page) .christmas-season-banner,
+  html[data-christmas="2026"]:has(.contest-page) .site-footer::before,
+  html[data-christmas="2026"]:has(.contest-page) .site-header::after { display: none; }
+  html[data-christmas="2026"]:has(.contest-page) body { background: white; }
 }
+
+/* Cadre commun des pages Luméa. */
+.site-main {
+  padding-top: 4.25rem;
+  background: #fff;
+}
+
+.site-main > .christmas-season-banner {
+  display: none;
+}
+
+.site-main:has(.contest-page) > .christmas-season-banner {
+  display: flex;
+  width: min(100% - 2rem, 78rem);
+  margin: 1rem auto 0;
+}
+
+.site-page {
+  background: #fff;
+  color: #263348;
+}
+
+.site-page-hero {
+  padding-block: clamp(2.75rem, 6vw, 5.5rem);
+  background: #fcf3e2;
+  border-bottom: 1px solid #e9dfce;
+}
+
+.site-page-hero h1 {
+  color: #0d1c35;
+  font-size: clamp(2.1rem, 4.5vw, 4.1rem);
+  font-weight: 800;
+  letter-spacing: -.04em;
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+}
+
+.site-page .site-page-accent {
+  color: #0d4772;
+}
+
+.site-page-section {
+  padding-block: clamp(2.75rem, 6vw, 5.5rem);
+}
+
+.site-page-card {
+  border: 1px solid #dce4ec;
+  border-radius: 1rem;
+  background: #fff;
+}
+
+.site-page-button {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  padding: .75rem 1.125rem;
+  border-radius: .75rem;
+  background: #0d2446;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  transition: background-color .15s ease;
+}
+
+.site-page-button:hover { background: #1b3e64; }
+.site-page-button:disabled { opacity: .6; cursor: not-allowed; }
+
+.site-page-field {
+  width: 100%;
+  min-height: 3rem;
+  border: 1px solid #9da8b4;
+  border-radius: .625rem;
+  background: #fff;
+  color: #0d1c35;
+  padding: .625rem .75rem;
+  font-size: 1rem;
+}
+
+.site-page :is(a, button, input, textarea, select, summary):focus-visible {
+  outline: 2px solid #0d4772;
+  outline-offset: 2px;
+}
+
+.site-special-page {
+  max-width: 92rem;
+  margin-inline: auto;
+  padding: clamp(.75rem, 3.5vw, 2.75rem);
+}
+
+.site-footer {
+  color: #fff;
+  background: #0d2446;
+}
+
+@media (min-width: 1280px) {
+  .site-main { padding-top: 4.75rem; }
+}
+
+@media (max-width: 767px) {
+  .site-footer { padding-bottom: calc(4rem + env(safe-area-inset-bottom)); }
+}
+
+.site-page-button-secondary {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #0d2446;
+  border-radius: .75rem;
+  background: #fff;
+  color: #0d2446;
+  padding: .75rem 1.125rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.site-page-button-secondary:hover { background: #e7f1f8; }
+
+.site-page input[type="file"] { min-width: 0; max-width: 100%; }

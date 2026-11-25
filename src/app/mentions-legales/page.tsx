@@ -12,16 +12,16 @@ const fadeUp = {
 
 export default function MentionsLegales() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-[#FFFBEA] via-white to-[#F9FAFB] text-gray-800 scroll-smooth">
+    <main className="site-page">
       {/* === HERO === */}
-      <section className="relative isolate overflow-hidden pt-32 pb-20 border-b border-gray-200">
+      <section className="site-page-hero">
         <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgba(251,191,36,0.15),transparent_70%)]" />
         <div className="mx-auto max-w-5xl px-6 text-center">
           <motion.h1
             {...fadeUp}
             className="text-4xl sm:text-5xl font-bold text-[#1E293B]"
           >
-            Mentions <span className="text-[#F59E0B]">Légales</span>
+            Mentions <span className="site-page-accent">Légales</span>
           </motion.h1>
           <motion.p
             {...fadeUp}
@@ -36,7 +36,7 @@ export default function MentionsLegales() {
       </section>
 
       {/* === CONTENU === */}
-      <section className="py-20">
+      <section className="site-page-section">
         <div className="mx-auto max-w-5xl px-6 space-y-16">
           {/* 1. Éditeur du site */}
           <motion.div {...fadeUp}>
@@ -80,7 +80,7 @@ export default function MentionsLegales() {
               <Link
                 href="https://www.lws.fr"
                 target="_blank"
-                className="text-[#F59E0B] underline hover:text-[#92400E]"
+                className="text-[#F59E0B] underline hover:text-[#0d4772]"
               >
                 www.lws.fr
               </Link>
@@ -150,7 +150,7 @@ export default function MentionsLegales() {
               <Link
                 href="https://fr.123rf.com/"
                 target="_blank"
-                className="text-[#F59E0B] underline hover:text-[#92400E]"
+                className="text-[#F59E0B] underline hover:text-[#0d4772]"
               >
                 123RF
               </Link>{" "}
@@ -158,7 +158,7 @@ export default function MentionsLegales() {
               <Link
                 href="https://www.pexels.com/"
                 target="_blank"
-                className="text-[#F59E0B] underline hover:text-[#92400E]"
+                className="text-[#F59E0B] underline hover:text-[#0d4772]"
               >
                 Pexels
               </Link>
@@ -174,7 +174,7 @@ export default function MentionsLegales() {
                 <Link
                   href="https://www.pexels.com/@fauxels/"
                   target="_blank"
-                  className="text-[#F59E0B] underline hover:text-[#92400E]"
+                  className="text-[#F59E0B] underline hover:text-[#0d4772]"
                 >
                   Fauxels
                 </Link>
@@ -184,7 +184,7 @@ export default function MentionsLegales() {
                 <Link
                   href="https://www.pexels.com/@fauxels/"
                   target="_blank"
-                  className="text-[#F59E0B] underline hover:text-[#92400E]"
+                  className="text-[#F59E0B] underline hover:text-[#0d4772]"
                 >
                   Fauxels
                 </Link>
@@ -194,7 +194,7 @@ export default function MentionsLegales() {
                 <Link
                   href="https://www.pexels.com/@mikhail-nilov/"
                   target="_blank"
-                  className="text-[#F59E0B] underline hover:text-[#92400E]"
+                  className="text-[#F59E0B] underline hover:text-[#0d4772]"
                 >
                   Mikhail Nilov
                 </Link>
@@ -204,7 +204,7 @@ export default function MentionsLegales() {
                 <Link
                   href="https://www.pexels.com/@tima-miroshnichenko/"
                   target="_blank"
-                  className="text-[#F59E0B] underline hover:text-[#92400E]"
+                  className="text-[#F59E0B] underline hover:text-[#0d4772]"
                 >
                   Tima Miroschnichenko
                 </Link>
@@ -234,7 +234,7 @@ export default function MentionsLegales() {
               Pour exercer ces droits, adressez un courriel à{" "}
               <Link
                 href="mailto:bonard@lumea-services.fr"
-                className="text-[#F59E0B] underline hover:text-[#92400E]"
+                className="text-[#F59E0B] underline hover:text-[#0d4772]"
               >
                 bonard@lumea-services.fr
               </Link>
