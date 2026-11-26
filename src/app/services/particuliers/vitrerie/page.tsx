@@ -1,24 +1,24 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/siteSeo";
 import ServiceTemplate from "@/components/ServiceTemplate";
 
-const title = "Nettoyage de vitres à La Flèche | Luméa Services";
-const description =
-  "Nettoyage de fenêtres, baies vitrées et vérandas à La Flèche et La Suze-sur-Sarthe. Intervention ponctuelle ou régulière pour les particuliers.";
-const url = "https://www.lumea-services.fr/services/particuliers/vitrerie";
+const title = "Nettoyage de vitres à La Flèche";
+const path = "/services/particuliers/vitrerie";
 
-export const metadata: Metadata = {
-  title,
-  description,
-  alternates: { canonical: url },
-  openGraph: { title, description, url, siteName: "Luméa Services", locale: "fr_FR", type: "website" },
-};
+export const metadata = pageMetadata(
+  path,
+  `${title} | Luméa Services`,
+  "Nettoyage de fenêtres, baies vitrées et vérandas accessibles à La Flèche et La Suze-sur-Sarthe. Intervention ponctuelle ou régulière. Devis gratuit.",
+  "/optimized/vitrepart.webp",
+);
 
 export default function Page() {
   return (
     <ServiceTemplate
       audience="Particuliers"
-      title="Nettoyage de vitres à La Flèche"
-      subtitle="Des vitres propres et sans traces : fenêtres, baies vitrées, vérandas… Intervention à La Flèche et La Suze-sur-Sarthe."
+      title={title}
+      path={path}
+      quoteService="vitrerie"
+      subtitle="Luméa Services nettoie les fenêtres, baies vitrées et vérandas accessibles de votre maison ou appartement, à La Flèche et La Suze-sur-Sarthe."
       img="/optimized/vitrepart.webp"
       imgAlt="Nettoyage de vitres pour particuliers"
       bullets={[
@@ -27,9 +27,16 @@ export default function Page() {
         "Vérandas, verrières, surfaces vitrées",
         "Intervention ponctuelle ou régulière",
       ]}
-      details={[
-        "Le nettoyage de vitres demande du temps et une méthode précise : nous assurons un rendu net, sans traces, et adapté à vos surfaces.",
-        "L’objectif : une luminosité maximale et une prestation propre, rapide et sécurisée, même sur des vitres difficiles d’accès.",
+      details={["Nous convenons à l’avance des surfaces à nettoyer et vérifions les conditions d’accès. Indiquez-nous si vous souhaitez aussi le nettoyage des encadrements ou des feuillures."]}
+      questions={[
+        {
+          question: "Nettoyez-vous les deux côtés des vitres ?",
+          answer: "Le devis peut prévoir le nettoyage intérieur et extérieur selon la configuration. Précisez si certaines vitres sont à l’étage ou difficiles d’accès.",
+        },
+        {
+          question: "Comment demander un devis pour des baies vitrées ou une véranda ?",
+          answer: "Indiquez le nombre de vitrages, leurs dimensions approximatives et leur accessibilité. Des photos peuvent nous aider à préparer le devis.",
+        },
       ]}
     />
   );

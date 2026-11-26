@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { pageMetadata } from "@/lib/siteSeo";
 
 type FAQ = {
   category: "Particuliers" | "Fonctionnement & tarifs";
@@ -103,11 +104,11 @@ const faqSchema = {
   })),
 };
 
-export const metadata = {
-  title: "FAQ – Ménage et aide à domicile | Luméa Services",
-  description:
-    "Toutes les réponses aux questions sur nos prestations de ménage, nettoyage et vitrerie à La Flèche et La Suze-sur-Sarthe. Aucun frais caché, devis gratuit, services à domicile pour les particuliers.",
-};
+export const metadata = pageMetadata(
+  "/faq",
+  "FAQ ménage, vitrerie et crédit d’impôt | Luméa Services",
+  "Les réponses de Luméa Services sur le ménage à domicile, le nettoyage de vitres, le devis gratuit et le crédit d’impôt à La Flèche et alentours.",
+);
 
 export default function FAQPage() {
   const categories: Array<FAQ["category"]> = [

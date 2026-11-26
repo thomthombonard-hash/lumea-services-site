@@ -45,4 +45,19 @@
     <loc>https://www.lumea-services.fr/politique-confidentialite</loc>
     <priority>0.5</priority>
   </url>
+  <url>
+    <loc>https://www.lumea-services.fr/faq</loc>
+  </url>
+  <url>
+    <loc>https://www.lumea-services.fr/qui-peut-maider</loc>
+  </url>
+  <url>
+    <loc>https://www.lumea-services.fr/services/particuliers/transport</loc>
+  </url>
+  <url>
+    <loc>https://www.lumea-services.fr/services/particuliers/assistance-administrative</loc>
+  </url>
+  <url>
+    <loc>https://www.lumea-services.fr/services/particuliers/assistance-informatique</loc>
+  </url>
 </urlset>

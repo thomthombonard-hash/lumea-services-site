@@ -30,12 +30,13 @@ export default function ContactPage() {
     const query = new URLSearchParams(window.location.search);
     const postalCode = query.get("codePostal") ?? "";
     const service = homeQuoteServices.find((item) => item.slug === query.get("service"));
-    if (!/^[0-9]{5}$/.test(postalCode)) return;
+    const validPostalCode = /^[0-9]{5}$/.test(postalCode);
+    if (!service && !validPostalCode) return;
 
     setForm((current) => ({
       ...current,
       subject: current.subject || (service ? `Demande de devis – ${service.title}` : "Demande de devis"),
-      message: current.message || `Code postal de l’intervention : ${postalCode}\n\n`,
+      message: current.message || (validPostalCode ? `Code postal de l’intervention : ${postalCode}\n\n` : ""),
     }));
   }, []);
 

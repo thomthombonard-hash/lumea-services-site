@@ -1,14 +1,19 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { motion, easeOut } from "framer-motion";
+import * as motion from "framer-motion/client";
+import { pageMetadata } from "@/lib/siteSeo";
+
+export const metadata = pageMetadata(
+  "/services",
+  "Services à domicile pour particuliers | Luméa Services",
+  "Découvrez les prestations pour particuliers à La Flèche et La Suze-sur-Sarthe : ménage, vitrerie, grand nettoyage, accompagnement et assistance à domicile.",
+);
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, amount: 0.2 },
-  transition: { duration: 0.6, ease: easeOut },
+  transition: { duration: 0.6, ease: "easeOut" as const },
 };
 
 type ServiceCard = {
@@ -28,13 +33,13 @@ export default function ServicesPage() {
     },
     {
       title: "Grand nettoyage",
-      desc: "Remise à neuf après déménagement, travaux ou longue absence : nettoyage en profondeur, pièces complètes, zones difficiles, finition soignée.",
+      desc: "Nettoyage approfondi après déménagement, travaux ou longue absence, selon l’état du logement et les tâches convenues.",
       img: "/optimized/gros.webp",
       href: "/services/particuliers/nettoyage",
     },
     {
       title: "Vitrerie",
-      desc: "Fenêtres, baies vitrées, vérandas : nettoyage intérieur/extérieur avec un rendu sans traces, même sur les surfaces difficiles d’accès.",
+      desc: "Fenêtres, baies vitrées, vérandas : nettoyage intérieur et extérieur des surfaces vitrées accessibles, selon la configuration.",
       img: "/optimized/vitrepart.webp",
       href: "/services/particuliers/vitrerie",
     },
@@ -67,10 +72,7 @@ export default function ServicesPage() {
             {...fadeUp}
             className="text-5xl sm:text-6xl font-extrabold text-[#1E293B] leading-tight"
           >
-            Nos{" "}
-            <span className="site-page-accent">
-              services
-            </span>
+            Nos <span className="site-page-accent">services à domicile</span>
           </motion.h1>
 
           <motion.p

@@ -1,14 +1,15 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { motion, easeOut } from "framer-motion";
+import * as motion from "framer-motion/client";
+import JsonLd from "@/components/JsonLd";
+import { homeQuoteServices } from "@/lib/homeQuoteServices";
+import { serviceBreadcrumb } from "@/lib/siteSeo";
 
 const fadeUp = {
   initial: { opacity: 0, y: 18 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, amount: 0.2 },
-  transition: { duration: 0.55, ease: easeOut },
+  transition: { duration: 0.55, ease: "easeOut" as const },
 };
 
 type Props = {
@@ -20,7 +21,9 @@ type Props = {
   imgAlt: string;
   bullets: string[];          // liste simple (lisible Google)
   details?: string[];         // paragraphes (optionnel)
-  keywordsLine?: string;      // ligne SEO discrète
+  path: string;
+  quoteService?: (typeof homeQuoteServices)[number]["slug"];
+  questions?: { question: string; answer: string }[];
 };
 
 export default function ServiceTemplate({
@@ -32,12 +35,15 @@ export default function ServiceTemplate({
   imgAlt,
   bullets,
   details = [],
-  keywordsLine,
+  path,
+  quoteService,
+  questions = [],
 }: Props) {
-  const isPart = audience === "Particuliers";
+  const quoteHref = quoteService ? `/contact?service=${quoteService}#prenom` : "/contact#prenom";
 
   return (
     <main className="site-page">
+      <JsonLd data={serviceBreadcrumb(path, title)} />
       {/* HERO */}
       <section className="site-page-hero">
         <div className="mx-auto max-w-6xl px-6">
@@ -67,15 +73,9 @@ export default function ServiceTemplate({
                 Zone d’intervention : <strong>{locationLine}</strong>
               </p>
 
-              {keywordsLine && (
-                <p className="mt-2 text-xs text-gray-500">
-                  {keywordsLine}
-                </p>
-              )}
-
               <div className="mt-7 flex gap-3 flex-wrap">
                 <Link
-                  href="/contact#prenom"
+                  href={quoteHref}
                   className="site-page-button"
                 >
                   Demander un devis
@@ -88,11 +88,9 @@ export default function ServiceTemplate({
                 </Link>
               </div>
 
-              {isPart && (
-                <p className="mt-5 text-sm text-[#37465b]">
-                  Crédit d’impôt de 50 % sous conditions. <Link href="/#credit-impot" className="font-bold text-[#0d4772] underline underline-offset-4">Voir les modalités</Link>.
-                </p>
-              )}
+              <p className="mt-5 text-sm text-[#37465b]">
+                Crédit d’impôt de 50 % sous conditions. <Link href="/#credit-impot" className="font-bold text-[#0d4772] underline underline-offset-4">Voir les modalités</Link>.
+              </p>
             </motion.div>
 
             {/* Image (style identique à tes cartes) */}
@@ -178,6 +176,32 @@ export default function ServiceTemplate({
         </div>
       </section>
 
+      {questions.length > 0 && (
+        <section aria-labelledby="service-questions" className="site-page-section border-t">
+          <div className="mx-auto max-w-6xl px-6">
+            <h2 id="service-questions" className="text-2xl font-bold text-[#1E293B]">Vos questions avant de réserver</h2>
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+              {questions.map(({ question, answer }) => (
+                <article key={question} className="site-page-card p-5">
+                  <h3 className="font-bold text-[#1E293B]">{question}</h3>
+                  <p className="mt-2 leading-relaxed text-gray-700">{answer}</p>
+                </article>
+              ))}
+            </div>
+            <h2 className="mt-8 text-lg font-bold text-[#1E293B]">Nos autres prestations à domicile</h2>
+            <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-3">
+              {homeQuoteServices.filter((service) => service.slug !== quoteService).map((service) => (
+                <li key={service.slug}>
+                  <Link className="font-semibold text-[#0d4772] underline underline-offset-4" href={`/services/particuliers/${service.slug}`}>
+                    {service.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
+
       {/* CTA */}
       <section className="site-page-section border-t bg-[#f2f7fb]">
         <div className="mx-auto max-w-4xl px-6 text-center">
@@ -189,7 +213,7 @@ export default function ServiceTemplate({
           </motion.p>
           <motion.div {...fadeUp} className="mt-8">
             <Link
-              href="/contact#prenom"
+              href={quoteHref}
               className="site-page-button"
             >
               Obtenir un devis

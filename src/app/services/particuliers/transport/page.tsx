@@ -1,5 +1,14 @@
+import { pageMetadata } from "@/lib/siteSeo";
 import Image from "next/image";
 import Link from "next/link";
+
+const path = "/services/particuliers/transport";
+
+export const metadata = pageMetadata(
+  path,
+  "Accompagnement et transport à La Flèche | Luméa Services",
+  "Découvrez les prestations d’accompagnement et de transport proposées par Luméa Services à La Flèche et dans les environs.",
+);
 
 export default function Page() {
   return (

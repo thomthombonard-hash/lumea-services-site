@@ -1,80 +1,23 @@
-"use client";
-
+import { HomeQuoteStart, QuickContactForm } from "@/components/HomeForms";
+import JsonLd from "@/components/JsonLd";
+import { homeStructuredData, pageMetadata } from "@/lib/siteSeo";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
-import type { FormEvent } from "react";
 import LumeaIcon from "@/components/LumeaIcon";
 import { ChristmasContestTeaser } from "@/components/ChristmasContest";
 import { homeQuoteServices } from "@/lib/homeQuoteServices";
+
+export const metadata = pageMetadata(
+  "/",
+  "Ménage à domicile à La Flèche et alentours | Luméa Services",
+  "Ménage régulier ou ponctuel, nettoyage de vitres et grand nettoyage à La Flèche, La Suze-sur-Sarthe et alentours. Demandez un devis gratuit.",
+  "/brand/lumea-home-hero.webp",
+);
 
 const sectionWidth = "mx-auto w-full max-w-[92rem] px-5 sm:px-10 xl:px-16";
 const sectionTitle = "text-[clamp(2rem,3.15vw,3.4rem)] font-extrabold leading-[1.08] tracking-[-0.035em] text-[#0d1c35]";
 const secondaryLink = "inline-flex items-center gap-2 font-bold text-[#0d2446] underline-offset-4 hover:underline";
 const callButton = "inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-[#0d2446] bg-white px-4 py-2 font-bold text-[#0d2446] transition hover:bg-[#e7f1f8] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0d2446]";
-const formField = "min-h-12 w-full rounded-lg border border-[#9da8b4] bg-white px-3 py-2 text-base text-[#0d1c35] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0d1c35]";
-
-function HomeQuoteStart() {
-  const router = useRouter();
-  const [postalCode, setPostalCode] = useState("");
-  const [choosingService, setChoosingService] = useState(false);
-  const [service, setService] = useState("");
-  const serviceField = useRef<HTMLSelectElement>(null);
-
-  useEffect(() => {
-    if (choosingService) serviceField.current?.focus();
-  }, [choosingService]);
-
-  function continueQuote(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!choosingService) {
-      setChoosingService(true);
-      return;
-    }
-    const query = new URLSearchParams({ codePostal: postalCode, service });
-    router.push(`/contact?${query}#prenom`);
-  }
-
-  return (
-    <form onSubmit={continueQuote} className="mt-7 w-full max-w-xl rounded-2xl border border-[#dce4ec] bg-white p-4 shadow-sm sm:p-5 lg:mt-8">
-      <p className="mb-3 font-extrabold text-[#0d1c35]">Votre devis gratuit et sans engagement</p>
-      <div className="flex flex-col gap-2 sm:flex-row sm:gap-3">
-        <label className="min-w-0 flex-1">
-          <span className="sr-only">Code postal de l’intervention</span>
-          <input
-            name="codePostal"
-            autoComplete="postal-code"
-            inputMode="numeric"
-            pattern="[0-9]{5}"
-            title="Saisissez un code postal à 5 chiffres"
-            maxLength={5}
-            required
-            placeholder="Code postal"
-            value={postalCode}
-            onChange={(event) => setPostalCode(event.target.value)}
-            className={formField}
-          />
-        </label>
-        {choosingService && (
-          <label className="min-w-0 flex-[1.35]">
-            <span className="sr-only">Votre service</span>
-            <select ref={serviceField} name="service" value={service} onChange={(event) => setService(event.target.value)} required className={formField}>
-              <option value="">Choisir un service</option>
-              {homeQuoteServices.map((item) => <option key={item.slug} value={item.slug}>{item.title}</option>)}
-              <option value="autre">Autre service</option>
-            </select>
-          </label>
-        )}
-        <button type="submit" className="min-h-12 shrink-0 rounded-lg bg-[#0d2446] px-4 py-2 font-bold text-white hover:bg-[#1b3e64]">
-          {choosingService ? "Continuer" : "Choisir un service"} <span aria-hidden="true">→</span>
-        </button>
-      </div>
-      <Link href="/contact#prenom" className={`mt-3 text-sm ${secondaryLink}`}>Accéder au formulaire de devis <span aria-hidden="true">→</span></Link>
-    </form>
-  );
-}
-
 const servicePhotos: Record<(typeof homeQuoteServices)[number]["slug"], string> = {
   menage: "/brand/lumea-menage.webp",
   vitrerie: "/brand/lumea-vitrerie.webp",
@@ -127,79 +70,17 @@ const homeQuestions = [
   },
 ];
 
-function QuickContactForm() {
-  const [sending, setSending] = useState(false);
-  const [status, setStatus] = useState<"success" | "error" | null>(null);
-
-  async function sendMessage(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (sending) return;
-
-    const form = event.currentTarget;
-    const body = new FormData(form);
-    body.set("formType", "contact");
-    body.set("subject", "Demande rapide (page d’accueil)");
-    setSending(true);
-    setStatus(null);
-
-    try {
-      const response = await fetch("/api/form", { method: "POST", body });
-      if (!response.ok) throw new Error("Envoi impossible");
-      form.reset();
-      setStatus("success");
-    } catch {
-      setStatus("error");
-    } finally {
-      setSending(false);
-    }
-  }
-
-  return (
-    <form onSubmit={sendMessage} className="min-w-0 rounded-2xl border border-[#dce4ec] bg-white p-5 sm:p-8">
-      <h3 className="text-2xl font-extrabold tracking-tight text-[#0d1c35]">Écrivez-nous</h3>
-      <div className="mt-6 grid gap-4 sm:grid-cols-2">
-        <label className="min-w-0 space-y-2 text-sm font-semibold text-[#263348]">
-          <span>Votre nom</span>
-          <input type="text" name="name" autoComplete="name" required className={formField} />
-        </label>
-        <label className="min-w-0 space-y-2 text-sm font-semibold text-[#263348]">
-          <span>Votre e-mail</span>
-          <input type="email" name="email" autoComplete="email" required className={formField} />
-        </label>
-        <label className="space-y-2 text-sm font-semibold text-[#263348] sm:col-span-2">
-          <span>Votre message</span>
-          <textarea name="message" rows={4} required className={formField} />
-        </label>
-      </div>
-      <div className="mt-4 flex items-start gap-3 text-sm text-[#445267]">
-        <input id="home-contact-consent" type="checkbox" required className="mt-0.5 h-5 w-5 shrink-0 accent-[#0d2446]" />
-        <label htmlFor="home-contact-consent">
-          J’accepte le traitement de mes données. Consultez notre{" "}
-          <Link href="/politique-confidentialite" className="underline underline-offset-2">politique de confidentialité</Link>.
-        </label>
-      </div>
-      <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
-        <button type="submit" disabled={sending} className="min-h-12 rounded-lg bg-[#0d2446] px-5 py-2 font-bold text-white hover:bg-[#1b3e64] disabled:opacity-60">
-          {sending ? "Envoi en cours…" : "Envoyer le message"}
-        </button>
-        <Link href="/contact#prenom" className={secondaryLink}>Formulaire complet <span aria-hidden="true">→</span></Link>
-      </div>
-      {status === "success" && <p role="status" className="mt-4 font-semibold text-[#24583e]">Merci, votre message a bien été envoyé.</p>}
-      {status === "error" && <p role="alert" className="mt-4 font-semibold text-[#943631]">L’envoi a échoué. Réessayez dans quelques instants ou appelez-nous.</p>}
-    </form>
-  );
-}
-
 export default function HomePage() {
   return (
     <main className="lumea-home min-h-screen bg-white text-[#0d1c35]">
+      <JsonLd data={homeStructuredData} />
       <ChristmasContestTeaser />
       <section id="hero" className="bg-[#fcfcfb]">
         <div className={`${sectionWidth} grid items-center gap-9 pb-10 pt-12 sm:gap-12 sm:py-16 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1fr)] lg:gap-14 lg:py-20 xl:gap-20 xl:py-24`}>
           <div className="min-w-0">
             <div aria-hidden="true" className="mb-6 h-1.5 w-14 rounded-full bg-[#f3b434] lg:mb-8" />
             <h1 className="max-w-[16ch] text-[clamp(2.15rem,4.1vw,4.4rem)] font-extrabold leading-[1.08] tracking-[-0.045em]">
-              Votre ménage à domicile, près de chez vous.
+              Votre ménage à domicile à La Flèche.
             </h1>
             <p className="mt-5 max-w-lg text-lg leading-relaxed text-[#37465b] lg:mt-7 lg:text-xl">
               Ménage régulier, nettoyage de vitres et grand nettoyage à <strong>La Flèche</strong>, à La Suze-sur-Sarthe et dans les environs.
